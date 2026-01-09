@@ -11,5 +11,9 @@
   "storage": [
     {"name":"hourangle.app.js","url":"app.js"},
     {"name":"hourangle.img","url":"app-icon.js","evaluate":true}
+  ],
+  "changelog": [
+  {"version": "0.0.21","changes": ["JSON Compliance Fixes","File structure fixes"]},
+  {"version": "0.0.1","changes": ["Initial release"]}
   ]
 }
