@@ -348,7 +348,7 @@ function drawNumberAtAngle(cx, cy, radius, number, angle_deg, xoffset, yoffset, 
 //  }
 
   // Restore old color
-  g.setColor(oldColour);
+//  g.setColor(oldColour);
 //  return {x:x, y:y}; // return cross coordinates
 //}
 
@@ -505,7 +505,7 @@ function drawPolarscopeReticuleMoveShootMove(cx, cy, reticuleColour, markerColou
 
   // Draw the outer circle (no markers)
   var outercircleradius = 70;     // circle radius
-  let outerCircle = drawCircle(cx, cy, outercircleradius, reticuleColour);
+  drawCircle(cx, cy, outercircleradius, reticuleColour);
 
   // Draw the intermediate circle and markers
   var intermediatecircleradius = 60;     // circle radius
@@ -644,7 +644,7 @@ function updateDisplay() {
   let dateObj = {year:myYear, month:myMonth, day:myDay, hour:myHour, min:myMinute, sec:mySecond};
 
   // Calculate Polaris Hour Angle for current location & time
-  HA = polarisHourAngle(mySettings.lonDegrees, dateObj);
+  let HA = polarisHourAngle(mySettings.lonDegrees, dateObj);
   console.log("Polaris Hour Angle =", HA.toFixed(2), "degrees");
 
   //set the reticule centre point
@@ -666,9 +666,9 @@ function updateDisplay() {
 
   // Draw reticule in chosen style
   if (mySettings.reticuleStyle == 1) {
-      let polarscopeReticule = drawPolarscopeReticuleTakOrionSkyWatcher(cx, cy, mySettings.reticuleColour, mySettings.polarisMarkerColour, mySettings.reticuleValidityYearStart, mySettings.reticuleValidityYearEnd, myYear, HA);
+      drawPolarscopeReticuleTakOrionSkyWatcher(cx, cy, mySettings.reticuleColour, mySettings.polarisMarkerColour, mySettings.reticuleValidityYearStart, mySettings.reticuleValidityYearEnd, myYear, HA);
     } else {
-      let polarscopeReticule = drawPolarscopeReticuleMoveShootMove(cx, cy, mySettings.reticuleColour, mySettings.polarisMarkerColour, mySettings.reticuleValidityYearStart, mySettings.reticuleValidityYearEnd, myYear, HA);
+      drawPolarscopeReticuleMoveShootMove(cx, cy, mySettings.reticuleColour, mySettings.polarisMarkerColour, mySettings.reticuleValidityYearStart, mySettings.reticuleValidityYearEnd, myYear, HA);
     }
   
   // Update screen
@@ -750,7 +750,7 @@ if (mySettings.useGPS == 1) {
 // Cleanup on app exit
 // Cleans up the IntervalID, waitingIntervalID and turns off the GPS
 Bangle.on("kill", () => {
-  if (IntervalID) clearInterval(intervalID);
+  if (intervalID) clearInterval(intervalID);
   if (mySettings.useGPS == 1) {
     Bangle.setGPSPower(0);
     //Bangle.removeListener("GPS", onGPS);
