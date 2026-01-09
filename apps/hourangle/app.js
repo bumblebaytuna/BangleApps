@@ -1,1 +1,764 @@
+// ------------------------------------------
+// -------- Settings Read-Write Functions --------
+// ------------------------------------------
 
+
+function loadSettings() {
+
+  // define the settings file 
+  const STORAGE_FILE = "hourangle.json";
+  
+  // set default values in case settings file is missing
+  const DEFAULTS = {lonDegrees:-0.12, useGPS:1, reticuleRefreshIntervalMillisecs:30000, gpsfixWaitIntervalMillisecs:10000, backgroundColour:[1,1,1],reticuleColour:[0,0,0],polarisMarkerColour:[0,0,1],reticuleValidityYearStart:2000,reticuleValidityYearEnd:2030,reticuleStyle:1};
+  // default lon location is London
+  // latitude north is positive, south is negative
+  // longitude east is positive, west is negative
+  // default GPS use is disabled
+  // default app display refresh is every 30 secs
+  // default app location refresh (if using GPS) is every 30 secs
+  // default background colour is white
+  // default polarscope reticule colour is black
+  // default polarscope reticule validity period is years 2000 to 2030
+  // default polarscope reticule style is 1 (for Takahashi, Orion, and Skywatcher mounts)
+  // default polaris marker colour and line is blue
+  
+  // The Pole Star is currently moving steadily away from the galactic pole each year
+  // The reticule in the polarscope normally has a validity period
+  // This app allows it to be used long before and after its validty period
+
+  // return the requested key value
+  return Object.assign(
+    {},                 // ensure a new object
+    DEFAULTS,           // defaults first
+    require("Storage").readJSON(STORAGE_FILE, true) || {}
+  );
+}
+
+function SaveSettings() {
+
+}
+
+// ------------------------------------------
+// -------- GPS Control Functions --------
+// ------------------------------------------
+
+function startWaitingForGPS() {
+  // draw immediately
+  showWaitingForGPS(mySettings.reticuleColour);
+
+  // refresh every 1 second
+  waitingPageIntervalID = setInterval(() => {
+    if (!gpsFixReceived) {
+      showWaitingForGPS(mySettings.reticuleColour);
+    }
+  }, 1000);
+}
+
+function stopWaitingForGPS() {
+  if (waitingPageIntervalID) {
+    clearInterval(waitingPageIntervalID);
+    waitingPageIntervalID = null;
+  }
+}
+
+function showWaitingForGPS(messageColour) {
+
+  // Remember old colour
+  let oldColour = g.getColor();
+
+
+  // Set new colour
+  g.setColor(messageColour[0], messageColour[1], messageColour[2]);
+
+  g.setColor(1,1,1); // white background
+  g.clear();
+
+  g.setColor(0,0,0); // black text
+  g.setFont("Vector",20);
+  g.drawString("Waiting for", 35, 50);
+  g.drawString(" GPS fix...", 35, 72);
+
+
+  // Get the current time and calculate elapsed time
+  if (gpsStartTime) {
+    let now = new Date();
+    let elapsedTime = Math.floor((now - gpsStartTime) / 1000); // time in seconds
+    let minutes = Math.floor(elapsedTime / 60);
+    let seconds = elapsedTime % 60;
+
+    g.setFont("Vector", 16);
+    g.drawString(
+      "Time: " + minutes.toString().padStart(2, "0") + ":" + seconds.toString().padStart(2, "0"),
+      35, 120
+    );
+  }
+
+  // Restore old colour
+  g.setColor(oldColour);
+
+}
+
+// Function to handle when GPS fix is received
+function onGPSEvent(fix) {
+  if (fix && fix.fix && fix.time) {
+    gpsFixReceived = true;  // Mark GPS fix as received
+    
+    // Convert the GPS time from milliseconds since UNIX epoch to a Date object
+    var gpsTime = fix.time;
+    
+    // populate the global variables
+    gpsYear = gpsTime.getFullYear();
+    gpsMonth = gpsTime.getMonth()+1;
+    gpsDay = gpsTime.getDate();
+    gpsHour = gpsTime.getHours();
+    gpsMinute = gpsTime.getMinutes();
+    gpsSecond = gpsTime.getSeconds();
+
+    console.log("----------");
+    console.log("GPS event triggered:");
+    console.log("Longitude = " + fix.lon);
+    console.log("Time Stamp = " + gpsTime.toString()); // GPS timestamps are in millisecs since the Unix epoch
+    console.log("Satellites = " + fix.satellites);
+    console.log("----------");
+
+    stopWaitingForGPS();   // ← STOP 1-sec waiting page refresh
+    startRefreshLoop(); // Immediately refresh display once GPS fix is received
+    return true;  // Return true to indicate GPS fix received
+  }
+  return false;  // Return false if no valid fix is received
+}
+
+// function to simulate a fake GPS fix - FOR TESTING PURPOSES ONLY
+function fakeGPSEvent() {
+  // Create a mock GPS fix object
+  var fakeFix = {
+    longitude: 20.1278, // Fake longitude
+    time: Date.now(),   // Fake timestamp (GPS timestamps are in millisecs since the Unix epoch)
+    satellites: 7       // Fake number of satellites
+  };
+
+  // Emit the fake GPS event with the mock fix data
+  Bangle.emit("GPS", fakeFix);
+
+}
+
+
+// ------------------------------------------
+// -------- Common Drawing Functions --------
+// ------------------------------------------
+
+
+function drawCircle(cx, cy, r, circleColour) {
+
+  // Remember old colour
+  let oldColour = g.getColor();
+
+  // Set new colour
+  g.setColor(circleColour[0], circleColour[1], circleColour[2]);
+
+  // Draws a circle
+  let x = 0;
+  let y = r;
+  let d = 3 - 2 * r;
+
+  function plotPoints(cx, cy, x, y) {
+    g.setPixel(cx + x, cy + y);
+    g.setPixel(cx - x, cy + y);
+    g.setPixel(cx + x, cy - y);
+    g.setPixel(cx - x, cy - y);
+    g.setPixel(cx + y, cy + x);
+    g.setPixel(cx - y, cy + x);
+    g.setPixel(cx + y, cy - x);
+    g.setPixel(cx - y, cy - x);
+  }
+
+  while (y >= x) {
+    plotPoints(cx, cy, x, y);
+    x++;
+
+    if (d > 0) {
+      y--;
+      d += 4 * (x - y) + 10;
+    } else {
+      d += 4 * x + 6;
+    }
+  }
+
+  // Restore old colour
+  g.setColor(oldColour);
+
+}
+
+
+function drawFilledCircle(cx, cy, r, circleColour) {
+  // Draws a filled circle
+
+  // Remember old colour
+  let oldColour = g.getColor();
+
+  // Set new colour
+  g.setColor(circleColour[0], circleColour[1], circleColour[2]);
+  
+  let x = 0;
+  let y = r;
+  let d = 3 - 2 * r;
+
+  function drawSpans(cx, cy, x, y) {
+    // Draw horizontal spans instead of single pixels
+    g.drawLine(cx - x, cy + y, cx + x, cy + y);
+    g.drawLine(cx - x, cy - y, cx + x, cy - y);
+    g.drawLine(cx - y, cy + x, cx + y, cy + x);
+    g.drawLine(cx - y, cy - x, cx + y, cy - x);
+  }
+
+  while (y >= x) {
+    drawSpans(cx, cy, x, y);
+    x++;
+
+    if (d > 0) {
+      y--;
+      d += 4 * (x - y) + 10;
+    } else {
+      d += 4 * x + 6;
+    }
+  }
+
+  // Restore old colour
+  g.setColor(oldColour);
+
+}
+
+
+function drawDottedLine(x0, y0, x1, y1, dotSpacing, thickness, lineColour) {
+  // Draws a dotted line with thickness
+  // color = [r,g,b], dotSpacing = pixels between dots, thickness = thickness of the line
+
+  // Remember old colour
+  let oldColour = g.getColor();
+
+  // Set new colour
+  g.setColor(lineColour[0], lineColour[1], lineColour[2]);
+
+  let dx = x1 - x0;
+  let dy = y1 - y0;
+  let distance = Math.sqrt(dx * dx + dy * dy);
+  let steps = Math.floor(distance / dotSpacing);
+
+  for (let i = 0; i <= steps; i++) {
+    let t = i / steps;
+    let x = Math.round(x0 + dx * t);
+    let y = Math.round(y0 + dy * t);
+
+    // Draw the pixels to simulate thickness
+    for (let offsetX = -Math.floor(thickness / 2); offsetX <= Math.floor(thickness / 2); offsetX++) {
+      for (let offsetY = -Math.floor(thickness / 2); offsetY <= Math.floor(thickness / 2); offsetY++) {
+        g.setPixel(x + offsetX, y + offsetY);
+      }
+    }
+  }
+
+  // Restore old colour
+  g.setColor(oldColour);
+}
+
+function drawCustomLine(x0, y0, x1, y1, lineColour) {
+
+  // Remember old colour
+  let oldColour = g.getColor();
+
+  // Set new colour
+  g.setColor(lineColour[0], lineColour[1], lineColour[2]);
+
+  // Draws a line
+  g.drawLine(x0, y0, x1, y1);
+
+  // Restore old colour
+  g.setColor(oldColour);
+
+}
+
+
+
+function drawNumberAtAngle(cx, cy, radius, number, angle_deg, xoffset, yoffset, labelColour) {
+  // draw number labels
+  // Function to display number at a specific angle on the circle
+  // Convert angle_deg to radians for the circle (0° at 6 o'clock)
+  // xoffset and yoffset refines the position of the text (in pixels)
+
+  // Remember old colour
+  let oldColour = g.getColor();
+
+  // Set new colour
+  g.setColor(labelColour[0], labelColour[1], labelColour[2]);
+ 
+  let angle = (90 - angle_deg) * Math.PI / 180;  // Anti-clockwise angle
+
+  // Calculate x and y position based on polar coordinates
+  let x = cx + Math.round(radius * Math.cos(angle));
+  let y = cy + Math.round(radius * Math.sin(angle));
+
+  // Set the font size (you can adjust the font size if needed)
+  let fontsize = 12;
+  g.setFont("Vector",fontsize);  // Use a small, fixed-size font
+
+  // Adjust the x and y positions to center the text
+  let xCentered = x + xoffset;  // Adjust x to center horizontally
+  let yCentered = y; // Adjust y to center vertically
+
+  // Invert the y-axis for the Bangle.js screen (y increases downward)
+  yCentered = cy - (y - cy) - Math.round(fontsize / 2);
+  
+   yCentered = yCentered + yoffset;
+
+  // Draw the number centrally at the calculated position
+  g.drawString(number, xCentered, yCentered);
+
+  // Restore old color
+  g.setColor(oldColour);
+
+}
+
+// -------------------- Draw Polaris Mark on Circle --------------------
+
+function drawPolarisMarkerCross(cx, cy, radius, HA_deg, size, thickness, markerColour) {
+  // Draws a cross version of the Polaris marker at the hour angle on a circle of given radius
+  // cx,cy = center, radius = circle radius
+  // size = half-length of cross lines, thickness = pixels wide
+  // color = [r,g,b] array, e.g., [0,1,0] for green
+
+  // Remember old colour
+  let oldColour = g.getColor();
+
+  // Set new colour
+  g.setColor(markerColour[0], markerColour[1], markerColour[2]);
+
+  // let angle = (HA_deg - 90) * Math.PI / 180; // 0 deg at top, clockwise rotation
+  // let angle = (90 + HA_deg) * Math.PI / 180;  // 0° at 6 o'clock, anti-clockwise rotation
+  let angle = (90 - HA_deg) * Math.PI / 180;  // anti-clockwise rotation from 6 o'clock
+  let x = cx + Math.round(radius * Math.cos(angle));
+  let y = cy + Math.round(radius * Math.sin(angle));
+
+  // Draw horizontal line of cross
+  for (let t = 0; t < thickness; t++) {
+    g.drawLine(x - size, y + t, x + size, y + t);
+  }
+
+  // Draw vertical line of cross
+  for (let t = 0; t < thickness; t++) {
+    g.drawLine(x + t, y - size, x + t, y + size);
+  }
+
+  // Restore old color
+  g.setColor(oldColour);
+  return {x:x, y:y}; // return cross coordinates
+}
+
+function drawPolarisMarkerCircle(cx, cy, radius, HA_deg, size, markerColour) {
+  // Draws a filled circle version of the Polaris marker at the hour angle on a circle of given radius
+  // cx,cy = center, radius = circle radius
+  // color = [r,g,b] array, e.g., [0,1,0] for green
+
+  // Remember old colour
+  let oldColour = g.getColor();
+
+  // Set new colour
+  g.setColor(markerColour[0], markerColour[1], markerColour[2]);
+
+  // let angle = (HA_deg - 90) * Math.PI / 180; // 0 deg at top, clockwise rotation
+  // let angle = (90 + HA_deg) * Math.PI / 180;  // 0° at 6 o'clock, anti-clockwise rotation
+  let angle = (90 - HA_deg) * Math.PI / 180;  // anti-clockwise rotation from 6 o'clock
+  let x = cx + Math.round(radius * Math.cos(angle));
+  let y = cy + Math.round(radius * Math.sin(angle));
+
+  // Draw marker
+  drawFilledCircle(x, y, size, markerColour);
+
+  // Restore old colour
+  g.setColor(oldColour);
+
+  // return marker circle coordinates
+  return {x:x, y:y}; 
+}
+
+function drawOuterTicks(cx, cy, radius, numberofticks, ticklength, tickColour) {
+
+  // Draw outer-style major ticks (like clock hour markers) on the outer circle
+  //var outerCircleNumMajorTicks = 12;      // like hour markers
+  //var outerCircleMajorTickLength = 8;     // tick length in pixels (outward)
+  
+  // Remember old colour
+  let oldColour = g.getColor();
+
+  // Set new colour
+  g.setColor(tickColour[0], tickColour[1], tickColour[2]);
+  
+  for (let i = 0; i < numberofticks; i++) {
+
+    // Skip drawing the ticks at angles 0, 90, 180, and 270 degrees so does not obstruct the text labels
+    if (i === 0 || i === (numberofticks*1/4) || i === (numberofticks*2/4) || i === (numberofticks*3/4)) {
+      continue;
+    }
+    let angle = (2 * Math.PI / numberofticks) * i;
+    let x1 = cx + Math.round(radius * Math.cos(angle));              // start at circle edge
+    let y1 = cy + Math.round(radius * Math.sin(angle));
+    let x2 = cx + Math.round((radius + ticklength) * Math.cos(angle)); // extend outward
+    let y2 = cy + Math.round((radius + ticklength) * Math.sin(angle));
+    g.drawLine(x1, y1, x2, y2);
+  }
+  
+  // Restore old colour
+  g.setColor(oldColour);
+  
+}
+
+function drawInnerTicks(cx, cy, radius, numberofticks, ticklength, tickColour) {
+
+  // Draw outer-style major ticks (like clock hour markers) on the outer circle
+  //var outerCircleNumMajorTicks = 12;      // like hour markers
+  //var outerCircleMajorTickLength = 8;     // tick length in pixels (outward)
+
+  // Remember old colour
+  let oldColour = g.getColor();
+
+  // Set new colour
+  g.setColor(tickColour[0], tickColour[1], tickColour[2]);
+
+  for (let i = 0; i < numberofticks; i++) {
+
+    // Skip drawing the ticks at angles 0, 90, 180, and 270 degrees so does not obstruct the text labels
+    if (i === 0 || i === (numberofticks*1/4) || i === (numberofticks*2/4) || i === (numberofticks*3/4)) {
+      continue;
+    }
+    let angle = (2 * Math.PI / numberofticks) * i;
+    let x1 = cx + Math.round(radius * Math.cos(angle));              // start at circle edge
+    let y1 = cy + Math.round(radius * Math.sin(angle));
+    let x2 = cx + Math.round((radius - ticklength) * Math.cos(angle)); // extend outward
+    let y2 = cy + Math.round((radius - ticklength) * Math.sin(angle));
+    g.drawLine(x1, y1, x2, y2);
+  }
+
+  // Restore old colour
+  g.setColor(oldColour);
+
+}
+
+// Generate chosen Polarscope Reticules
+
+function drawPolarscopeReticuleTakOrionSkyWatcher(cx, cy, reticuleColour, markerColour, reticuleValidityYearStart, reticuleValidityYearEnd, reticuleValidityCurrentYear, hourAngle) {
+
+  // Remember old colour
+  let oldColour = g.getColor();
+
+  // Set new colour
+  g.setColor(reticuleColour[0], reticuleColour[1], reticuleColour[2]); 
+
+  // Draw the outer circle and markers
+  var outercircleradius = 67;     // circle radius
+  let outerCircle = drawCircle(cx, cy, outercircleradius, reticuleColour);
+  let outerMajorTicks = drawOuterTicks(cx, cy, outercircleradius, 12, 8, reticuleColour);
+  let outerMinorTicks = drawOuterTicks(cx, cy, outercircleradius, 72, 3, reticuleColour);
+
+  // Draw the intermediate circle (no markers)
+  var intermediatecircleradius = 57;     // circle radius
+  let intermediatecircle = drawCircle(cx, cy, intermediatecircleradius, reticuleColour);
+
+  // Draw the inner circle and markers
+  var innercircleradius = 47;     // circle radius
+  let innerCircle = drawCircle(cx, cy, innercircleradius, reticuleColour);
+  let innerMajorTicks = drawInnerTicks(cx, cy, innercircleradius, 12, 8, reticuleColour);
+  let innerMinorTicks = drawInnerTicks(cx, cy, innercircleradius, 72, 3, reticuleColour);
+
+  // Draw vertical crosshair
+  let verticalCrosshair = drawCustomLine(cx, 20, cx, 155, reticuleColour);   // top to bottom
+
+  // Draw horizontal crosshair
+  let horizCrosshair = drawCustomLine(20, cy, 155, cy, reticuleColour);   // left to right
+
+  // Draw the labels:
+  var labelRadius = 80;     // label radius
+  drawNumberAtAngle(cx, cy, labelRadius, "0", 180, -2, -1, reticuleColour);  // Display '0' at the 6 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "6", 90, -5, 0, reticuleColour);  // Display '6' at the 3 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "12", 0, -6, 2, reticuleColour);  // Display '12' at the 12 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "18", 270, -6, 0, reticuleColour);  // Display '18' at the 9 o'clock position
+
+  // Draw PHA marker
+  //let polarismarker = drawPolarisMarkCross(cx, cy, radius, HA, 5, 2, [0,1,0]);
+  let reticuleLifeUsed = (reticuleValidityCurrentYear-reticuleValidityYearStart)/(reticuleValidityYearEnd-reticuleValidityYearStart);
+  console.log("Reticule Life Used =", reticuleLifeUsed.toFixed(2));
+  let polarisMarkerReticuleRadius = innercircleradius+((outercircleradius-innercircleradius)*reticuleLifeUsed);
+  let polarisMarker = drawPolarisMarkerCircle(cx, cy, polarisMarkerReticuleRadius, hourAngle, 3, markerColour);
+
+  // Draw dotted line from center of reticule to the PHA marker
+  drawDottedLine(cx, cy, polarisMarker.x, polarisMarker.y, 6, 2, markerColour);
+
+  // Draw the central hub
+  var hubradius = 3;     // circle radius
+  drawFilledCircle(cx, cy, hubradius, reticuleColour);
+
+  // Restore old colour
+  g.setColor(oldColour);
+
+}
+
+function drawPolarscopeReticuleMoveShootMove(cx, cy, reticuleColour, markerColour, reticuleValidityYearStart, reticuleValidityYearEnd, reticuleValidityCurrentYear, hourAngle) {
+
+  // Remember old colour
+  let oldColour = g.getColor();
+
+  // Set new colour
+  g.setColor(reticuleColour[0], reticuleColour[1], reticuleColour[2]);
+
+  // Draw the outer circle (no markers)
+  var outercircleradius = 70;     // circle radius
+  let outerCircle = drawCircle(cx, cy, outercircleradius, reticuleColour);
+
+  // Draw the intermediate circle and markers
+  var intermediatecircleradius = 60;     // circle radius
+  let intermediatecircle = drawCircle(cx, cy, intermediatecircleradius, reticuleColour);
+  let outerMajorTicks = drawOuterTicks(cx, cy, intermediatecircleradius, 12, 5, reticuleColour);
+  let outerMediumTicks = drawOuterTicks(cx, cy, intermediatecircleradius, 24, 2, reticuleColour);
+  let outerMinorTicks = drawOuterTicks(cx, cy, intermediatecircleradius, 72, 1, reticuleColour);
+  let innerMajorTicks = drawInnerTicks(cx, cy, intermediatecircleradius, 12, 5, reticuleColour);
+  let innerMediumTicks = drawInnerTicks(cx, cy, intermediatecircleradius, 24, 2, reticuleColour);
+  let innerMinorTicks = drawInnerTicks(cx, cy, intermediatecircleradius, 72, 1, reticuleColour);
+
+  // Draw the inner circle (no markers)
+  var innercircleradius = 50;     // circle radius
+  let innerCircle = drawCircle(cx, cy, innercircleradius, reticuleColour);
+
+  // Draw vertical crosshair
+  let verticalCrosshair = drawCustomLine(cx, 17, cx, 158, reticuleColour);   // top to bottom
+
+  // Draw horizontal crosshair
+  let horizCrosshair = drawCustomLine(17, cy, 158, cy, reticuleColour);   // left to right
+
+  // Draw the labels:
+  var labelRadius = 80;     // label radius
+  drawNumberAtAngle(cx, cy, labelRadius, "0", 180, -3, 0, reticuleColour);  // Display '0' at the 6 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "6", 90, -3, 0, reticuleColour);  // Display '6' at the 3 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "12", 0, -6, 0, reticuleColour);  // Display '12' at the 12 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "18", 270, -8, 0, reticuleColour);  // Display '18' at the 9 o'clock position
+
+  // Draw PHA marker
+  //let polarismarker = drawPolarisMarkCross(cx, cy, radius, HA, 5, 2, [0,1,0]);
+  let reticuleLifeUsed = (reticuleValidityCurrentYear-reticuleValidityYearStart)/(reticuleValidityYearEnd-reticuleValidityYearStart);
+  console.log("Reticule Life Used =", reticuleLifeUsed.toFixed(2));
+  let polarisMarkerReticuleRadius = innercircleradius+((outercircleradius-innercircleradius)*reticuleLifeUsed);
+  let polarisMarker = drawPolarisMarkerCircle(cx, cy, polarisMarkerReticuleRadius, hourAngle, 3, markerColour);
+
+  // Draw dotted line from center of reticule to the PHA marker
+  drawDottedLine(cx, cy, polarisMarker.x, polarisMarker.y, 6, 2, markerColour);
+
+  // Draw the central hub
+  var hubradius = 3;     // circle radius
+  drawFilledCircle(cx, cy, hubradius, reticuleColour);
+
+  // Restore old colour
+  g.setColor(oldColour);
+
+}
+
+
+// ---------------------------------------------------------------
+// --------------------------- Astro Formulae --------------------
+// ---------------------------------------------------------------
+
+// --- Hour Angle Calculation ---
+function polarisHourAngle(lon, dateObj) {
+  let Y = dateObj.year;
+  let M = dateObj.month;
+  let D = dateObj.day + dateObj.hour/24 + dateObj.min/(24*60) + dateObj.sec/(24*3600);
+
+  if (M <= 2) { Y -= 1; M += 12; }
+
+  let A = Math.floor(Y/100);
+  let B = 2 - A + Math.floor(A/4);
+
+  let JD = Math.floor(365.25*(Y+4716)) + Math.floor(30.6001*(M+1)) + D + B - 1524.5;
+
+  // Greenwich Sidereal Time in degrees
+  let T = (JD - 2451545.0)/36525;
+  let GST = 280.46061837 + 360.98564736629*(JD-2451545) + 0.000387933*T*T - T*T*T/38710000;
+  GST = GST % 360;
+  if (GST < 0) GST += 360;
+
+  // Local Sidereal Time
+  let LST = GST + lon;  // longitude east positive
+  LST = LST % 360;
+  if (LST < 0) LST += 360;
+
+  // Polaris RA H 40.41°
+  let polarisRA = 40.41;
+
+  let HA = LST - polarisRA;
+  if (HA < 0) HA += 360;
+  return HA;
+}
+
+
+
+// -------------------------------------------------
+// ----------- Main Control Functions ---------------
+// -------------------------------------------------
+
+// Main refresh function
+function startRefreshLoop() {
+  if (refreshStarted) return;
+
+  refreshStarted = true;
+  updateDisplay(); // draw immediately
+
+  // refresh every reticuleRefreshIntervalMillisecs thereafter
+  intervalID = setInterval(
+    updateDisplay,
+    mySettings.reticuleRefreshIntervalMillisecs
+  );
+}
+
+
+// Main display update function
+function updateDisplay() {
+
+  // Declare global variables to store date and time components to use when drawing the polaris marker
+  var myYear, myMonth, myDay, myHour, myMinute, mySecond;
+
+   if (mySettings.useGPS == 1) {
+
+    //use GPS date and time
+    myYear = gpsYear;
+    myMonth = gpsMonth;
+    myDay = gpsDay;
+    myHour = gpsHour;
+    myMinute = gpsMinute;
+    mySecond = gpsSecond;
+
+  } else {
+
+    //use offline date and time
+    const now = new Date();
+    myYear = now.getFullYear();
+    myMonth = now.getMonth() + 1;
+    myDay = now.getDate();
+    myHour = now.getHours();
+    myMinute = now.getMinutes();
+    mySecond = now.getSeconds();
+
+  }
+
+  // Declare time date object
+  let dateObj = {year:myYear, month:myMonth, day:myDay, hour:myHour, min:myMinute, sec:mySecond};
+
+  // Calculate Polaris Hour Angle for current location & time
+  HA = polarisHourAngle(mySettings.lonDegrees, dateObj);
+  console.log("Polaris Hour Angle =", HA.toFixed(2), "degrees");
+
+  //set the reticule centre point
+  var cx = 90;         // reticule centre x
+  var cy = 88;         // reticule centre y
+
+  // Clean the display
+  g.setColor(mySettings.backgroundColour[0], mySettings.backgroundColour[1], mySettings.backgroundColour[2]);
+  g.clear();
+
+  // Get the current theme (dark or light mode)
+
+    // Set colour based on theme
+    if (mySettings.backgroundColour == [0,0,0]) {
+      mySettings.reticuleColour = [1, 1, 1]; // White color for dark mode
+    } else {
+      mySettings.reticuleColour = [0, 0, 0]; // Black color for light mode
+    }
+
+  // Draw reticule in chosen style
+  if (mySettings.reticuleStyle == 1) {
+      let polarscopeReticule = drawPolarscopeReticuleTakOrionSkyWatcher(cx, cy, mySettings.reticuleColour, mySettings.polarisMarkerColour, mySettings.reticuleValidityYearStart, mySettings.reticuleValidityYearEnd, myYear, HA);
+    } else {
+      let polarscopeReticule = drawPolarscopeReticuleMoveShootMove(cx, cy, mySettings.reticuleColour, mySettings.polarisMarkerColour, mySettings.reticuleValidityYearStart, mySettings.reticuleValidityYearEnd, myYear, HA);
+    }
+  
+  // Update screen
+  g.flip();
+  
+  // Short vibration (buzz) to let owner know the display has refreshed (and to prompt owner if app is no longer being used)
+  Bangle.buzz(100); // duration in ms
+  
+}
+
+
+// -------------------------------------------------
+// ----------- Initialisation and Startup ----------
+// -------------------------------------------------
+
+
+// Collect the global app settings from the storage file, uses defaults if setting file missing
+let mySettings = loadSettings();
+
+// Declare global variables
+let intervalID;
+let waitingIntervalID;
+let gpsStartTime = null; // Holds the stopwatch counter (counts-up) value when waiting for the GPS to get a fix
+let gpsFixReceived = false;  // Global flag to track if GPS fix is received
+let refreshStarted = false;  // Global flag to track if the cyclic display refresh is active
+let waitingPageIntervalID;  // for GPS waiting page
+
+// Declare global variables to store the GPS date and time components
+var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
+
+// Trigger fake GPS events every 5 seconds - ENABLE FOR TESTING ONLY
+  //setInterval(fakeGPSEvent, 15000);
+
+// functions to run depending on GPS requirement
+if (mySettings.useGPS == 1) {
+  console.log("GPS required, initialising the GPS...");
+
+  Bangle.setGPSPower(1);  // Start GPS
+  
+  // Start listening for GPS events
+  Bangle.on("GPS", onGPSEvent);
+  
+  // show waiting page
+  startWaitingForGPS();
+  
+  gpsStartTime = new Date();  // GPS start time
+
+  if (!gpsFixReceived) {
+    console.log("Awaiting GPS fix...");
+    showWaitingForGPS(mySettings.reticuleColour);
+  }
+
+  waitingIntervalID = setInterval(function() {
+    if (!gpsFixReceived) {
+      console.log("Awaiting GPS fix...");
+      showWaitingForGPS(mySettings.reticuleColour);
+    }
+  }, mySettings.gpsfixWaitIntervalMillisecs);
+
+  // Check if GPS fix is acquired and then update
+  if (gpsFixReceived) {
+    console.log("GPS fix acquired...");
+    //startRefreshLoop();  // Immediately update and start refresh cycle once GPS fix is received
+  }
+
+  intervalID = setInterval(function() {
+    if (gpsFixReceived) {
+      //updateDisplay();  // Update every 30 seconds
+    }
+  }, mySettings.reticuleRefreshIntervalMillisecs);
+
+} else {
+  // No GPS required, so update immediately
+  console.log("GPS not required, running in offline mode.");
+  startRefreshLoop();  // Update immediately without waiting for GPS and start refresh loop
+}
+
+
+// Cleanup on app exit
+// Cleans up the IntervalID, waitingIntervalID and turns off the GPS
+Bangle.on("kill", () => {
+  if (IntervalID) clearInterval(intervalID);
+  if (mySettings.useGPS == 1) {
+    Bangle.setGPSPower(0);
+    //Bangle.removeListener("GPS", onGPS);
+  }
+  if (waitingIntervalID) clearInterval(waitingIntervalID);
+});
