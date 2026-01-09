@@ -9,7 +9,7 @@ function loadSettings() {
   const STORAGE_FILE = "hourangle.json";
   
   // set default values in case settings file is missing
-  const DEFAULTS = {lonDegrees:-0.12, useGPS:1, reticuleRefreshIntervalMillisecs:30000, gpsfixWaitIntervalMillisecs:10000, backgroundColour:[1,1,1],reticuleColour:[0,0,0],polarisMarkerColour:[0,0,1],reticuleValidityYearStart:2000,reticuleValidityYearEnd:2030,reticuleStyle:1};
+  const DEFAULTS = {lonDegrees:-3, useGPS:0, reticuleRefreshIntervalMillisecs:30000, gpsfixWaitIntervalMillisecs:10000, backgroundColour:[1,1,1],reticuleColour:[0,0,0],polarisMarkerColour:[0,0,1],reticuleValidityYearStart:2000,reticuleValidityYearEnd:2030,reticuleStyle:1};
   // default lon location is London
   // latitude north is positive, south is negative
   // longitude east is positive, west is negative
