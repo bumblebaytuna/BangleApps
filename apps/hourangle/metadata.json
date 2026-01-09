@@ -1,7 +1,7 @@
 { "id": "hourangle",
   "name": "Polaris Hour Angle",
   "shortName":"Hour Angle",
-  "version":"0.21",
+  "version":"0.23",
   "author": "bumblebaytuna",
   "description": "An app to assist with polar alignment of your telescope or camera star tracker",
   "icon": "app.png",
