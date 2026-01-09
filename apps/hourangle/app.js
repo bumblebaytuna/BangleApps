@@ -103,7 +103,7 @@ function onGPSEvent(fix) {
     gpsFixReceived = true;  // Mark GPS fix as received
     
     // Convert the GPS time from milliseconds since UNIX epoch to a Date object
-    var gpsTime = fix.time;
+    var gpsTime = fix.time instanceof Date ? fix.time : new Date(fix.time);
     
     // populate the global variables
     gpsYear = gpsTime.getFullYear();
@@ -129,16 +129,14 @@ function onGPSEvent(fix) {
 
 // function to simulate a fake GPS fix - FOR TESTING PURPOSES ONLY
 function fakeGPSEvent() {
-  // Create a mock GPS fix object
   var fakeFix = {
-    longitude: -3, // Fake longitude
-    time: Date.now(),   // Fake timestamp (GPS timestamps are in millisecs since the Unix epoch)
-    satellites: 7       // Fake number of satellites
+    fix: 1,                 // indicate GPS fix
+    lat: 50.9,              // fake latitude
+    lon: mySettings.lonDegrees,                // fake longitude
+    time: new Date(),       // must be a Date object
+    satellites: 7
   };
-
-  // Emit the fake GPS event with the mock fix data
   Bangle.emit("GPS", fakeFix);
-
 }
 
 
