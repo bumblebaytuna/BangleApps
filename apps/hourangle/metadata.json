@@ -1,13 +1,11 @@
-{ "id": "hourangle",
+{
+  "id": "hourangle",
   "name": "Polaris Hour Angle",
-  "shortName":"Hour Angle",
-  "icon": "app.png",
-  "version":"0.0.23",
-  "author":"bumblebaytuna",
-  "description": "This is an aid for equatorial-mounted telescope or camera star-tracker users to align their mount with the Pole Star. The Pole Star is not in a fixed position, it rotates around the true galactic pole every day, and at present it is also very slowly moving away from the galactic pole.\nThis app mimics that slowly changing position of the Pole Star as it would be seen through the mount/star-tracker's polar alignment scope.\nHow to read the app display:\n\nThe default display looks similar to an analogue clockface but represents 24 hours rather than 12 hours (one rotation of the Pole Star around the galactic pole each day)\nThis particular one looks like the polarscopes found in mounts/star-trackers made by Takahashi, Orion, and Skywatcher\nTo represent the Pole Star very slowly moving away from the Galactic Pole, polarscopes have two rings on them, and a validity period (e.g. Year 2000 to 2030)\nThe outer ring represents the later date e.g. Year 2030. The inner ring represents the earlier date, e.g. Year 2000\nThis app works out how far the Pole star should be between those two rings, as well as its clockface position during its rotation around the Galactic Pole each day\n\nHow to use it with your telescope/sky-tracker:\nThe alignment method depends on the telescope/star-tracker brand, but ultimately the aim is to get the view in the polarscope looking the same as that on the app",
-  "tags": ["polar alignment", "astronomy", "telescope"],
+  "shortName": "HourAngle",
+  "version": "0.0.1",
+  "author": "bumblebaytuna",
   "supports": ["BANGLEJS2"],
-  "storage": [{"name":"hourangle.app.js","url":"app.js"},{"name":"hourangle.img","url":"app-icon.js","evaluate":true}],
-  "changelog": {"0.0.1": ["Initial Release"],"0.0.23": ["Refactoring and various bug-fixes"]},
-  "readme":"README.md"
+  "storage": [
+    {"name":"myapp.app.js","url":"app.js"}
+  ]
 }
