@@ -9,7 +9,7 @@ function loadSettings() {
   const STORAGE_FILE = "hourangle.json";
   
   // set default values in case settings file is missing
-  const DEFAULTS = {lonDegrees:-3, useGPS:0, reticuleRefreshIntervalMillisecs:30000, gpsfixWaitIntervalMillisecs:10000, backgroundColour:[1,1,1],reticuleColour:[0,0,0],polarisMarkerColour:[0,0,1],reticuleValidityYearStart:2000,reticuleValidityYearEnd:2030,reticuleStyle:1};
+  const DEFAULTS = {lonDegrees:-3, useGPS:1, reticuleRefreshIntervalMillisecs:30000, gpsfixWaitIntervalMillisecs:10000, backgroundColour:[1,1,1],reticuleColour:[0,0,0],polarisMarkerColour:[0,0,1],reticuleValidityYearStart:2000,reticuleValidityYearEnd:2030,reticuleStyle:1};
   // default lon location is London
   // latitude north is positive, south is negative
   // longitude east is positive, west is negative
@@ -128,18 +128,18 @@ function onGPSEvent(fix) {
 }
 
 // function to simulate a fake GPS fix - FOR TESTING PURPOSES ONLY
-//function fakeGPSEvent() {
+function fakeGPSEvent() {
   // Create a mock GPS fix object
-//  var fakeFix = {
-//    longitude: 20.1278, // Fake longitude
-//    time: Date.now(),   // Fake timestamp (GPS timestamps are in millisecs since the Unix epoch)
-//    satellites: 7       // Fake number of satellites
-//  };
+  var fakeFix = {
+    longitude: -3, // Fake longitude
+    time: Date.now(),   // Fake timestamp (GPS timestamps are in millisecs since the Unix epoch)
+    satellites: 7       // Fake number of satellites
+  };
 
   // Emit the fake GPS event with the mock fix data
-//  Bangle.emit("GPS", fakeFix);
+  Bangle.emit("GPS", fakeFix);
 
-//}
+}
 
 
 // ------------------------------------------
@@ -318,39 +318,6 @@ function drawNumberAtAngle(cx, cy, radius, number, angle_deg, xoffset, yoffset, 
 }
 
 // -------------------- Draw Polaris Mark on Circle --------------------
-
-//function drawPolarisMarkerCross(cx, cy, radius, HA_deg, size, thickness, markerColour) {
-  // Draws a cross version of the Polaris marker at the hour angle on a circle of given radius
-  // cx,cy = center, radius = circle radius
-  // size = half-length of cross lines, thickness = pixels wide
-  // color = [r,g,b] array, e.g., [0,1,0] for green
-
-  // Remember old colour
-//  let oldColour = g.getColor();
-
-  // Set new colour
-//  g.setColor(markerColour[0], markerColour[1], markerColour[2]);
-
-  // let angle = (HA_deg - 90) * Math.PI / 180; // 0 deg at top, clockwise rotation
-  // let angle = (90 + HA_deg) * Math.PI / 180;  // 0° at 6 o'clock, anti-clockwise rotation
-//  let angle = (90 - HA_deg) * Math.PI / 180;  // anti-clockwise rotation from 6 o'clock
-//  let x = cx + Math.round(radius * Math.cos(angle));
-//  let y = cy + Math.round(radius * Math.sin(angle));
-
-  // Draw horizontal line of cross
-//  for (let t = 0; t < thickness; t++) {
-//    g.drawLine(x - size, y + t, x + size, y + t);
-//  }
-
-  // Draw vertical line of cross
-//  for (let t = 0; t < thickness; t++) {
-//    g.drawLine(x + t, y - size, x + t, y + size);
-//  }
-
-  // Restore old color
-//  g.setColor(oldColour);
-//  return {x:x, y:y}; // return cross coordinates
-//}
 
 function drawPolarisMarkerCircle(cx, cy, radius, HA_deg, size, markerColour) {
   // Draws a filled circle version of the Polaris marker at the hour angle on a circle of given radius
@@ -699,8 +666,8 @@ let waitingPageIntervalID;  // for GPS waiting page
 // Declare global variables to store the GPS date and time components
 var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 
-// Trigger fake GPS events every 5 seconds - ENABLE FOR TESTING ONLY
-  //setInterval(fakeGPSEvent, 15000);
+// Trigger fake GPS events every 10 seconds - ENABLE FOR TESTING ONLY
+setInterval(fakeGPSEvent, 10000);
 
 // functions to run depending on GPS requirement
 if (mySettings.useGPS == 1) {
