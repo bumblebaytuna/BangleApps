@@ -34,9 +34,8 @@ function loadSettings() {
   );
 }
 
-function SaveSettings() {
-
-}
+//function SaveSettings() {
+//}
 
 // ------------------------------------------
 // -------- GPS Control Functions --------
@@ -129,18 +128,18 @@ function onGPSEvent(fix) {
 }
 
 // function to simulate a fake GPS fix - FOR TESTING PURPOSES ONLY
-function fakeGPSEvent() {
+//function fakeGPSEvent() {
   // Create a mock GPS fix object
-  var fakeFix = {
-    longitude: 20.1278, // Fake longitude
-    time: Date.now(),   // Fake timestamp (GPS timestamps are in millisecs since the Unix epoch)
-    satellites: 7       // Fake number of satellites
-  };
+//  var fakeFix = {
+//    longitude: 20.1278, // Fake longitude
+//    time: Date.now(),   // Fake timestamp (GPS timestamps are in millisecs since the Unix epoch)
+//    satellites: 7       // Fake number of satellites
+//  };
 
   // Emit the fake GPS event with the mock fix data
-  Bangle.emit("GPS", fakeFix);
+//  Bangle.emit("GPS", fakeFix);
 
-}
+//}
 
 
 // ------------------------------------------
@@ -320,38 +319,38 @@ function drawNumberAtAngle(cx, cy, radius, number, angle_deg, xoffset, yoffset, 
 
 // -------------------- Draw Polaris Mark on Circle --------------------
 
-function drawPolarisMarkerCross(cx, cy, radius, HA_deg, size, thickness, markerColour) {
+//function drawPolarisMarkerCross(cx, cy, radius, HA_deg, size, thickness, markerColour) {
   // Draws a cross version of the Polaris marker at the hour angle on a circle of given radius
   // cx,cy = center, radius = circle radius
   // size = half-length of cross lines, thickness = pixels wide
   // color = [r,g,b] array, e.g., [0,1,0] for green
 
   // Remember old colour
-  let oldColour = g.getColor();
+//  let oldColour = g.getColor();
 
   // Set new colour
-  g.setColor(markerColour[0], markerColour[1], markerColour[2]);
+//  g.setColor(markerColour[0], markerColour[1], markerColour[2]);
 
   // let angle = (HA_deg - 90) * Math.PI / 180; // 0 deg at top, clockwise rotation
   // let angle = (90 + HA_deg) * Math.PI / 180;  // 0° at 6 o'clock, anti-clockwise rotation
-  let angle = (90 - HA_deg) * Math.PI / 180;  // anti-clockwise rotation from 6 o'clock
-  let x = cx + Math.round(radius * Math.cos(angle));
-  let y = cy + Math.round(radius * Math.sin(angle));
+//  let angle = (90 - HA_deg) * Math.PI / 180;  // anti-clockwise rotation from 6 o'clock
+//  let x = cx + Math.round(radius * Math.cos(angle));
+//  let y = cy + Math.round(radius * Math.sin(angle));
 
   // Draw horizontal line of cross
-  for (let t = 0; t < thickness; t++) {
-    g.drawLine(x - size, y + t, x + size, y + t);
-  }
+//  for (let t = 0; t < thickness; t++) {
+//    g.drawLine(x - size, y + t, x + size, y + t);
+//  }
 
   // Draw vertical line of cross
-  for (let t = 0; t < thickness; t++) {
-    g.drawLine(x + t, y - size, x + t, y + size);
-  }
+//  for (let t = 0; t < thickness; t++) {
+//    g.drawLine(x + t, y - size, x + t, y + size);
+//  }
 
   // Restore old color
   g.setColor(oldColour);
-  return {x:x, y:y}; // return cross coordinates
-}
+//  return {x:x, y:y}; // return cross coordinates
+//}
 
 function drawPolarisMarkerCircle(cx, cy, radius, HA_deg, size, markerColour) {
   // Draws a filled circle version of the Polaris marker at the hour angle on a circle of given radius
@@ -383,8 +382,6 @@ function drawPolarisMarkerCircle(cx, cy, radius, HA_deg, size, markerColour) {
 function drawOuterTicks(cx, cy, radius, numberofticks, ticklength, tickColour) {
 
   // Draw outer-style major ticks (like clock hour markers) on the outer circle
-  //var outerCircleNumMajorTicks = 12;      // like hour markers
-  //var outerCircleMajorTickLength = 8;     // tick length in pixels (outward)
   
   // Remember old colour
   let oldColour = g.getColor();
@@ -414,8 +411,6 @@ function drawOuterTicks(cx, cy, radius, numberofticks, ticklength, tickColour) {
 function drawInnerTicks(cx, cy, radius, numberofticks, ticklength, tickColour) {
 
   // Draw outer-style major ticks (like clock hour markers) on the outer circle
-  //var outerCircleNumMajorTicks = 12;      // like hour markers
-  //var outerCircleMajorTickLength = 8;     // tick length in pixels (outward)
 
   // Remember old colour
   let oldColour = g.getColor();
@@ -454,25 +449,25 @@ function drawPolarscopeReticuleTakOrionSkyWatcher(cx, cy, reticuleColour, marker
 
   // Draw the outer circle and markers
   var outercircleradius = 67;     // circle radius
-  let outerCircle = drawCircle(cx, cy, outercircleradius, reticuleColour);
-  let outerMajorTicks = drawOuterTicks(cx, cy, outercircleradius, 12, 8, reticuleColour);
-  let outerMinorTicks = drawOuterTicks(cx, cy, outercircleradius, 72, 3, reticuleColour);
+  drawCircle(cx, cy, outercircleradius, reticuleColour);
+  drawOuterTicks(cx, cy, outercircleradius, 12, 8, reticuleColour);
+  drawOuterTicks(cx, cy, outercircleradius, 72, 3, reticuleColour);
 
   // Draw the intermediate circle (no markers)
   var intermediatecircleradius = 57;     // circle radius
-  let intermediatecircle = drawCircle(cx, cy, intermediatecircleradius, reticuleColour);
+  drawCircle(cx, cy, intermediatecircleradius, reticuleColour);
 
   // Draw the inner circle and markers
   var innercircleradius = 47;     // circle radius
-  let innerCircle = drawCircle(cx, cy, innercircleradius, reticuleColour);
-  let innerMajorTicks = drawInnerTicks(cx, cy, innercircleradius, 12, 8, reticuleColour);
-  let innerMinorTicks = drawInnerTicks(cx, cy, innercircleradius, 72, 3, reticuleColour);
+  drawCircle(cx, cy, innercircleradius, reticuleColour);
+  drawInnerTicks(cx, cy, innercircleradius, 12, 8, reticuleColour);
+  drawInnerTicks(cx, cy, innercircleradius, 72, 3, reticuleColour);
 
   // Draw vertical crosshair
-  let verticalCrosshair = drawCustomLine(cx, 20, cx, 155, reticuleColour);   // top to bottom
+  drawCustomLine(cx, 20, cx, 155, reticuleColour);   // top to bottom
 
   // Draw horizontal crosshair
-  let horizCrosshair = drawCustomLine(20, cy, 155, cy, reticuleColour);   // left to right
+  drawCustomLine(20, cy, 155, cy, reticuleColour);   // left to right
 
   // Draw the labels:
   var labelRadius = 80;     // label radius
@@ -514,23 +509,23 @@ function drawPolarscopeReticuleMoveShootMove(cx, cy, reticuleColour, markerColou
 
   // Draw the intermediate circle and markers
   var intermediatecircleradius = 60;     // circle radius
-  let intermediatecircle = drawCircle(cx, cy, intermediatecircleradius, reticuleColour);
-  let outerMajorTicks = drawOuterTicks(cx, cy, intermediatecircleradius, 12, 5, reticuleColour);
-  let outerMediumTicks = drawOuterTicks(cx, cy, intermediatecircleradius, 24, 2, reticuleColour);
-  let outerMinorTicks = drawOuterTicks(cx, cy, intermediatecircleradius, 72, 1, reticuleColour);
-  let innerMajorTicks = drawInnerTicks(cx, cy, intermediatecircleradius, 12, 5, reticuleColour);
-  let innerMediumTicks = drawInnerTicks(cx, cy, intermediatecircleradius, 24, 2, reticuleColour);
-  let innerMinorTicks = drawInnerTicks(cx, cy, intermediatecircleradius, 72, 1, reticuleColour);
+  drawCircle(cx, cy, intermediatecircleradius, reticuleColour);
+  drawOuterTicks(cx, cy, intermediatecircleradius, 12, 5, reticuleColour);
+  drawOuterTicks(cx, cy, intermediatecircleradius, 24, 2, reticuleColour);
+  drawOuterTicks(cx, cy, intermediatecircleradius, 72, 1, reticuleColour);
+  drawInnerTicks(cx, cy, intermediatecircleradius, 12, 5, reticuleColour);
+  drawInnerTicks(cx, cy, intermediatecircleradius, 24, 2, reticuleColour);
+  drawInnerTicks(cx, cy, intermediatecircleradius, 72, 1, reticuleColour);
 
   // Draw the inner circle (no markers)
   var innercircleradius = 50;     // circle radius
-  let innerCircle = drawCircle(cx, cy, innercircleradius, reticuleColour);
+  drawCircle(cx, cy, innercircleradius, reticuleColour);
 
   // Draw vertical crosshair
-  let verticalCrosshair = drawCustomLine(cx, 17, cx, 158, reticuleColour);   // top to bottom
+  drawCustomLine(cx, 17, cx, 158, reticuleColour);   // top to bottom
 
   // Draw horizontal crosshair
-  let horizCrosshair = drawCustomLine(17, cy, 158, cy, reticuleColour);   // left to right
+  drawCustomLine(17, cy, 158, cy, reticuleColour);   // left to right
 
   // Draw the labels:
   var labelRadius = 80;     // label radius
