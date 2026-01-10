@@ -648,15 +648,6 @@ function updateDisplay() {
 // ----------- Initialisation and Startup ----------
 // -------------------------------------------------
 
-// Point the app to where the settings are stored
-let mysettings = require("Storage").readJSON("hourangle.json", 1) || {
-  // use these default settings when empty
-  theme: "light", 
-  vibration: true,
-  brightness: 7,
-  advancedOption: false
-};
-
 // Collect the global app settings from the storage file, uses defaults if setting file missing
 let mySettings = loadSettings();
 
