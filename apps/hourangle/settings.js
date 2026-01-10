@@ -1,46 +1,82 @@
-(function(back) {
+// app.js - MyAppName with nested settings menu
 
-  var SETTINGS_FILE = "hourangle.settings.json";
-    
-  var mysettings = Object.assign({
-    useGPS: false,
-    longitudeDegrees: 3,
-    longitudeDirection: 1,
-    reticuleValidityYearStart: 2000,
-    reticuleValidityYearEnd: 2030,
-    reticuleDisplayStyle: 1
-  }, require('Storage').readJSON(SETTINGS_FILE, true) || {});
-  
-  function writeSettings() {
-    require('Storage').writeJSON(SETTINGS_FILE, mysettings);
-  }
+let settings = require("Storage").readJSON("myapp.json", 1) || {
+  theme: "light",
+  vibration: true,
+  brightness: 7,
+  advancedOption: false
+};
 
-  function showMainMenu() {
-    E.showMenu({
-      "" : { "title" : "Hour Angle" },
-      "< Back" : () => back(),
-      'Use GPS': {
-        value: !!mysettings.useGPS,
-        onchange: v => { mysettings.useGPS = v; writeSettings(); }
-      },
-      'Display Style': {
-        value: 1|mysettings.reticuleDisplayStyle,
-        min: 1, step: 1, max: 2,
-        onchange: v => { mysettings.reticuleDisplayStyle = v; writeSettings(); }
-      },
-      'Longitude Angle': () => showSubMenuLongitudeAngle()
-    });
-  }
+function saveSettings() {
+  require("Storage").writeJSON("myapp.json", settings);
+}
 
-  function showSubMenuLongitudeAngle() {
-    E.showMenu({
-      "" : { "title" : "Longitude" },
-      "< Back" : () => showMainMenu()
-    });
-  }
+// Nested submenu example
+function showAdvancedMenu() {
+  E.showMenu({
+    "": { "title": "Advanced Settings" },
+    "< Back": showSettingsMenu,
+    "Advanced Option": {
+      value: settings.advancedOption,
+      format: v => v ? "On" : "Off",
+      onchange: v => {
+        settings.advancedOption = v;
+        saveSettings();
+        E.showMessage("Advanced Option " + (v ? "On" : "Off"));
+      }
+    }
+  });
+}
 
-  // Start menu
-  E.showMenu(null);
-  showMainMenu();
+// Main settings menu
+function showSettingsMenu() {
+  E.showMenu({
+    "": { "title": "MyAppName Settings" },
+    "< Back": loadMainMenu,
+    "Theme": {
+      value: settings.theme,
+      options: ["light", "dark"],
+      format: v => v,
+      onchange: v => { settings.theme = v; saveSettings(); }
+    },
+    "Vibration": {
+      value: settings.vibration,
+      format: v => v ? "On" : "Off",
+      onchange: v => { settings.vibration = v; saveSettings(); }
+    },
+    "Brightness": {
+      value: settings.brightness,
+      min: 0, max: 7, step: 1,
+      onchange: v => {
+        settings.brightness = v;
+        saveSettings();
+        Bangle.setLCDBrightness(v);
+      }
+    },
+    "Advanced": showAdvancedMenu, // Nested submenu!
+    "Reset": () => {
+      settings = { theme: "light", vibration: true, brightness: 7, advancedOption: false };
+      saveSettings();
+      Bangle.setLCDBrightness(settings.brightness);
+      E.showMessage("Settings reset!");
+    }
+  });
+}
 
-})(function() { E.showMenu(null); });  // <-- IIFE is now invoked
+// Main app function (example)
+function loadMainMenu() {
+  g.clear();
+  g.setFont("6x8", 2);
+  g.drawString("MyAppName", 20, 20);
+
+  // Apply settings
+  Bangle.setLCDBrightness(settings.brightness);
+  if (settings.vibration) Bangle.buzz();
+}
+
+// Register the app in Bangle.js menu
+E.showMenu({
+  "": { "title": "MyAppName" },
+  "Run": loadMainMenu,
+  "Settings": showSettingsMenu
+});
