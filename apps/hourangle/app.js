@@ -24,18 +24,20 @@ function saveSettings() {require("Storage").writeJSON(STORAGE_FILE, mySettings);
 // Create Main Settings Menu
 function showMainSettingsMenu() {
   E.showMenu({
-    "": { "title": "Hour Angle" },
+    //common part
+    "": { "title": "Settings" },
     "< Back": () => load(), // using load() always shows the watch's main menu
-    "Theme": {
-      value: mySettings.theme,
-      options: ["light", "dark"],
+    //custom part
+    "Longitude Direction": {
+      value: mySettings.lonDirection,
+      options: ["East", "West"],
       format: v => v,
-      onchange: v => { mySettings.theme = v; saveSettings(); }
+      onchange: v => { mySettings.lonDirection = v; saveSettings(); }
     },
-    "Vibration": {
-      value: mySettings.vibration,
+    "useGPS": {
+      value: mySettings.useGPS,
       format: v => v ? "On" : "Off",
-      onchange: v => { mySettings.vibration = v; saveSettings(); }
+      onchange: v => { mySettings.useGPS = v; saveSettings(); }
     },
     "Brightness": {
       value: mySettings.brightness,
@@ -48,7 +50,7 @@ function showMainSettingsMenu() {
     },
     "Advanced": showAdvancedMenu, // Nested submenu!
     "Reset": () => {
-      mySettings = { theme: "light", vibration: true, brightness: 7, advancedOption: false };
+      mySettings = { theme: DEFAULT.theme, vibration: DEFAULT.vibration, brightness: DEFAULT.brightness, advancedOption: DEFAULT.advancedOption };
       saveSettings();
       Bangle.setLCDBrightness(mySettings.brightness);
       E.showMessage("Settings reset!");
@@ -699,7 +701,7 @@ const STORAGE_FILE = "hourangle.settings.json";
 // sets default values in case settings file is missing or empty
 const DEFAULTS = {
   lonDegrees:0, // default lon location is 0 degrees
-  lonDirection: 1, // default is West. 1 = West, 0 = East
+  lonDirection: "West", // default is West.
   useGPS:0, // default GPS use is disabled
   reticuleRefreshIntervalMillisecs:60000, // default app display refresh is every 60 secs
   gpsfixWaitIntervalMillisecs:10000, // default GPS first fix waiting interval between checks
@@ -731,7 +733,7 @@ var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 
 // MAIN APP START - Register the app in Bangle.js menu
 E.showMenu({
-  "": { "title": "MyAppName" },
+  "": { "title": "Hour Angle" },
   "Run": loadMainApp,
   "Settings": showMainSettingsMenu
 });
