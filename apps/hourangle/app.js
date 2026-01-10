@@ -5,25 +5,10 @@
 
 function loadSettings() {
   
-  // set default values in case settings file is missing
-  const DEFAULTS = {
-    lonDegrees:-3, // default lon location is 0 degrees
-    lonDirection: 1, // default is West. 1 = West, 0 = East
-    useGPS:0, // default GPS use is disabled
-    reticuleRefreshIntervalMillisecs:60000, // default app display refresh is every 60 secs
-    gpsfixWaitIntervalMillisecs:10000, // default GPS first fix waiting interval between checks
-    backgroundColour:[1,1,1], // default background colour is white
-    reticuleColour:[0,0,0], // default polarscope reticule colour is black
-    polarisMarkerColour:[0,0,1], // default polaris marker colour and line is blue
-    reticuleValidityYearStart:2000, // default polarscope reticule validity period start is year 2000
-    reticuleValidityYearEnd:2030, // default polarscope reticule validity period start is year 2030
-    reticuleStyle:1 // default polarscope reticule style is 1 (for Takahashi, Orion, and Skywatcher mounts)
-  };
-
   // return the requested key value
   return Object.assign(
     {},                 // ensure a new object
-    DEFAULTS,           // defaults first
+    DEFAULTS,           // if the field is empty it reads the global defaults first
     require("Storage").readJSON(STORAGE_FILE, true) || {}
   );
 }
@@ -710,6 +695,21 @@ function loadMainApp() {
 
 // define the settings storage file on the watch, this is created and stored on the watch
 const STORAGE_FILE = "hourangle.settings.json";
+
+// set default values in case settings file is missing
+const DEFAULTS = {
+  lonDegrees:0, // default lon location is 0 degrees
+  lonDirection: 1, // default is West. 1 = West, 0 = East
+  useGPS:0, // default GPS use is disabled
+  reticuleRefreshIntervalMillisecs:60000, // default app display refresh is every 60 secs
+  gpsfixWaitIntervalMillisecs:10000, // default GPS first fix waiting interval between checks
+  backgroundColour:[1,1,1], // default background colour is white
+  reticuleColour:[0,0,0], // default polarscope reticule colour is black
+  polarisMarkerColour:[0,0,1], // default polaris marker colour and line is blue
+  reticuleValidityYearStart:2000, // default polarscope reticule validity period start is year 2000
+  reticuleValidityYearEnd:2030, // default polarscope reticule validity period start is year 2030
+  reticuleStyle:1 // default polarscope reticule style is 1 (for Takahashi, Orion, and Skywatcher mounts)
+};
 
 // Collect the global app settings from the storage file, uses defaults if setting file missing
 let mySettings = loadSettings();
