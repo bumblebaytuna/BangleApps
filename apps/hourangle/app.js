@@ -9,22 +9,19 @@ function loadSettings() {
   const STORAGE_FILE = "hourangle.settings.json";
   
   // set default values in case settings file is missing
-  const DEFAULTS = {lonDegrees:-3, useGPS:0, reticuleRefreshIntervalMillisecs:60000, gpsfixWaitIntervalMillisecs:10000, backgroundColour:[1,1,1],reticuleColour:[0,0,0],polarisMarkerColour:[0,0,1],reticuleValidityYearStart:2000,reticuleValidityYearEnd:2030,reticuleStyle:1};
-  // default lon location is London
-  // latitude north is positive, south is negative
-  // longitude east is positive, west is negative
-  // default GPS use is disabled
-  // default app display refresh is every 30 secs
-  // default app location refresh (if using GPS) is every 30 secs
-  // default background colour is white
-  // default polarscope reticule colour is black
-  // default polarscope reticule validity period is years 2000 to 2030
-  // default polarscope reticule style is 1 (for Takahashi, Orion, and Skywatcher mounts)
-  // default polaris marker colour and line is blue
-  
-  // The Pole Star is currently moving steadily away from the galactic pole each year
-  // The reticule in the polarscope normally has a validity period
-  // This app allows it to be used long before and after its validty period
+  const DEFAULTS = {
+    lonDegrees:-3, // default lon location is 0 degrees
+    lonDirection: 1, // default is West. 1 = West, 0 = East
+    useGPS:0, // default GPS use is disabled
+    reticuleRefreshIntervalMillisecs:60000, // default app display refresh is every 60 secs
+    gpsfixWaitIntervalMillisecs:10000, // default GPS first fix waiting interval between checks
+    backgroundColour:[1,1,1], // default background colour is white
+    reticuleColour:[0,0,0], // default polarscope reticule colour is black
+    polarisMarkerColour:[0,0,1], // default polaris marker colour and line is blue
+    reticuleValidityYearStart:2000, // default polarscope reticule validity period start is year 2000
+    reticuleValidityYearEnd:2030, // default polarscope reticule validity period start is year 2030
+    reticuleStyle:1 // default polarscope reticule style is 1 (for Takahashi, Orion, and Skywatcher mounts)
+  };
 
   // return the requested key value
   return Object.assign(
