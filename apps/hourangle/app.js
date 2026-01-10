@@ -689,6 +689,58 @@ function updateDisplay() {
 
 // Main display update function
 function loadMainApp() {
+    // Trigger fake GPS events every 10 seconds - ENABLE FOR TESTING ONLY
+  setInterval(fakeGPSEvent, 10000);
+  
+  // --- Offline mode: draw immediately if GPS is not used ---
+  if (mySettings.useGPS == 0) {
+    console.log("Offline mode, drawing reticule immediately");
+    startRefreshLoop();  // this calls updateDisplay immediately and starts the refresh loop
+  }
+  
+  // functions to run depending on GPS requirement
+  if (mySettings.useGPS == 1) {
+    console.log("GPS required, initialising the GPS...");
+  
+    Bangle.setGPSPower(1);  // Start GPS
+    
+    // Start listening for GPS events
+    Bangle.on("GPS", onGPSEvent);
+    
+    // show waiting page
+    startWaitingForGPS();
+    
+    gpsStartTime = new Date();  // GPS start time
+  
+    if (!gpsFixReceived) {
+      console.log("Awaiting GPS fix...");
+      showWaitingForGPS(mySettings.reticuleColour);
+    }
+  
+    waitingIntervalID = setInterval(function() {
+      if (!gpsFixReceived) {
+        console.log("Awaiting GPS fix...");
+        showWaitingForGPS(mySettings.reticuleColour);
+      }
+    }, mySettings.gpsfixWaitIntervalMillisecs);
+  
+    // Check if GPS fix is acquired and then update
+    if (gpsFixReceived) {
+      console.log("GPS fix acquired...");
+      //startRefreshLoop();  // Immediately update and start refresh cycle once GPS fix is received
+    }
+  
+    intervalID = setInterval(function() {
+      if (gpsFixReceived) {
+        //updateDisplay();  // Update every 30 seconds
+      }
+    }, mySettings.reticuleRefreshIntervalMillisecs);
+  
+  } else {
+    // No GPS required, so update immediately
+    console.log("GPS not required, running in offline mode.");
+    startRefreshLoop();  // Update immediately without waiting for GPS and start refresh loop
+  }
 }
 
 // ---------------------------------------------------------------------
@@ -739,59 +791,6 @@ E.showMenu({
 });
 
 // MAIN FEATURE START (Put inside a function)
-
-// Trigger fake GPS events every 10 seconds - ENABLE FOR TESTING ONLY
-setInterval(fakeGPSEvent, 10000);
-
-// --- Offline mode: draw immediately if GPS is not used ---
-if (mySettings.useGPS == 0) {
-  console.log("Offline mode, drawing reticule immediately");
-  startRefreshLoop();  // this calls updateDisplay immediately and starts the refresh loop
-}
-
-// functions to run depending on GPS requirement
-if (mySettings.useGPS == 1) {
-  console.log("GPS required, initialising the GPS...");
-
-  Bangle.setGPSPower(1);  // Start GPS
-  
-  // Start listening for GPS events
-  Bangle.on("GPS", onGPSEvent);
-  
-  // show waiting page
-  startWaitingForGPS();
-  
-  gpsStartTime = new Date();  // GPS start time
-
-  if (!gpsFixReceived) {
-    console.log("Awaiting GPS fix...");
-    showWaitingForGPS(mySettings.reticuleColour);
-  }
-
-  waitingIntervalID = setInterval(function() {
-    if (!gpsFixReceived) {
-      console.log("Awaiting GPS fix...");
-      showWaitingForGPS(mySettings.reticuleColour);
-    }
-  }, mySettings.gpsfixWaitIntervalMillisecs);
-
-  // Check if GPS fix is acquired and then update
-  if (gpsFixReceived) {
-    console.log("GPS fix acquired...");
-    //startRefreshLoop();  // Immediately update and start refresh cycle once GPS fix is received
-  }
-
-  intervalID = setInterval(function() {
-    if (gpsFixReceived) {
-      //updateDisplay();  // Update every 30 seconds
-    }
-  }, mySettings.reticuleRefreshIntervalMillisecs);
-
-} else {
-  // No GPS required, so update immediately
-  console.log("GPS not required, running in offline mode.");
-  startRefreshLoop();  // Update immediately without waiting for GPS and start refresh loop
-}
 
 
 // Cleanup on app exit
