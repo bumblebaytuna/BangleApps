@@ -1,80 +1,122 @@
-//main function
-(function(back) {
-  
+(function() {
+  // Settings file
   var SETTINGS_FILE = "hourangle.settings.json";
-    
-  // Load existing settings
+
+  // Load existing settings or use defaults
   var mysettings = Object.assign({
-    //set the default values if empty
-    useGPS: false,  // Default GPS setting
-    longitudeDegrees: 3,  // Default longitude angle
-    longitudeDirection: 1,  // Default longitude direction (East=0, West=1)
-    reticuleValidityYearStart: 2000,  // Default start year
-    reticuleValidityYearEnd: 2030,  // Default end year
-    reticuleDisplayStyle: 1  // Default reticule style
+    useGPS: false,
+    longitudeDegrees: 3,
+    longitudeDirection: 1,
+    reticuleValidityYearStart: 2000,
+    reticuleValidityYearEnd: 2030,
+    reticuleDisplayStyle: 1
   }, require('Storage').readJSON(SETTINGS_FILE, true) || {});
-  
-  // write settings  to file function
-  function writeSettings() {require('Storage').writeJSON(SETTINGS_FILE, mysettings);}
 
-  //wrap the main top level menu in a function
+  // Write settings to file
+  function writeSettings() {
+    require('Storage').writeJSON(SETTINGS_FILE, mysettings);
+  }
+
+  // -----------------------------
+  // Main Top-Level Menu
+  // -----------------------------
   function showMainMenu() {
-    // Create and show the top-level settings menu
     E.showMenu({
-      
-      //Menu Title and Back button
-      "" : { "title" : "Hour Angle" },
-      "< Back" : () => back(),
-      
-      // Add Custom Rows
+      "": { "title": "Hour Angle" },
+      "< Back": () => E.showMenu(null),  // Exit app / go to default menu
 
-      // Add the GPS row
-      'Use GPS': {
-        value: !!mysettings.useGPS, // The !! converts the empty value to the default GPS setting
-        onchange: v => {mysettings.useGPS = v;writeSettings();}
+      // GPS Setting
+      "Use GPS": {
+        value: !!mysettings.useGPS,
+        onchange: v => { mysettings.useGPS = v; writeSettings(); }
       },
 
-      // Add the Display Style row
-      'Display Style': {
-        value: 1|mysettings.reticuleDisplayStyle, // The 1| converts the empty value to the default Display Style setting
+      // Reticule Display Style
+      "Display Style": {
+        value: 1 | mysettings.reticuleDisplayStyle,
         min: 1,
-        step: 1,
         max: 2,
-        onchange: v => {mysettings.reticuleDisplayStyle = v; writeSettings();}
+        step: 1,
+        onchange: v => { mysettings.reticuleDisplayStyle = v; writeSettings(); }
       },
-      
-     // Add the Longitude row to access the sub menu function
-      'Longitude Angle':  () => showSubMenuLongitudeAngle()
-      //"Longitude Direction >": () => showLongitudeDirectionMenu(),
-      //"Validity Year Start >": () => showValidityYearsMenu()
-        
-    // showMenu function closing brackets
+
+      // Submenu for Longitude Angle
+      "Longitude Angle": () => showSubMenuLongitudeAngle(),
+
+      // Submenu for Longitude Direction
+      "Longitude Direction": () => showSubMenuLongitudeDirection(),
+
+      // Submenu for Reticule Validity Years
+      "Validity Years": () => showSubMenuValidityYears()
     });
-    
-  // showMainMenu function wrapper brackets
   }
 
-  //wrap the nested sub menu in a function
+  // -----------------------------
+  // Submenu: Longitude Angle
+  // -----------------------------
   function showSubMenuLongitudeAngle() {
-    // Create and show the first nested sub menu. Nested sub-menus are just functions that call E.showMenu() again. There’s no special syntax, just create another menu and switch to it.
-     E.showMenu({
-       
-      //Menu Title and Back button
-      "" : { "title" : "Longitude" },
-      "< Back" : () => back(),
-       
-    // showMenu function closing brackets
+    E.showMenu({
+      "": { "title": "Longitude Angle" },
+      "< Back": showMainMenu,
+
+      "Degrees": {
+        value: mysettings.longitudeDegrees,
+        min: 0,
+        max: 180,
+        step: 1,
+        onchange: v => { mysettings.longitudeDegrees = v; writeSettings(); }
+      }
     });
-    
-  // showSubMenuLongitude function wrapper brackets
   }
 
-  // main control code - Start the main top level menu
-  E.showMenu(null); // clear any previous default menu
-  showMainMenu(); // start our custom top level menu
-  
-// main function end brackets
-})
+  // -----------------------------
+  // Submenu: Longitude Direction
+  // -----------------------------
+  function showSubMenuLongitudeDirection() {
+    E.showMenu({
+      "": { "title": "Longitude Direction" },
+      "< Back": showMainMenu,
 
-// add this if testing using the Espruino WEB IDE. comment it out if using it for the actual app
-//(load);
+      "Direction": {
+        value: mysettings.longitudeDirection,
+        min: 0,  // 0 = East, 1 = West
+        max: 1,
+        step: 1,
+        format: v => v === 0 ? "East" : "West",
+        onchange: v => { mysettings.longitudeDirection = v; writeSettings(); }
+      }
+    });
+  }
+
+  // -----------------------------
+  // Submenu: Reticule Validity Years
+  // -----------------------------
+  function showSubMenuValidityYears() {
+    E.showMenu({
+      "": { "title": "Validity Years" },
+      "< Back": showMainMenu,
+
+      "Start Year": {
+        value: mysettings.reticuleValidityYearStart,
+        min: 1900,
+        max: 2100,
+        step: 1,
+        onchange: v => { mysettings.reticuleValidityYearStart = v; writeSettings(); }
+      },
+
+      "End Year": {
+        value: mysettings.reticuleValidityYearEnd,
+        min: 1900,
+        max: 2100,
+        step: 1,
+        onchange: v => { mysettings.reticuleValidityYearEnd = v; writeSettings(); }
+      }
+    });
+  }
+
+  // -----------------------------
+  // Start the app
+  // -----------------------------
+  E.showMenu(null);  // Clear any default menu
+  showMainMenu();    // Show our custom menu
+})();
