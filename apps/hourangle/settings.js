@@ -18,10 +18,12 @@ function writeSettings() {require('Storage').writeJSON(SETTINGS_FILE, mysettings
 
 // Create and show the top-level settings menu
 E.showMenu({
-  //generic title and back button
-  "" : { "title" : "App Name" },
+  
+  //Add Generic Title and Back button
+  "" : { "title" : "Hour Angle" },
   "< Back" : () => back(),
-  // custom rows
+  
+  // Add Custom Rows
   'Use GPS': {value: !!mysettings.useGPS, // The !! converts the empty value to the default GPS setting
   onchange: v => {mysettings.useGPS = v;writeSettings();}},
   
