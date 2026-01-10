@@ -1,5 +1,3 @@
-# Polaris Hour Angle
-
 ## Purpose
 This app helps align your camera star-tracker or telescope equatorial mount with the Pole Star. Correct alignment prevents the viewed object from drifting out of view or smearing during long-exposure photographs.
 
