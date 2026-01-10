@@ -71,7 +71,7 @@
 
   // main control code - Start the main top level menu
   E.showMenu(null); // clear any previous default menu
-  showSettingsMenu(); // start our custom top level menu
+  showMainMenu(); // start our custom top level menu
   
 // main function end brackets
 })
