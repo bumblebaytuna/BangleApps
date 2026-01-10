@@ -1,6 +1,8 @@
-module.exports = function(back) {
+(function(back) {
+  // Load settings, or default to empty object
   var settings = require("Storage").readJSON("hourangle.settings.json",1) || {};
 
+  // Ensure defaults exist
   if (settings.longitude === undefined) settings.longitude = 0;
   if (settings.lonDir === undefined) settings.lonDir = (settings.longitude < 0) ? 1 : 0;
   if (settings.useGPS === undefined) settings.useGPS = false;
@@ -9,10 +11,12 @@ module.exports = function(back) {
   if (settings.validityYearTo === undefined) settings.validityYearTo = 2030;
   if (settings.myYear === undefined) settings.myYear = 2000;
 
+  // Function to save settings
   function updateSettings() {
     require("Storage").writeJSON("hourangle.settings.json", settings);
   }
 
+  // Longitude helpers
   function getLonDegrees() { return Math.abs(settings.longitude); }
   function getLonDir() { return (settings.longitude < 0) ? "W" : "E"; }
   function updateLonFromUI(deg, dir) {
@@ -20,19 +24,27 @@ module.exports = function(back) {
     settings.longitude = (dir === "W") ? -deg : deg;
     updateSettings();
   }
-  function getDigits() { return settings.myYear.toString().padStart(4,"0").split("").map(Number); }
 
+  // Convert year to 4-digit array
+  function getDigits() {
+    return settings.myYear.toString().padStart(4,"0").split("").map(Number);
+  }
+
+  // Define display style options
   const displayStyleOptions = [
     { text:"Style 1", value:1 },
     { text:"Style 2", value:2 }
   ];
+
   const directionOptions = [
     { text:"E", value:0 },
     { text:"W", value:1 }
   ];
 
+  // Nested submenu for editing each digit
   function showYearDigitsMenu() {
     var digits = getDigits();
+
     function makeMenu() {
       var menu = {
         "" : { "title" : digits.join("") },
@@ -42,33 +54,42 @@ module.exports = function(back) {
           showMainMenu();
         }
       };
-      ["Thousands", "Hundreds", "Tens", "Ones"].forEach(function(label, i) {
+
+      ["Thousands","Hundreds","Tens","Ones"].forEach(function(label,i){
         menu[label] = {
           value: digits[i],
           min: 0,
           max: 9,
           step: 1,
           format: v => v.toString(),
-          onchange: v => { digits[i] = v; E.showMenu(makeMenu()); }
+          onchange: v => {
+            digits[i] = v;
+            E.showMenu(makeMenu());
+          }
         };
       });
+
       return menu;
     }
+
     E.showMenu(makeMenu());
   }
 
+  // Main menu
   var mainmenu = {
     "" : { "title" : "Hour Angle" },
     "< Back" : back,
     "Year" : showYearDigitsMenu,
+
     "Longitude °" : {
       value: getLonDegrees(),
       min: 0,
       max: 180,
       step: 1,
       format: v => v + "°",
-      onchange: v => { updateLonFromUI(v, getLonDir()); }
+      onchange: v => updateLonFromUI(v,getLonDir())
     },
+
     "Longitude Dir" : {
       value: settings.lonDir,
       min: 0,
@@ -93,6 +114,7 @@ module.exports = function(back) {
         return m;
       }, {})
     },
+
     "Display Style" : {
       value: settings.displayStyle,
       min: 1,
@@ -107,10 +129,11 @@ module.exports = function(back) {
         };
         return m;
       }, {})
-    },
+    }
   };
 
   function showMainMenu() { E.showMenu(mainmenu); }
 
   showMainMenu();
-};
+
+})();
