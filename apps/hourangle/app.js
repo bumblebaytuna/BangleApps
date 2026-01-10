@@ -4,9 +4,6 @@
 
 
 function loadSettings() {
-
-  // define the settings storage file on the watch, this is created and stored on the watch
-  const STORAGE_FILE = "hourangle.settings.json";
   
   // set default values in case settings file is missing
   const DEFAULTS = {
@@ -32,7 +29,7 @@ function loadSettings() {
 }
 
 // Save Settings
-//function saveSettings() {require("Storage").writeJSON("hourangle.json", mySettings);}
+function saveSettings() {require("Storage").writeJSON("hourangle.json", mySettings);}
 
 
 // ------------------------------------------
@@ -703,6 +700,9 @@ function updateDisplay() {
 // ----------- Initialisation and Startup ----------
 // -------------------------------------------------
 
+// define the settings storage file on the watch, this is created and stored on the watch
+const STORAGE_FILE = "hourangle.settings.json";
+
 // Collect the global app settings from the storage file, uses defaults if setting file missing
 let mySettings = loadSettings();
 
@@ -716,6 +716,15 @@ let waitingPageIntervalID;  // for GPS waiting page
 
 // Declare global variables to store the GPS date and time components
 var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
+
+// MAIN APP START - Register the app in Bangle.js menu
+E.showMenu({
+  "": { "title": "MyAppName" },
+  "Run": loadMainMenu,
+  "Settings": showSettingsMenu
+});
+
+// MAIN FEATURE START (Put inside a function)
 
 // Trigger fake GPS events every 10 seconds - ENABLE FOR TESTING ONLY
 setInterval(fakeGPSEvent, 10000);
