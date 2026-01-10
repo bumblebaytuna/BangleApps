@@ -25,7 +25,7 @@ function saveSettings() {require("Storage").writeJSON("hourangle.json", mySettin
 function showMainSettingsMenu() {
   E.showMenu({
     "": { "title": "Hour Angle" },
-    "< Back": loadMainApp,
+    "< Back": () => E.showMenu(), // using a blank E.showMenu() always shows the watch's main menu
     "Theme": {
       value: mySettings.theme,
       options: ["light", "dark"],
