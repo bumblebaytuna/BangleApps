@@ -42,4 +42,4 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
   
 - I will never be expanding the app in the following area(s)
   i) Southern Hemisphere polar alignment, I think it unlikely of much use for a watch display this small. If someone wishes to develop a fork testing that opinion please by all means do so.
-  ii) For use on an Bangle.js 1. I dont have one and I don't intend to buy one. If someone wishes to develop a fork expanding it for use on this device then by all means do so.
+  ii) For use on an Bangle.js 1. I don't have one and I don't intend to buy one. If someone wishes to develop a fork expanding it for use on this device then by all means do so.
