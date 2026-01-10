@@ -709,9 +709,9 @@ const DEFAULTS = {
   reticuleValidityYearStart:2000, // default polarscope reticule validity period start is year 2000
   reticuleValidityYearEnd:2030, // default polarscope reticule validity period start is year 2030
   reticuleStyle:1, // default polarscope reticule style is 1 (for Takahashi, Orion, and Skywatcher mounts)
-  theme: "light", // test defaults to check settings menu structure is working properly
-  vibration: true, // test defaults to check settings menu structure is working properly
-  brightness: 7, // test defaults to check settings menu structure is working properly
+  theme: "dark", // test defaults to check settings menu structure is working properly
+  vibration: false, // test defaults to check settings menu structure is working properly
+  brightness: 6, // test defaults to check settings menu structure is working properly
   advancedOption: false // test defaults to check settings menu structure is working properly
 };
 
