@@ -3,8 +3,12 @@ var SETTINGS_FILE = "hourangle.settings.json";
   
 // Load existing settings
 var settings = Object.assign({
-  something: 123,
-  somethingelse: false
+  //set the default values if empty
+  longitudeDegrees: 3,  // Default longitude angle
+  longitudeDirection: 1,  // Default longitude direction (East=0, West=1)
+  reticuleValidityYearStart: 2000,  // Default start year
+  reticuleValidityYearEnd: 2030,  // Default end year
+  reticuleDisplayStyle: 1  // Default reticule style
 }, require('Storage').readJSON(SETTINGS_FILE, true) || {});
 
 // Write new settings function
