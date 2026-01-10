@@ -10,7 +10,7 @@
   "readme": "README.md",
   "storage": [
     {"name":"hourangle.app.js","url":"app.js"},
-    {"name":"hourangle.img","url":"app-icon.js","evaluate":true},
+    {"name":"hourangle.img","url":"app-icon.js","evaluate":true}
   ],
   "data": [{"name":"hourangle.settings.json"}]
 }
