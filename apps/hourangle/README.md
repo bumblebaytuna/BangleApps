@@ -40,6 +40,6 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 - Happy to consider adding in extra polarscope display styles, just ask
 - Use of the watch's GPS to automatically collect your current latitude and time is under development and testing.
   
-- I will never be expanding the app in the following area(s). If someone wishes to develop a fork expanding it for use on these areas then by all means do so.
+- I will never be expanding the app in the following area(s). If someone wishes to expand it for use in these areas then please by all means do so.
   i) Southern Hemisphere polar alignment (I think it unlikely of much use for a watch display this small)
   ii) For use on an Bangle.js 1
