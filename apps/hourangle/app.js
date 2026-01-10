@@ -49,8 +49,8 @@ function showMainSettingsMenu() {
       }
     },
     "Advanced": showAdvancedMenu, // Nested submenu!
-    "Reset": () => {
-      mySettings = { theme: DEFAULT.theme, vibration: DEFAULT.vibration, brightness: DEFAULT.brightness, advancedOption: DEFAULT.advancedOption };
+    "Reset (immediate)": () => {
+      mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
       saveSettings();
       Bangle.setLCDBrightness(mySettings.brightness);
       E.showMessage("Settings reset!");
