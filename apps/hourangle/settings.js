@@ -51,25 +51,14 @@
       }
     },
 
-    /*LANG*/"Longitude Dir" : {
-      value: getLonDir(),
-      format: v => v,
-      onchange: v => {}, // handled by submenu
-      submenu: {
-        "East" : {
-          checked: getLonDir() === "E",
-          onchange: () => {
-            updateLonFromUI(getLonDegrees(), "E");
-            E.showMenu(mainmenu);
-          }
-        },
-        "West" : {
-          checked: getLonDir() === "W",
-          onchange: () => {
-            updateLonFromUI(getLonDegrees(), "W");
-            E.showMenu(mainmenu);
-          }
-        }
+  /*LANG*/"Longitude Dir" : {
+      value: (getLonDir() === "E") ? 0 : 1,
+      min: 0,
+      max: 1,
+      step: 1,
+      format: v => v === 0 ? "East" : "West",
+      onchange: v => {
+        updateLonFromUI(getLonDegrees(), v === 0 ? "E" : "W");
       }
     },
 
