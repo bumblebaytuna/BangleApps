@@ -1,14 +1,14 @@
 (function(back) {
-var FILE = "myapp.json";
+var SETTINGS_FILE = "hourangle.settings.json";
   
 // Load existing settings
 var settings = Object.assign({
   something: 123,
   somethingelse: false
-}, require('Storage').readJSON(FILE, true) || {});
+}, require('Storage').readJSON(SETTINGS_FILE, true) || {});
 
 // Write new settings function
-function writeSettings() {require('Storage').writeJSON(FILE, settings);}
+function writeSettings() {require('Storage').writeJSON(SETTINGS_FILE, settings);}
 
 
 // Create and show the settings menu
