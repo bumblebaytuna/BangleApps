@@ -48,7 +48,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 - Put in your location's longitude. This is deliberately kept simple, to a resolution of the nearest degree. This is because if you round your location's longitude to the nearest degree, the error on the Bangle.js 2 display will be less than a pixel wide.
 - Put in the validity years of your polarscope, typically a 20-30 year period and normally written/etched onto the polarscope glass. The default is set to 2000 to 2030. If you do not know the validity years then don't worry, it makes such a small position refinement and is not essential unless you are doing high-magnification viewing or high-resolution imaging. If you are using a digital camera star-tracker or doing visual telescope observing then just take a rough stab at the validity years.
 - The app comes with two clockface styles. Style 1 is similar to polarscopes found in Takahashi, Orion, and Skywatcher equatorial mounts and camera star-trackers. Style 2 is similar to the polarscope found on a Move Shoot Move camera star-tracker.
-- Ensure your Watch time is correct. The app uses the watch's UTC time so do not worry if your watch is set to a different time zone.
+- Ensure your Watch time is correct. Do not worry if your watch is set to a different time zone, the app only uses the watch's UTC time signal.
 - Restart the app and it will draw the clockface and Polaris position based on your parameters
 
 ## Future Development
