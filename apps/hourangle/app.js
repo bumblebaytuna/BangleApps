@@ -14,8 +14,8 @@ function loadSettings() {
 }
 
 // Save Settings function
-function saveSettings() {require("Storage").writeJSON("hourangle.json", mySettings);}
-
+//function saveSettings() {require("Storage").writeJSON("hourangle.json", mySettings);}
+function saveSettings() {require("Storage").writeJSON(STORAGE_FILE, mySettings);}
 
 // ------------------------------------------
 // ---- Settings Menu Creation Functions ----
@@ -25,7 +25,7 @@ function saveSettings() {require("Storage").writeJSON("hourangle.json", mySettin
 function showMainSettingsMenu() {
   E.showMenu({
     "": { "title": "Hour Angle" },
-    "< Back": () => E.showMenu(), // using a blank E.showMenu() always shows the watch's main menu
+    "< Back": () => load(), // using load() always shows the watch's main menu
     "Theme": {
       value: mySettings.theme,
       options: ["light", "dark"],
