@@ -2,7 +2,7 @@
 // -------- Settings Read-Write Functions --------
 // ------------------------------------------
 
-
+// Load Settings function
 function loadSettings() {
   
   // return the requested key value
@@ -13,7 +13,7 @@ function loadSettings() {
   );
 }
 
-// Save Settings
+// Save Settings function
 function saveSettings() {require("Storage").writeJSON("hourangle.json", mySettings);}
 
 
@@ -696,7 +696,7 @@ function loadMainApp() {
 // define the settings storage file on the watch, this is created and stored on the watch
 const STORAGE_FILE = "hourangle.settings.json";
 
-// set default values in case settings file is missing
+// sets default values in case settings file is missing or empty
 const DEFAULTS = {
   lonDegrees:0, // default lon location is 0 degrees
   lonDirection: 1, // default is West. 1 = West, 0 = East
@@ -708,10 +708,14 @@ const DEFAULTS = {
   polarisMarkerColour:[0,0,1], // default polaris marker colour and line is blue
   reticuleValidityYearStart:2000, // default polarscope reticule validity period start is year 2000
   reticuleValidityYearEnd:2030, // default polarscope reticule validity period start is year 2030
-  reticuleStyle:1 // default polarscope reticule style is 1 (for Takahashi, Orion, and Skywatcher mounts)
+  reticuleStyle:1, // default polarscope reticule style is 1 (for Takahashi, Orion, and Skywatcher mounts)
+  theme: "light", // test defaults to check settings menu structure is working properly
+  vibration: true, // test defaults to check settings menu structure is working properly
+  brightness: 7, // test defaults to check settings menu structure is working properly
+  advancedOption: false // test defaults to check settings menu structure is working properly
 };
 
-// Collect the global app settings from the storage file, uses defaults if setting file missing
+// Collects the global app settings from the storage file, the loadSettings() function uses the above defaults if the settings file is missing or empty
 let mySettings = loadSettings();
 
 // Declare global runtime variables
