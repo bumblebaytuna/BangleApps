@@ -644,7 +644,7 @@ function updateDisplay() {
   g.flip();
   
   // Short vibration (buzz) to let owner know the display has refreshed (and to prompt owner if app is no longer being used)
-  Bangle.buzz(100); // duration in ms
+  //Bangle.buzz(100); // duration in ms
   
 }
 
