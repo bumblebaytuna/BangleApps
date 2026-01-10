@@ -1,10 +1,10 @@
 ## Purpose
-This app helps align your camera star-tracker or telescope equatorial mount with the Pole Star. Correct alignment prevents the viewed object from drifting out of view or smearing during long-exposure photographs.
+This app helps align your camera star-tracker or telescope equatorial mount with the Pole Star (also known as Polaris). Correct alignment prevents the viewed object from drifting out of view or smearing during long-exposure photographs.
 
 ## Background
-The Pole Star (Polaris) is not in a fixed position. It completes one rotation around the true Galactic Pole every day and slowly moves away from the Galactic Pole over time.
-
-This app mimics Polaris’s changing position as seen through a mount or star-tracker polar alignment scope.
+Polaris is not really at the Pole, it is slightly offset from it, and it completes one rotation around the Pole every day, and is also slowly moving away from the Pole every year.
+This app mimics Polaris’s changing position as it would be seen through the mount or star-tracker's polarscope.
+The app designed for Northern Hemisphere use only
 
 ## Pictures
 
@@ -27,13 +27,12 @@ This app mimics Polaris’s changing position as seen through a mount or star-tr
 
 ## Usage
 
-The display is designed for Northern Hemisphere use only
+The main display on a polarscope (and this app) resembles a clock-face but shows **24 hours rather than 12**, corresponding to one full daily rotation of Polaris around the Pole.
 
-The display resembles a clock face but represents **24 hours rather than 12 hours**, corresponding to one full daily rotation of Polaris around the Galactic Pole.
+Polarscopes typically include two rings and a validity period (for example, from the Year 2000 to Year 2030):
 
-Polar scopes typically include two rings and a validity period (for example, year 2000 to 2030):
-
-- The **outer ring** represents the later date (e.g. 2030)
+- The centre of the display is the true Pole
+- The **outer ring** represents the later date (e.g. 2030), because Polaris moves further from the Pole each year
 - The **inner ring** represents the earlier date (e.g. 2000)
 
 The app calculates:
