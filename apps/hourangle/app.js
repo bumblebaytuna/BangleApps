@@ -5,8 +5,8 @@
 
 function loadSettings() {
 
-  // define the settings file 
-  const STORAGE_FILE = "hourangle.json";
+  // define the settings storage file on the watch, this is created and stored on the watch
+  const STORAGE_FILE = "hourangle.settings.json";
   
   // set default values in case settings file is missing
   const DEFAULTS = {lonDegrees:-3, useGPS:0, reticuleRefreshIntervalMillisecs:60000, gpsfixWaitIntervalMillisecs:10000, backgroundColour:[1,1,1],reticuleColour:[0,0,0],polarisMarkerColour:[0,0,1],reticuleValidityYearStart:2000,reticuleValidityYearEnd:2030,reticuleStyle:1};
