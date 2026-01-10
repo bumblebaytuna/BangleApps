@@ -40,7 +40,7 @@ function saveSettings() {require("Storage").writeJSON("hourangle.json", mySettin
 function showMainSettingsMenu() {
   E.showMenu({
     "": { "title": "Hour Angle" },
-    "< Back": loadMainMenu,
+    "< Back": loadMainApp,
     "Theme": {
       value: mySettings.theme,
       options: ["light", "dark"],
@@ -75,7 +75,7 @@ function showMainSettingsMenu() {
 function showAdvancedMenu() {
   E.showMenu({
     "": { "title": "Advanced Settings" },
-    "< Back": showSettingsMenu,
+    "< Back": showMainSettingsMenu,
     "Advanced Option": {
       value: mySettings.advancedOption,
       format: v => v ? "On" : "Off",
@@ -696,9 +696,17 @@ function updateDisplay() {
 }
 
 
-// -------------------------------------------------
-// ----------- Initialisation and Startup ----------
-// -------------------------------------------------
+// ---------------------------------------------------------------------
+// ----------- Main Startup and Calculation Function -------------------
+// ---------------------------------------------------------------------
+
+// Main display update function
+function loadMainApp() {
+}
+
+// ---------------------------------------------------------------------
+// ----------- App Initialisation --------------------------------------
+// ---------------------------------------------------------------------
 
 // define the settings storage file on the watch, this is created and stored on the watch
 const STORAGE_FILE = "hourangle.settings.json";
@@ -706,7 +714,7 @@ const STORAGE_FILE = "hourangle.settings.json";
 // Collect the global app settings from the storage file, uses defaults if setting file missing
 let mySettings = loadSettings();
 
-// Declare global variables
+// Declare global runtime variables
 let intervalID;
 let waitingIntervalID;
 let gpsStartTime = null; // Holds the stopwatch counter (counts-up) value when waiting for the GPS to get a fix
@@ -714,13 +722,13 @@ let gpsFixReceived = false;  // Global flag to track if GPS fix is received
 let refreshStarted = false;  // Global flag to track if the cyclic display refresh is active
 let waitingPageIntervalID;  // for GPS waiting page
 
-// Declare global variables to store the GPS date and time components
+// Declare global runtime variables to store the GPS date and time components
 var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 
 // MAIN APP START - Register the app in Bangle.js menu
 E.showMenu({
   "": { "title": "MyAppName" },
-  "Run": loadMainMenu,
+  "Run": loadMainApp,
   "Settings": showMainSettingsMenu
 });
 
