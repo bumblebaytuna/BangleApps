@@ -442,7 +442,6 @@ function drawPolarscopeReticuleTakOrionSkyWatcher(cx, cy, reticuleColour, marker
   drawNumberAtAngle(cx, cy, labelRadius, "18", 270, -6, 0, reticuleColour);  // Display '18' at the 9 o'clock position
 
   // Draw PHA marker
-  //let polarismarker = drawPolarisMarkCross(cx, cy, radius, HA, 5, 2, [0,1,0]);
   let reticuleLifeUsed = (reticuleValidityCurrentYear-reticuleValidityYearStart)/(reticuleValidityYearEnd-reticuleValidityYearStart);
   console.log("Reticule Life Used =", reticuleLifeUsed.toFixed(2));
   let polarisMarkerReticuleRadius = innercircleradius+((outercircleradius-innercircleradius)*reticuleLifeUsed);
@@ -469,11 +468,11 @@ function drawPolarscopeReticuleMoveShootMove(cx, cy, reticuleColour, markerColou
   g.setColor(reticuleColour[0], reticuleColour[1], reticuleColour[2]);
 
   // Draw the outer circle (no markers)
-  var outercircleradius = 70;     // circle radius
+  var outercircleradius = 67;     // circle radius
   drawCircle(cx, cy, outercircleradius, reticuleColour);
 
   // Draw the intermediate circle and markers
-  var intermediatecircleradius = 60;     // circle radius
+  var intermediatecircleradius = 57;     // circle radius
   drawCircle(cx, cy, intermediatecircleradius, reticuleColour);
   drawOuterTicks(cx, cy, intermediatecircleradius, 12, 5, reticuleColour);
   drawOuterTicks(cx, cy, intermediatecircleradius, 24, 2, reticuleColour);
@@ -483,24 +482,23 @@ function drawPolarscopeReticuleMoveShootMove(cx, cy, reticuleColour, markerColou
   drawInnerTicks(cx, cy, intermediatecircleradius, 72, 1, reticuleColour);
 
   // Draw the inner circle (no markers)
-  var innercircleradius = 50;     // circle radius
+  var innercircleradius = 47;     // circle radius
   drawCircle(cx, cy, innercircleradius, reticuleColour);
 
   // Draw vertical crosshair
-  drawCustomLine(cx, 17, cx, 158, reticuleColour);   // top to bottom
+  drawCustomLine(cx, 20, cx, 155, reticuleColour);   // top to bottom
 
   // Draw horizontal crosshair
-  drawCustomLine(17, cy, 158, cy, reticuleColour);   // left to right
+  drawCustomLine(20, cy, 155, cy, reticuleColour);   // left to right
 
   // Draw the labels:
   var labelRadius = 80;     // label radius
-  drawNumberAtAngle(cx, cy, labelRadius, "0", 180, -3, 0, reticuleColour);  // Display '0' at the 6 o'clock position
-  drawNumberAtAngle(cx, cy, labelRadius, "6", 90, -3, 0, reticuleColour);  // Display '6' at the 3 o'clock position
-  drawNumberAtAngle(cx, cy, labelRadius, "12", 0, -6, 0, reticuleColour);  // Display '12' at the 12 o'clock position
-  drawNumberAtAngle(cx, cy, labelRadius, "18", 270, -8, 0, reticuleColour);  // Display '18' at the 9 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "0", 180, -2, -1, reticuleColour);  // Display '0' at the 6 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "6", 90, -5, 0, reticuleColour);  // Display '6' at the 3 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "12", 0, -6, 2, reticuleColour);  // Display '12' at the 12 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "18", 270, -6, 0, reticuleColour);  // Display '18' at the 9 o'clock position
 
   // Draw PHA marker
-  //let polarismarker = drawPolarisMarkCross(cx, cy, radius, HA, 5, 2, [0,1,0]);
   let reticuleLifeUsed = (reticuleValidityCurrentYear-reticuleValidityYearStart)/(reticuleValidityYearEnd-reticuleValidityYearStart);
   console.log("Reticule Life Used =", reticuleLifeUsed.toFixed(2));
   let polarisMarkerReticuleRadius = innercircleradius+((outercircleradius-innercircleradius)*reticuleLifeUsed);
