@@ -46,7 +46,7 @@
     /*LANG*/"Display Style" : {
       value: settings.displayStyle,
       min: 1,
-      max: 3,
+      max: 2,
       step: 1,
       format: v => "Style " + v, // shows user-friendly text
       onchange: v => {
