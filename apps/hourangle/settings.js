@@ -1,3 +1,4 @@
+//main function
 (function(back) {
   
   var SETTINGS_FILE = "hourangle.settings.json";
@@ -13,7 +14,7 @@
     reticuleDisplayStyle: 1  // Default reticule style
   }, require('Storage').readJSON(SETTINGS_FILE, true) || {});
   
-  // Write new settings function
+  // write settings  to file function
   function writeSettings() {require('Storage').writeJSON(SETTINGS_FILE, mysettings);}
 
   //wrap the main top level menu in a function
@@ -26,11 +27,14 @@
       "< Back" : () => back(),
       
       // Add Custom Rows
+
+      // Add the GPS row
       'Use GPS': {
         value: !!mysettings.useGPS, // The !! converts the empty value to the default GPS setting
         onchange: v => {mysettings.useGPS = v;writeSettings();}
       },
-      
+
+      // Add the Display Style row
       'Display Style': {
         value: 1|mysettings.reticuleDisplayStyle, // The 1| converts the empty value to the default Display Style setting
         min: 1,
@@ -39,13 +43,19 @@
         onchange: v => {mysettings.reticuleDisplayStyle = v; writeSettings();}
       },
       
-    // showMenu brackets
+     // Add the Longitude row to access the sub menu function
+      'Longitude Angle':  () => showSubMenuLongitudeAngle()
+      //"Longitude Direction >": () => showLongitudeDirectionMenu(),
+      //"Validity Year Start >": () => showValidityYearsMenu()
+        
+    // showMenu function closing brackets
     });
+    
   // showMainMenu function wrapper brackets
   }
 
   //wrap the nested sub menu in a function
-  function showSubMenuLongitude() {
+  function showSubMenuLongitudeAngle() {
     // Create and show the first nested sub menu. Nested sub-menus are just functions that call E.showMenu() again. There’s no special syntax, just create another menu and switch to it.
      E.showMenu({
        
@@ -53,12 +63,17 @@
       "" : { "title" : "Longitude" },
       "< Back" : () => back(),
        
-    // showMenu brackets
+    // showMenu function closing brackets
     });
+    
   // showSubMenuLongitude function wrapper brackets
   }
 
-// settings function end brackets
+  // main control code - Start the main top level menu
+  E.showMenu(null); // clear any previous default menu
+  showSettingsMenu(); // start our custom top level menu
+  
+// main function end brackets
 })
 
 // add this if testing using the Espruino WEB IDE. comment it out if using it for the actual app
