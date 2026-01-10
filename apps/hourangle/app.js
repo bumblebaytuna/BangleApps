@@ -34,6 +34,64 @@ function loadSettings() {
 // Save Settings
 //function saveSettings() {require("Storage").writeJSON("hourangle.json", mySettings);}
 
+
+// ------------------------------------------
+// ---- Settings Menu Creation Functions ----
+// ------------------------------------------
+
+// Create Main Settings Menu
+function showMainSettingsMenu() {
+  E.showMenu({
+    "": { "title": "Hour Angle" },
+    "< Back": loadMainMenu,
+    "Theme": {
+      value: settings.theme,
+      options: ["light", "dark"],
+      format: v => v,
+      onchange: v => { settings.theme = v; saveSettings(); }
+    },
+    "Vibration": {
+      value: settings.vibration,
+      format: v => v ? "On" : "Off",
+      onchange: v => { settings.vibration = v; saveSettings(); }
+    },
+    "Brightness": {
+      value: settings.brightness,
+      min: 0, max: 7, step: 1,
+      onchange: v => {
+        settings.brightness = v;
+        saveSettings();
+        Bangle.setLCDBrightness(v);
+      }
+    },
+    "Advanced": showAdvancedMenu, // Nested submenu!
+    "Reset": () => {
+      settings = { theme: "light", vibration: true, brightness: 7, advancedOption: false };
+      saveSettings();
+      Bangle.setLCDBrightness(settings.brightness);
+      E.showMessage("Settings reset!");
+    }
+  });
+}
+
+// Create Nested submenu example
+function showAdvancedMenu() {
+  E.showMenu({
+    "": { "title": "Advanced Settings" },
+    "< Back": showSettingsMenu,
+    "Advanced Option": {
+      value: settings.advancedOption,
+      format: v => v ? "On" : "Off",
+      onchange: v => {
+        settings.advancedOption = v;
+        saveSettings();
+        E.showMessage("Advanced Option " + (v ? "On" : "Off"));
+      }
+    }
+  });
+}
+
+
 // ------------------------------------------
 // -------- GPS Control Functions --------
 // ------------------------------------------
