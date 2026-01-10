@@ -24,10 +24,10 @@ function saveSettings() {require("Storage").writeJSON(STORAGE_FILE, mySettings);
 // Create Main Settings Menu
 function showMainSettingsMenu() {
   E.showMenu({
-    //common part
+    //common parts
     "": { "title": "Settings" },
     "< Back": () => load(), // using load() always shows the watch's main menu
-    //custom part
+    //custom parts
     "Longitude Direction": {
       value: mySettings.lonDirection,
       options: ["East", "West"],
@@ -45,10 +45,9 @@ function showMainSettingsMenu() {
       onchange: v => {
         mySettings.brightness = v;
         saveSettings();
-        Bangle.setLCDBrightness(v);
       }
     },
-    "Advanced": showAdvancedMenu, // Nested submenu!
+    "Longitude Angle": showLongitudeAngleMenu, // Nested submenu
     "Reset (immediate)": () => {
       mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
       saveSettings();
@@ -59,19 +58,37 @@ function showMainSettingsMenu() {
 }
 
 // Create Nested submenu example
-function showAdvancedMenu() {
+function showLongitudeAngleMenu() {
   E.showMenu({
+    //common parts
     "": { "title": "Advanced Settings" },
     "< Back": showMainSettingsMenu,
-    "Advanced Option": {
-      value: mySettings.advancedOption,
-      format: v => v ? "On" : "Off",
+    //custom parts
+    "Hundreds": {
+      value: mySettings.brightness,
+      min: 0, max: 1, step: 1,
       onchange: v => {
-        mySettings.advancedOption = v;
+        mySettings.brightness = v;
         saveSettings();
-        E.showMessage("Advanced Option " + (v ? "On" : "Off"));
+      }
+    },
+    "Tens": {
+      value: mySettings.brightness,
+      min: 0, max: 9, step: 1,
+      onchange: v => {
+        mySettings.brightness = v;
+        saveSettings();
+      }
+    },
+    "Ones": {
+      value: mySettings.brightness,
+      min: 0, max: 9, step: 1,
+      onchange: v => {
+        mySettings.brightness = v;
+        saveSettings();
       }
     }
+  //menu closure brackets
   });
 }
 
