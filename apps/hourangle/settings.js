@@ -1,181 +1,92 @@
-(function(back) {
-  // Load settings, or default to empty object
-  var settings = require("Storage").readJSON("hourangle.settings.json",1) || {};
+// settings.js
+// Generic Settings Menu Template for Bangle.js 2
 
-  // Ensure defaults exist
-  if (settings.longitude === undefined) settings.longitude = 0;
-  if (settings.lonDir === undefined) settings.lonDir = (settings.longitude < 0) ? 1 : 0;
-  if (settings.useGPS === undefined) settings.useGPS = false;
-  if (!settings.displayStyle) settings.displayStyle = 1; // default style = 1
-  if (settings.validityYearFrom === undefined) settings.validityYearFrom = 2000;
-  if (settings.validityYearTo === undefined)   settings.validityYearTo   = 2030;
+const SETTINGS_FILE = "myapp.settings.json";
 
-  // Function to save settings
-  function updateSettings() {
-    require("Storage").writeJSON("hourangle.settings.json", settings);
-  }
+// Load existing settings or defaults
+let settings = Object.assign({
+  enabled: true,     // Row 1 (boolean)
+  mode: 1            // Row 3 (numeric option)
+}, require("Storage").readJSON(SETTINGS_FILE, true) || {});
 
-  // Longitude helpers
-  function getLonDegrees() {
-    return Math.abs(settings.longitude);
-  }
+// Save helper
+function saveSettings() {
+  require("Storage").writeJSON(SETTINGS_FILE, settings);
+}
 
-  function getLonDir() {
-    return (settings.longitude < 0) ? "W" : "E";
-  }
+/* ---------------------------
+   Sub-menus (placeholders)
+--------------------------- */
 
-  function updateLonFromUI(deg, dir) {
-    settings.lonDir = dir;
-    settings.longitude = (dir === "W") ? -deg : deg;
-    updateSettings();
-  }
+function showSubMenu2() {
+  E.showMenu({
+    "": { title: "Sub Menu 2" },
+    "< Back": () => showMainMenu()
+    // Populate later
+  });
+}
 
-  // Year helpers
-  function splitDigits(year) {
-    return [
-      Math.floor(year / 1000),          // thousands
-      Math.floor((year % 1000) / 100),  // hundreds
-      Math.floor((year % 100) / 10),    // tens
-      year % 10                          // ones
-    ];
-  }
-  
-  function combineDigits(d) { return d[0]*1000 + d[1]*100 + d[2]*10 + d[3]; }
-  
-  // Define display style options
-  const displayStyleOptions = [
-    { text:"Style 1", value:1 },
-    { text:"Style 2", value:2 }
-  ];
+function showSubMenu4() {
+  E.showMenu({
+    "": { title: "Sub Menu 4" },
+    "< Back": () => showMainMenu()
+    // Populate later
+  });
+}
 
-  const directionOptions = [
-    { text:"E", value:0 },
-    { text:"W", value:1 }
-  ];
+function showSubMenu5() {
+  E.showMenu({
+    "": { title: "Sub Menu 5" },
+    "< Back": () => showMainMenu()
+    // Populate later
+  });
+}
 
-  // Main menu
-  var mainmenu = {
-    "" : { "title" : "Hour Angle" },
-    "< Back" : back,
+/* ---------------------------
+   Main Settings Menu
+--------------------------- */
 
-    /*LANG*/"Year" : (() => {
-      let digits = splitDigits(settings.myYear);
-      return {
-        value: digits[0],
-        min: 1, max: 2, step: 1,
-        format: v => combineDigits([v,digits[1],digits[2],digits[3]]),
-        onchange: v => { digits[0] = v; settings.myYear = combineDigits(digits); updateSettings(); },
-        submenu: {
-          "Thousands": { value: digits[0], min:1, max:2, step:1, onchange: v=>{ digits[0]=v; settings.myYear = combineDigits(digits); updateSettings(); } },
-          "Hundreds":  { value: digits[1], min:0, max:9, step:1, onchange: v=>{ digits[1]=v; settings.myYear = combineDigits(digits); updateSettings(); } },
-          "Tens":      { value: digits[2], min:0, max:9, step:1, onchange: v=>{ digits[2]=v; settings.myYear = combineDigits(digits); updateSettings(); } },
-          "Ones":      { value: digits[3], min:0, max:9, step:1, onchange: v=>{ digits[3]=v; settings.myYear = combineDigits(digits); updateSettings(); } }
-        }
-      };
-    })(),
+function showMainMenu() {
+  E.showMenu({
+    "": { title: "Settings" },
 
-    /*LANG*/"Longitude °" : {
-      value: getLonDegrees(),
-      min: 0,
-      max: 180,
-      step: 1,
-      format: v => v + "°",
+    /* Row 1: Boolean tick box */
+    "Enabled": {
+      value: settings.enabled,
       onchange: v => {
-        updateLonFromUI(v, getLonDir());
+        settings.enabled = v;
+        saveSettings();
       }
     },
 
-    /*LANG*/"Longitude Dir" : {
-      value: settings.lonDir,
-      min: 0,
-      max: 1,
-      step: 1,
-      format: v => v === 0 ? "E" : "W",
-      onchange: v => {
-        settings.lonDir = v;
-        settings.longitude = v ? -Math.abs(settings.longitude)
-                                :  Math.abs(settings.longitude);
-        updateSettings();
-      },
-      submenu: directionOptions.reduce((m,opt)=>{
-        m[opt.text] = {
-          checked: settings.lonDir === opt.value,
-          onchange: () => {
-            settings.lonDir = opt.value;
-            settings.longitude = opt.value ? -Math.abs(settings.longitude)
-                                            :  Math.abs(settings.longitude);
-            updateSettings();
-            E.showMenu(mainmenu);
-          }
-        };
-        return m;
-      }, {})
-    },
+    /* Row 2: Nested submenu */
+    "Sub Menu 2": () => showSubMenu2(),
 
-    /*LANG*/"Display Style" : {
-      value: settings.displayStyle,
+    /* Row 3: Two-option selector (text shown, number stored) */
+    "Mode": {
+      value: settings.mode,
       min: 1,
       max: 2,
       step: 1,
-      format: v => "Style " + v,
+      format: v => v === 1 ? "Option 1" : "Option 2",
       onchange: v => {
-        settings.displayStyle = v;
-        updateSettings();
-      },
-      submenu: displayStyleOptions.reduce((m,opt)=>{
-        m[opt.text] = {
-          checked: settings.displayStyle === opt.value,
-          onchange: () => {
-            settings.displayStyle = opt.value;
-            updateSettings();
-            E.showMenu(mainmenu);
-          }
-        };
-        return m;
-      }, {})
+        settings.mode = v;
+        saveSettings();
+      }
     },
-  
-    // === VALIDITY YEARS ===
-    /*LANG*/"Valid From (YYYY)" : (() => {
-      let digits = splitDigits(settings.validityYearFrom);
-      return {
-        value: digits[0],
-        min: 1, max: 2, step: 1,
-        format: v => combineDigits([v,digits[1],digits[2],digits[3]]),
-        onchange: v => { digits[0] = v; settings.validityYearFrom = combineDigits(digits); updateSettings(); },
-        submenu: {
-          "Thousands": { value: digits[0], min: 1, max: 2, step: 1,
-            onchange: v => { digits[0]=v; settings.validityYearFrom = combineDigits(digits); updateSettings(); } },
-          "Hundreds":  { value: digits[1], min:0, max:9, step:1,
-            onchange: v => { digits[1]=v; settings.validityYearFrom = combineDigits(digits); updateSettings(); } },
-          "Tens":      { value: digits[2], min:0, max:9, step:1,
-            onchange: v => { digits[2]=v; settings.validityYearFrom = combineDigits(digits); updateSettings(); } },
-          "Ones":      { value: digits[3], min:0, max:9, step:1,
-            onchange: v => { digits[3]=v; settings.validityYearFrom = combineDigits(digits); updateSettings(); } }
-        }
-      };
-    })(),
 
-    /*LANG*/"Valid To (YYYY)" : (() => {
-      let digits = splitDigits(settings.validityYearTo);
-      return {
-        value: digits[0],
-        min: 1, max: 2, step: 1,
-        format: v => combineDigits([v,digits[1],digits[2],digits[3]]),
-        onchange: v => { digits[0] = v; settings.validityYearTo = combineDigits(digits); updateSettings(); },
-        submenu: {
-          "Thousands": { value: digits[0], min: 1, max: 2, step: 1,
-            onchange: v => { digits[0]=v; settings.validityYearTo = combineDigits(digits); updateSettings(); } },
-          "Hundreds":  { value: digits[1], min:0, max:9, step:1,
-            onchange: v => { digits[1]=v; settings.validityYearTo = combineDigits(digits); updateSettings(); } },
-          "Tens":      { value: digits[2], min:0, max:9, step:1,
-            onchange: v => { digits[2]=v; settings.validityYearTo = combineDigits(digits); updateSettings(); } },
-          "Ones":      { value: digits[3], min:0, max:9, step:1,
-            onchange: v => { digits[3]=v; settings.validityYearTo = combineDigits(digits); updateSettings(); } }
-        }
-      };
-    })()
-  };
-  
-  E.showMenu(mainmenu);
-})();
+    /* Row 4: Nested submenu */
+    "Sub Menu 4": () => showSubMenu4(),
+
+    /* Row 5: Nested submenu */
+    "Sub Menu 5": () => showSubMenu5(),
+
+    "< Back": () => load() // return to launcher/app
+  });
+}
+
+/* ---------------------------
+   Entry point
+--------------------------- */
+
+showMainMenu();
