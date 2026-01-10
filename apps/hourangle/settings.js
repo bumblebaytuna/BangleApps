@@ -4,7 +4,7 @@
 
   // Ensure defaults exist
   if (settings.longitude === undefined) settings.longitude = 0;
-  if (!settings.lonDir) settings.lonDir = (settings.longitude < 0) ? "W" : "E";
+  if (settings.lonDir === undefined) settings.lonDir = (settings.longitude < 0) ? 1 : 0;
   if (settings.useGPS === undefined) settings.useGPS = false;
   if (!settings.displayStyle) settings.displayStyle = 1; // default style = 1
 
@@ -35,6 +35,11 @@
     { text:"Style 3", value:3 }
   ];
 
+  const directionOptions = [
+  { text:"E", value:0 },
+  { text:"W", value:1 }
+];
+
   // Main menu
   var mainmenu = {
     "" : { "title" : "Hour Angle" },
@@ -51,23 +56,31 @@
       }
     },
 
-  /*LANG*/"Longitude Dir" : {
-      value: (getLonDir() === "E") ? 0 : 1,
+    /*LANG*/"Longitude Dir" : {
+      value: settings.lonDir,
       min: 0,
       max: 1,
       step: 1,
-      format: v => v === 0 ? "East" : "West",
+      format: v => v === 0 ? "E" : "W",
       onchange: v => {
-        updateLonFromUI(getLonDegrees(), v === 0 ? "E" : "W");
-      }
-    },
-
-    /*LANG*/"Use GPS" : {
-      value: !!settings.useGPS,
-      onchange: v => {
-        settings.useGPS = v;
+        settings.lonDir = v;
+        settings.longitude = v ? -Math.abs(settings.longitude)
+                                :  Math.abs(settings.longitude);
         updateSettings();
-      }
+      },
+      submenu: directionOptions.reduce((m,opt)=>{
+        m[opt.text] = {
+          checked: settings.lonDir === opt.value,
+          onchange: () => {
+            settings.lonDir = opt.value;
+            settings.longitude = opt.value ? -Math.abs(settings.longitude)
+                                            :  Math.abs(settings.longitude);
+            updateSettings();
+            E.showMenu(mainmenu);
+          }
+        };
+        return m;
+      }, {})
     },
 
     /*LANG*/"Display Style" : {
