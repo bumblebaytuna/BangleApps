@@ -15,30 +15,48 @@
   
   // Write new settings function
   function writeSettings() {require('Storage').writeJSON(SETTINGS_FILE, mysettings);}
-  
+
+  //wrap the main top level menu in a function
+  function showMainMenu() {
     // Create and show the top-level settings menu
-  E.showMenu({
-    
-    //Menu Title and Back button
-    "" : { "title" : "Hour Angle" },
-    "< Back" : () => back(),
-    
-    // Add Custom Rows
-    'Use GPS': {
-      value: !!mysettings.useGPS, // The !! converts the empty value to the default GPS setting
-      onchange: v => {mysettings.useGPS = v;writeSettings();}
-    },
-    
-    'Display Style': {
-      value: 1|mysettings.reticuleDisplayStyle, // The 1| converts the empty value to the default Display Style setting
-      min: 1,
-      step: 1,
-      max: 2,
-      onchange: v => {mysettings.reticuleDisplayStyle = v; writeSettings();}
-    },
-    
-  // showMenu brackets
-  });
+    E.showMenu({
+      
+      //Menu Title and Back button
+      "" : { "title" : "Hour Angle" },
+      "< Back" : () => back(),
+      
+      // Add Custom Rows
+      'Use GPS': {
+        value: !!mysettings.useGPS, // The !! converts the empty value to the default GPS setting
+        onchange: v => {mysettings.useGPS = v;writeSettings();}
+      },
+      
+      'Display Style': {
+        value: 1|mysettings.reticuleDisplayStyle, // The 1| converts the empty value to the default Display Style setting
+        min: 1,
+        step: 1,
+        max: 2,
+        onchange: v => {mysettings.reticuleDisplayStyle = v; writeSettings();}
+      },
+      
+    // showMenu brackets
+    });
+  // showMainMenu function wrapper brackets
+  }
+
+  //wrap the nested sub menu in a function
+  function showSubMenuLongitude() {
+    // Create and show the first nested sub menu. Nested sub-menus are just functions that call E.showMenu() again. There’s no special syntax, just create another menu and switch to it.
+     E.showMenu({
+       
+      //Menu Title and Back button
+      "" : { "title" : "Longitude" },
+      "< Back" : () => back(),
+       
+    // showMenu brackets
+    });
+  // showSubMenuLongitude function wrapper brackets
+  }
 
 // settings function end brackets
 })
