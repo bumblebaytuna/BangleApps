@@ -9,7 +9,7 @@ function loadSettings() {
   const STORAGE_FILE = "hourangle.json";
   
   // set default values in case settings file is missing
-  const DEFAULTS = {lonDegrees:-3, useGPS:0, reticuleRefreshIntervalMillisecs:30000, gpsfixWaitIntervalMillisecs:10000, backgroundColour:[1,1,1],reticuleColour:[0,0,0],polarisMarkerColour:[0,0,1],reticuleValidityYearStart:2000,reticuleValidityYearEnd:2030,reticuleStyle:1};
+  const DEFAULTS = {lonDegrees:-3, useGPS:0, reticuleRefreshIntervalMillisecs:60000, gpsfixWaitIntervalMillisecs:10000, backgroundColour:[1,1,1],reticuleColour:[0,0,0],polarisMarkerColour:[0,0,1],reticuleValidityYearStart:2000,reticuleValidityYearEnd:2030,reticuleStyle:1};
   // default lon location is London
   // latitude north is positive, south is negative
   // longitude east is positive, west is negative
@@ -642,9 +642,6 @@ function updateDisplay() {
   
   // Update screen
   g.flip();
-  
-  // Short vibration (buzz) to let owner know the display has refreshed (and to prompt owner if app is no longer being used)
-  //Bangle.buzz(100); // duration in ms
   
 }
 
