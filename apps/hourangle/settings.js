@@ -1,18 +1,22 @@
 (function(back) {
+  // Load settings, or default to empty object
   var settings = require("Storage").readJSON("hourangle.settings.json",1) || {};
 
+  // Ensure defaults exist
   if (settings.longitude === undefined) settings.longitude = 0;
   if (settings.lonDir === undefined) settings.lonDir = (settings.longitude < 0) ? 1 : 0;
   if (settings.useGPS === undefined) settings.useGPS = false;
-  if (!settings.displayStyle) settings.displayStyle = 1;
+  if (!settings.displayStyle) settings.displayStyle = 1; // default style = 1
   if (settings.validityYearFrom === undefined) settings.validityYearFrom = 2000;
   if (settings.validityYearTo === undefined) settings.validityYearTo = 2030;
   if (settings.myYear === undefined) settings.myYear = 2000;
 
+  // Function to save settings
   function updateSettings() {
     require("Storage").writeJSON("hourangle.settings.json", settings);
   }
 
+  // Longitude helpers
   function getLonDegrees() {
     return Math.abs(settings.longitude);
   }
@@ -27,14 +31,15 @@
     updateSettings();
   }
 
+  // Convert year to 4-digit array
   function getDigits() {
     return settings.myYear.toString().padStart(4,"0").split("").map(Number);
   }
   
+  // Define display style options (only 2)
   const displayStyleOptions = [
     { text:"Style 1", value:1 },
-    { text:"Style 2", value:2 },
-    { text:"Style 3", value:3 }
+    { text:"Style 2", value:2 }
   ];
 
   const directionOptions = [
@@ -42,35 +47,47 @@
     { text:"W", value:1 }
   ];
 
+  // Nested submenu for editing each digit
   function showYearDigitsMenu() {
     var digits = getDigits();
-    var menu = {
-      "" : { "title" : "Edit Year" },
-      "< Back" : function() {
-        settings.myYear = Number(digits.join(""));
-        updateSettings();
-        showMainMenu();
-      }
-    };
 
-    ["Thousands", "Hundreds", "Tens", "Ones"].forEach(function(label, i) {
-      menu[label] = {
-        value: digits[i],
-        min: 0,
-        max: 9,
-        step: 1,
-        format: v => v.toString(),
-        onchange: v => { digits[i] = v; }
+    // Function to create the menu object dynamically
+    function makeMenu() {
+      var menu = {
+        "" : { "title" : digits.join("") }, // ✅ show current year at top
+        "< Back" : function() {
+          // Combine digits and save
+          settings.myYear = Number(digits.join(""));
+          updateSettings();
+          showMainMenu();
+        }
       };
-    });
 
-    E.showMenu(menu);
+      ["Thousands", "Hundreds", "Tens", "Ones"].forEach(function(label, i) {
+        menu[label] = {
+          value: digits[i],
+          min: 0,
+          max: 9,
+          step: 1,
+          format: v => v.toString(),
+          onchange: v => {
+            digits[i] = v;
+            E.showMenu(makeMenu()); // ✅ update menu title dynamically
+          }
+        };
+      });
+
+      return menu;
+    }
+
+    E.showMenu(makeMenu());
   }
-
+  
+  // Main menu
   var mainmenu = {
     "" : { "title" : "Hour Angle" },
     "< Back" : back,
-    "Year" : showYearDigitsMenu,  // ✅ added comma
+    "Year" : showYearDigitsMenu,
 
     /*LANG*/"Longitude °" : {
       value: getLonDegrees(),
@@ -91,7 +108,8 @@
       format: v => v === 0 ? "E" : "W",
       onchange: v => {
         settings.lonDir = v;
-        settings.longitude = v ? -Math.abs(settings.longitude) : Math.abs(settings.longitude);
+        settings.longitude = v ? -Math.abs(settings.longitude)
+                                :  Math.abs(settings.longitude);
         updateSettings();
       },
       submenu: directionOptions.reduce((m,opt)=>{
@@ -100,7 +118,7 @@
           onchange: () => {
             settings.lonDir = opt.value;
             settings.longitude = opt.value ? -Math.abs(settings.longitude)
-                                            : Math.abs(settings.longitude);
+                                            :  Math.abs(settings.longitude);
             updateSettings();
             E.showMenu(mainmenu);
           }
@@ -112,7 +130,7 @@
     /*LANG*/"Display Style" : {
       value: settings.displayStyle,
       min: 1,
-      max: 3, // ✅ corrected
+      max: 2, // ✅ only 2 styles
       step: 1,
       format: v => "Style " + v,
       onchange: v => {
