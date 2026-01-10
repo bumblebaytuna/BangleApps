@@ -46,9 +46,9 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 
 - Go into Bangle.js 2 > Settings > Apps > Hour Angle. 
 - Put in your location's longitude. This is deliberately kept simple, to a resolution of the nearest degree. This is because if you round your location's longitude to the nearest degree, the error on the Bangle.js 2 display will be less than a pixel wide.
-- Put in the validity years of your polarscope. The default is set to 2000 to 2030. If you do not know the validity years then don't worry, just take a rough stab at how old it is, it makes such a small position refinement it is not essential to be this accurate if you are using a camera star-tracker or doing visual telescope observing.
+- Put in the validity years of your polarscope, typically a 20-30 year period and normally written/etched onto the polarscope glass. The default is set to 2000 to 2030. If you do not know the validity years then don't worry, it makes such a small position refinement and is not essential unless you are doing high-magnification viewing or high-resolution imaging. If you are using a digital camera star-tracker or doing visual telescope observing then just take a rough stab at the validity years.
 - The app comes with two clockface styles. Style 1 is similar to polarscopes found in Takahashi, Orion, and Skywatcher equatorial mounts and camera star-trackers. Style 2 is similar to the polarscope found on a Move Shoot Move camera star-tracker.
-- Ensure your Watch time is correct. The apps only uses the watch's UTC time so do not worry if your watch is set to a different time zone.
+- Ensure your Watch time is correct. The app uses the watch's UTC time so do not worry if your watch is set to a different time zone.
 - Restart the app and it will draw the clockface and Polaris position based on your parameters
 
 ## Future Development
@@ -57,7 +57,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 - If you find any bugs just raise a request via BangleApps issues
 - I have limited time and resources to expand its capabilities, but this should not stop others developing a more capable fork if they wish to.
 - Happy to consider adding in extra polarscope display styles, just ask
-- Use of the watch's GPS to automatically collect your current latitude and time is under development and testing.
+- Use of the watch's GPS to automatically collect your current latitude and time has been developed and is undergoing field testing. Weather windows for astronomy can be short and I am unsure yet whether it is really a worthwhile capability to have due to the time needed to get a GPS fix (whereas manual input of your location in the settings is reliable and gives instant results).
   
 - I will never be expanding the app in the following area(s). If someone wishes to expand it for use in these areas then please by all means do so.
   i) Southern Hemisphere polar alignment (I think it unlikely of much use for a watch display this small)
