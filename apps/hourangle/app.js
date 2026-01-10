@@ -35,7 +35,7 @@ function loadSettings() {
 }
 
 // Save Settings
-function saveSettings() {require("Storage").writeJSON("hourangle.json", mysettings);}
+//function saveSettings() {require("Storage").writeJSON("hourangle.json", mySettings);}
 
 // ------------------------------------------
 // -------- GPS Control Functions --------
