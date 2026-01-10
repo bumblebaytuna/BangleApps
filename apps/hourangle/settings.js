@@ -1,8 +1,8 @@
-(function(back) {
-  // Your code here
+// settings.js must export a function that takes "back"
+exports = function(back) {
   var settings = require("Storage").readJSON("hourangle.settings.json",1) || {};
 
-  // --- Defaults ---
+  // Defaults
   if (settings.validityYearFrom === undefined) settings.validityYearFrom = 2000;
   if (settings.validityYearTo   === undefined) settings.validityYearTo   = 2030;
   if (settings.longitude === undefined) settings.longitude = 0;
@@ -14,7 +14,6 @@
     require("Storage").writeJSON("hourangle.settings.json", settings);
   }
 
-  // --- Helpers ---
   function getLonDegrees() { return Math.abs(settings.longitude); }
   function getLonDir() { return (settings.longitude < 0) ? "W" : "E"; }
   function updateLonFromUI(deg, dir) {
@@ -23,6 +22,7 @@
     updateSettings();
   }
 
+  // Split/Combine digits
   function splitDigits(year) {
     return [
       Math.floor(year / 1000),
@@ -62,7 +62,6 @@
     };
   }
 
-  // --- Main menu ---
   var mainmenu = {
     "" : { "title" : "Hour Angle" },
     "< Back" : back,
@@ -106,5 +105,4 @@
   };
 
   E.showMenu(mainmenu);
-
-})(); // <-- very important! closes the IIFE
+};
