@@ -8,6 +8,25 @@ The Pole Star (Polaris) is not in a fixed position. It completes one rotation ar
 
 This app mimics Polaris’s changing position as seen through a mount or star-tracker polar alignment scope.
 
+## Pictures
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="images/Display Style 1.png">
+        <img src="images/Display Style 1.png" width="200">
+      </a><br>
+      <em>Figure 1. Polarscope Display Style 1</em>
+    </td>
+    <td align="center">
+      <a href="images/Display Style 1.png">
+        <img src="images/Display Style 1.png" width="200">
+      </a><br>
+      <em>Figure 2. Polarscope Display Style 2</em>
+    </td>
+  </tr>
+</table>
+
 ## Usage
 
 The display is designed for Northern Hemisphere use only
