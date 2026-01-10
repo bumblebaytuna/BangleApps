@@ -29,7 +29,7 @@
   }
 
   // Define display style options
-  const displayOptions = [
+  const displayStyleOptions = [
     { text:"Style 1", value:1 },
     { text:"Style 2", value:2 },
     { text:"Style 3", value:3 }
@@ -91,7 +91,7 @@
         settings.displayStyle = v;
         updateSettings();
       },
-      submenu: displayOptions.reduce((m,opt)=>{
+      submenu: displayStyleOptions.reduce((m,opt)=>{
         m[opt.text] = {
           checked: settings.displayStyle === opt.value,
           onchange: () => {
