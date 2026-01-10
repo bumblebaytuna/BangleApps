@@ -42,30 +42,30 @@ function showMainSettingsMenu() {
     "": { "title": "Hour Angle" },
     "< Back": loadMainMenu,
     "Theme": {
-      value: settings.theme,
+      value: mySettings.theme,
       options: ["light", "dark"],
       format: v => v,
-      onchange: v => { settings.theme = v; saveSettings(); }
+      onchange: v => { mySettings.theme = v; saveSettings(); }
     },
     "Vibration": {
-      value: settings.vibration,
+      value: mySettings.vibration,
       format: v => v ? "On" : "Off",
-      onchange: v => { settings.vibration = v; saveSettings(); }
+      onchange: v => { mySettings.vibration = v; saveSettings(); }
     },
     "Brightness": {
-      value: settings.brightness,
+      value: mySettings.brightness,
       min: 0, max: 7, step: 1,
       onchange: v => {
-        settings.brightness = v;
+        mySettings.brightness = v;
         saveSettings();
         Bangle.setLCDBrightness(v);
       }
     },
     "Advanced": showAdvancedMenu, // Nested submenu!
     "Reset": () => {
-      settings = { theme: "light", vibration: true, brightness: 7, advancedOption: false };
+      mySettings = { theme: "light", vibration: true, brightness: 7, advancedOption: false };
       saveSettings();
-      Bangle.setLCDBrightness(settings.brightness);
+      Bangle.setLCDBrightness(mySettings.brightness);
       E.showMessage("Settings reset!");
     }
   });
@@ -77,10 +77,10 @@ function showAdvancedMenu() {
     "": { "title": "Advanced Settings" },
     "< Back": showSettingsMenu,
     "Advanced Option": {
-      value: settings.advancedOption,
+      value: mySettings.advancedOption,
       format: v => v ? "On" : "Off",
       onchange: v => {
-        settings.advancedOption = v;
+        mySettings.advancedOption = v;
         saveSettings();
         E.showMessage("Advanced Option " + (v ? "On" : "Off"));
       }
@@ -721,7 +721,7 @@ var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 E.showMenu({
   "": { "title": "MyAppName" },
   "Run": loadMainMenu,
-  "Settings": showSettingsMenu
+  "Settings": showMainSettingsMenu
 });
 
 // MAIN FEATURE START (Put inside a function)
