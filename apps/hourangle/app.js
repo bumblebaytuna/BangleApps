@@ -9,7 +9,7 @@ function loadSettings() {
   const STORAGE_FILE = "hourangle.json";
   
   // set default values in case settings file is missing
-  const DEFAULTS = {lonDegrees:-3, useGPS:1, reticuleRefreshIntervalMillisecs:30000, gpsfixWaitIntervalMillisecs:10000, backgroundColour:[1,1,1],reticuleColour:[0,0,0],polarisMarkerColour:[0,0,1],reticuleValidityYearStart:2000,reticuleValidityYearEnd:2030,reticuleStyle:1};
+  const DEFAULTS = {lonDegrees:-3, useGPS:0, reticuleRefreshIntervalMillisecs:30000, gpsfixWaitIntervalMillisecs:10000, backgroundColour:[1,1,1],reticuleColour:[0,0,0],polarisMarkerColour:[0,0,1],reticuleValidityYearStart:2000,reticuleValidityYearEnd:2030,reticuleStyle:1};
   // default lon location is London
   // latitude north is positive, south is negative
   // longitude east is positive, west is negative
@@ -617,18 +617,22 @@ function updateDisplay() {
   var cy = 88;         // reticule centre y
 
   // Clean the display
-  g.setColor(mySettings.backgroundColour[0], mySettings.backgroundColour[1], mySettings.backgroundColour[2]);
+  g.setColor(
+    mySettings.backgroundColour[0],
+    mySettings.backgroundColour[1],
+    mySettings.backgroundColour[2]
+  );
   g.clear();
 
   // Get the current theme (dark or light mode)
-
-    // Set colour based on theme
-    if (mySettings.backgroundColour == [0,0,0]) {
-      mySettings.reticuleColour = [1, 1, 1]; // White color for dark mode
+    if (mySettings.backgroundColour[0] === 0 &&
+    mySettings.backgroundColour[1] === 0 &&
+    mySettings.backgroundColour[2] === 0) {
+      mySettings.reticuleColour = [1, 1, 1]; // White reticule for dark mode
     } else {
-      mySettings.reticuleColour = [0, 0, 0]; // Black color for light mode
+      mySettings.reticuleColour = [0, 0, 0]; // Black reticule for light mode
     }
-
+  
   // Draw reticule in chosen style
   if (mySettings.reticuleStyle == 1) {
       drawPolarscopeReticuleTakOrionSkyWatcher(cx, cy, mySettings.reticuleColour, mySettings.polarisMarkerColour, mySettings.reticuleValidityYearStart, mySettings.reticuleValidityYearEnd, myYear, HA);
@@ -640,7 +644,7 @@ function updateDisplay() {
   g.flip();
   
   // Short vibration (buzz) to let owner know the display has refreshed (and to prompt owner if app is no longer being used)
-  //Bangle.buzz(100); // duration in ms
+  Bangle.buzz(100); // duration in ms
   
 }
 
@@ -666,6 +670,12 @@ var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 
 // Trigger fake GPS events every 10 seconds - ENABLE FOR TESTING ONLY
 setInterval(fakeGPSEvent, 10000);
+
+// --- Offline mode: draw immediately if GPS is not used ---
+if (mySettings.useGPS == 0) {
+  console.log("Offline mode, drawing reticule immediately");
+  startRefreshLoop();  // this calls updateDisplay immediately and starts the refresh loop
+}
 
 // functions to run depending on GPS requirement
 if (mySettings.useGPS == 1) {
