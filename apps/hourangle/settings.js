@@ -16,7 +16,7 @@ var mysettings = Object.assign({
 function writeSettings() {require('Storage').writeJSON(SETTINGS_FILE, mysettings);}
 
 
-// Create and show the settings menu
+// Create and show the top-level settings menu
 E.showMenu({
   //generic title and back button
   "" : { "title" : "App Name" },
