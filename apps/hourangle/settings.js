@@ -70,3 +70,70 @@
   var mainmenu = {
     "" : { "title" : "Hour Angle" },
     "< Back" : back,
+    "Year" : showYearDigitsMenu,  // ✅ added comma
+
+    /*LANG*/"Longitude °" : {
+      value: getLonDegrees(),
+      min: 0,
+      max: 180,
+      step: 1,
+      format: v => v + "°",
+      onchange: v => {
+        updateLonFromUI(v, getLonDir());
+      }
+    },
+
+    /*LANG*/"Longitude Dir" : {
+      value: settings.lonDir,
+      min: 0,
+      max: 1,
+      step: 1,
+      format: v => v === 0 ? "E" : "W",
+      onchange: v => {
+        settings.lonDir = v;
+        settings.longitude = v ? -Math.abs(settings.longitude) : Math.abs(settings.longitude);
+        updateSettings();
+      },
+      submenu: directionOptions.reduce((m,opt)=>{
+        m[opt.text] = {
+          checked: settings.lonDir === opt.value,
+          onchange: () => {
+            settings.lonDir = opt.value;
+            settings.longitude = opt.value ? -Math.abs(settings.longitude)
+                                            : Math.abs(settings.longitude);
+            updateSettings();
+            E.showMenu(mainmenu);
+          }
+        };
+        return m;
+      }, {})
+    },
+
+    /*LANG*/"Display Style" : {
+      value: settings.displayStyle,
+      min: 1,
+      max: 3, // ✅ corrected
+      step: 1,
+      format: v => "Style " + v,
+      onchange: v => {
+        settings.displayStyle = v;
+        updateSettings();
+      },
+      submenu: displayStyleOptions.reduce((m,opt)=>{
+        m[opt.text] = {
+          checked: settings.displayStyle === opt.value,
+          onchange: () => {
+            settings.displayStyle = opt.value;
+            updateSettings();
+            E.showMenu(mainmenu);
+          }
+        };
+        return m;
+      }, {})
+    },
+  };
+  
+  function showMainMenu() { E.showMenu(mainmenu); }
+
+  showMainMenu();
+})();
