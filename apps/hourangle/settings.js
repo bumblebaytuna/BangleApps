@@ -9,6 +9,7 @@
   if (!settings.displayStyle) settings.displayStyle = 1; // default style = 1
   if (settings.validityYearFrom === undefined) settings.validityYearFrom = 2000;
   if (settings.validityYearTo === undefined)   settings.validityYearTo   = 2030;
+  if (settings.myYear === undefined) settings.myYear = 2000;
 
   // Function to save settings
   function updateSettings() {
@@ -30,17 +31,10 @@
     updateSettings();
   }
 
-  // Year helpers
-  function splitDigits(year) {
-    return [
-      Math.floor(year / 1000),          // thousands
-      Math.floor((year % 1000) / 100),  // hundreds
-      Math.floor((year % 100) / 10),    // tens
-      year % 10                          // ones
-    ];
+  // Convert year to 4-digit array
+  function getDigits() {
+    return settings.myYear.toString().padStart(4,"0").split("").map(Number);
   }
-  
-  function combineDigits(d) { return d[0]*1000 + d[1]*100 + d[2]*10 + d[3]; }
   
   // Define display style options
   const displayStyleOptions = [
@@ -54,10 +48,39 @@
   { text:"W", value:1 }
 ];
 
+  // Nested submenu for editing each digit
+  function showYearDigitsMenu() {
+    var digits = getDigits();
+
+    var menu = {
+      "" : { "title" : "Edit Year" },
+      "< Back" : function() {
+        // Combine digits and save
+        settings.myYear = Number(digits.join(""));
+        updateSettings();
+        showMainMenu();
+      }
+    };
+
+    ["Thousands", "Hundreds", "Tens", "Ones"].forEach(function(label, i) {
+      menu[label] = {
+        value: digits[i],
+        min: 0,
+        max: 9,
+        step: 1,
+        format: v => v.toString(),
+        onchange: v => { digits[i] = v; }
+      };
+    });
+
+    E.showMenu(menu);
+  }
+  
   // Main menu
   var mainmenu = {
     "" : { "title" : "Hour Angle" },
     "< Back" : back,
+    "Year" : showYearDigitsMenu
 
     /*LANG*/"Longitude °" : {
       value: getLonDegrees(),
@@ -120,46 +143,7 @@
       }, {})
     },
   
-      // === VALIDITY YEARS ===
-    /*LANG*/"Valid From (YYYY)" : (() => {
-      let digits = splitDigits(settings.validityYearFrom);
-      return {
-        value: digits[0],
-        min: 1, max: 2, step: 1,
-        format: v => combineDigits([v,digits[1],digits[2],digits[3]]),
-        onchange: v => { digits[0] = v; settings.validityYearFrom = combineDigits(digits); updateSettings(); },
-        submenu: {
-          "Thousands": { value: digits[0], min: 1, max: 2, step: 1,
-            onchange: v => { digits[0]=v; settings.validityYearFrom = combineDigits(digits); updateSettings(); } },
-          "Hundreds":  { value: digits[1], min:0, max:9, step:1,
-            onchange: v => { digits[1]=v; settings.validityYearFrom = combineDigits(digits); updateSettings(); } },
-          "Tens":      { value: digits[2], min:0, max:9, step:1,
-            onchange: v => { digits[2]=v; settings.validityYearFrom = combineDigits(digits); updateSettings(); } },
-          "Ones":      { value: digits[3], min:0, max:9, step:1,
-            onchange: v => { digits[3]=v; settings.validityYearFrom = combineDigits(digits); updateSettings(); } }
-        }
-      };
-    })(),
 
-    /*LANG*/"Valid To (YYYY)" : (() => {
-      let digits = splitDigits(settings.validityYearTo);
-      return {
-        value: digits[0],
-        min: 1, max: 2, step: 1,
-        format: v => combineDigits([v,digits[1],digits[2],digits[3]]),
-        onchange: v => { digits[0] = v; settings.validityYearTo = combineDigits(digits); updateSettings(); },
-        submenu: {
-          "Thousands": { value: digits[0], min: 1, max: 2, step: 1,
-            onchange: v => { digits[0]=v; settings.validityYearTo = combineDigits(digits); updateSettings(); } },
-          "Hundreds":  { value: digits[1], min:0, max:9, step:1,
-            onchange: v => { digits[1]=v; settings.validityYearTo = combineDigits(digits); updateSettings(); } },
-          "Tens":      { value: digits[2], min:0, max:9, step:1,
-            onchange: v => { digits[2]=v; settings.validityYearTo = combineDigits(digits); updateSettings(); } },
-          "Ones":      { value: digits[3], min:0, max:9, step:1,
-            onchange: v => { digits[3]=v; settings.validityYearTo = combineDigits(digits); updateSettings(); } }
-        }
-      };
-    })()
   };
   
   E.showMenu(mainmenu);
