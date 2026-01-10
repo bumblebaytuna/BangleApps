@@ -44,4 +44,4 @@
 })
 
 // add this if testing using the Espruino WEB IDE. comment it out if using it for the actual app
-//(load)
+//(load);
