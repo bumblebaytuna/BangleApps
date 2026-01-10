@@ -13,14 +13,14 @@ This app mimics Polaris’s changing position as seen through a mount or star-tr
 <table>
   <tr>
     <td align="center">
-      <a href="images/Display Style 1.png">
-        <img src="images/Display Style 1.png" width="200">
+      <a href="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Display%20Style%201.png">
+        <img src="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Display%20Style%201.png" width="200">
       </a><br>
       <em>Figure 1. Polarscope Display Style 1</em>
     </td>
     <td align="center">
-      <a href="images/Display Style 1.png">
-        <img src="images/Display Style 1.png" width="200">
+      <a href="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Display%20Style%201.png">
+        <img src="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Display%20Style%201.png" width="200">
       </a><br>
       <em>Figure 2. Polarscope Display Style 2</em>
     </td>
