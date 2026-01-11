@@ -29,6 +29,7 @@ function showRootMenu() {
     "Run": loadMainApp,
     "Settings": showMainSettingsMenu,
     "Exit": () => load() // using load() always shows the watch's main menu
+    "Version": {value: mySettings.swVersion}, //read only
   //showMenu closure brackets
   });
 //function closure bracket
@@ -71,7 +72,6 @@ function showMainSettingsMenu() {
     "Longitude": showLongitudeMenu, // Opens nested submenu
     
     //common parts
-    "Version": {value: mySettings.swVersion}, //read only
     "Reset (immediate)": () => {
       mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
       saveSettings();
@@ -1062,7 +1062,7 @@ const DEFAULTS = {
   vibration: false, // test defaults to check settings menu structure is working properly
   brightness: 6, // test defaults to check settings menu structure is working properly
   advancedOption: false, // test defaults to check settings menu structure is working properly
-  swVersion: "0.27" // version of this software
+  swVersion: "0.28" // version of this software
 };
 
 // Collects the global app settings from the storage file, the loadSettings() function uses the above defaults if the settings file is missing or empty
