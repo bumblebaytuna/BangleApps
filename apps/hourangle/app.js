@@ -66,19 +66,22 @@ function showMainSettingsMenu() {
     "Start Year": showReticuleValidityStartYearMenu, // Opens nested submenu
 
     "End Year": showReticuleValidityEndYearMenu, // Opens nested submenu
+
+    var mylon = getLongitudeAngle();
+    "Current Longitude": {value: mylon}, //read only
     
-    "Longitude Direction": {
+    "Change Direction": {
       value: Number(mySettings.lonDirection),
-      min: 1,
-      max: 2,
+      min: 0,
+      max: 1,
       format: v => ["East","West"][v],
       onchange: v => {
         mySettings.lonDirection = ["East","West"][v];
         saveSettings();
       }
     },
-    
-    "Longitude Angle": showLongitudeAngleMenu, // Opens nested submenu
+
+    "Change Angle": showLongitudeAngleMenu, // Opens nested submenu
     
     //common parts
     "Version": {value: mySettings.swVersion}, //read only
