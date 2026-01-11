@@ -62,7 +62,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
       <a href="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Menu_Structure.png">
         <img src="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Menu_Structure.png" width="500">
       </a><br>
-      <em>Figure 4. Menu Structure in the App</em>
+      <em>Figure 4. Menu Structure in the App (Click to Expand) </em>
     </td>
   </tr>
 </table>
