@@ -10,8 +10,6 @@ Common wisdom is that the northern Pole Star (Polaris) marks the celestial pole.
 
 This app mimics Polaris’s position around the celestial pole at the current time and date. It resembles a clock-face but a full rotation represents **24 hours rather than 12**, corresponding to one daily rotation of Polaris around the Pole. Equatorial mounts and some star trackers are also fitted with a similar clock-face device called a polarscope. The exact alignment procedure depends on the telescope or star-tracker brand, but the aim is to get the position of Polaris on the polar-scope's clock face to match the position on the app's clockface.
 
-The app is designed for Northern Hemisphere use only
-
 <table>
   <tr>
     <td align="center">
@@ -33,6 +31,7 @@ The app is designed for Northern Hemisphere use only
 
 The exact alignment procedure depends on the telescope or star-tracker brand, but the goal is to match the polar-scope view of Polaris to that on the app.
 
+- Note this app is designed for Northern Hemisphere use only
 - Go into Bangle.js 2 > Settings > Apps > Hour Angle. 
 - Put in your location's longitude. This is deliberately kept to a resolution of the nearest degree. Round your location's longitude to the nearest degree and the position error on the Bangle.js 2 display will be less than a pixel wide (i.e not noticeable).
 - Put in the validity years of your polarscope, typically a 20-30 year period and normally written/etched into the polarscope view. If you do not know the validity years then don't worry, just make a rough estimate based on the age of the mount/star-tracker.
