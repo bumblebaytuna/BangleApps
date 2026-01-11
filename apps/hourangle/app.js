@@ -57,16 +57,18 @@ function showMainSettingsMenu() {
         mySettings.reticuleStyle = v;
         saveSettings();
       }  
-}
+    },
     "Longitude Angle": showLongitudeAngleMenu, // Nested submenu
     "Reset (immediate)": () => {
       mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
       saveSettings();
       Bangle.setLCDBrightness(mySettings.brightness);
       E.showMessage("Settings reset!");
-    }
+    },
     "Version": {value: mySettings.swVersion} //read only
+  //showMenu closure brackets
   });
+//function closure bracket
 }
 
 // Create Nested submenu example
@@ -102,6 +104,7 @@ function showLongitudeAngleMenu() {
     }
   //menu closure brackets
   });
+//function closure bracket
 }
 
 
