@@ -71,7 +71,7 @@ function showMainSettingsMenu() {
     
     "Reticule Start Year": showReticuleValidityStartYearMenu, // Opens nested submenu
 
-    "Reticule End Year": showReticuleValidityEndYearMenu, // Opens nested submenu
+    //"Reticule End Year": showReticuleValidityEndYearMenu, // Opens nested submenu
     
     "Longitude Direction": {
       value: Number(mySettings.lonDirection),
@@ -229,9 +229,9 @@ function getReticuleValidityStartYear() {
 }
 
 // Create reticule validity end year digits combiner
-function getReticuleValidityEndYear() {
-  return ((Number(mySettings.reticuleValidityEndYearThousands) * 100) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes));
-}
+//function getReticuleValidityEndYear() {
+//  return ((Number(mySettings.reticuleValidityEndYearThousands) * 100) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes));
+//}
 
 
 // ------------------------------------------
