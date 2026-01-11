@@ -12,19 +12,17 @@ This app mimics Polaris’s position around the celestial pole at the current ti
 
 The app is designed for Northern Hemisphere use only
 
-## Pictures
-
 <table>
   <tr>
     <td align="center">
-      <a href="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Display%20Style%201.png">
-        <img src="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Display%20Style%201.png" width="200">
+      <a href="/images/Display_Style_01.png">
+        <img src="/images/Display_Style_01.png" width="200">
       </a><br>
       <em>Figure 1. Polarscope Display Style 1</em>
     </td>
     <td align="center">
-      <a href="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Display%20Style%202.png">
-        <img src="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Display%20Style%202.png" width="200">
+      <a href="/images/Display_Style_02.png">
+        <img src="/images/Display_Style_02.png" width="200">
       </a><br>
       <em>Figure 2. Polarscope Display Style 2</em>
     </td>
@@ -42,6 +40,17 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 - Ensure your Watch time is correct. Do not worry if your watch is set to a different time zone, the app only uses the watch's UTC time signal.
 - Ensure your polarscope is correctly fitted and calibrated to your mount/star-tracker
 - Restart the app and it will draw the clockface and Polaris' position based on your parameters above
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="/images/Alignment_using_the_app.png">
+        <img src="/images/Alignment_using_the_app.png" width="500">
+      </a><br>
+      <em>Figure 3. Telescope/tracker Alignment Using the App</em>
+    </td>
+  </tr>
+</table>
 
 ## Future Development
 
