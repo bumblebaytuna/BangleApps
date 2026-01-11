@@ -758,10 +758,10 @@ function drawPolarscopeReticuleTakOrionSkyWatcher(cx, cy, reticuleColour, marker
 
   // Draw the labels:
   var labelRadius = 80;     // label radius
-  drawNumberAtAngle(cx, cy, labelRadius, "0", 180, -2, -1, reticuleColour);  // Display '0' at the 6 o'clock position
-  drawNumberAtAngle(cx, cy, labelRadius, "6", 90, -5, 0, reticuleColour);  // Display '6' at the 3 o'clock position
-  drawNumberAtAngle(cx, cy, labelRadius, "12", 0, -6, 2, reticuleColour);  // Display '12' at the 12 o'clock position
-  drawNumberAtAngle(cx, cy, labelRadius, "18", 270, -6, 0, reticuleColour);  // Display '18' at the 9 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "0", 180, -2, 6, reticuleColour);  // Display '0' at the 6 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "6", 90, -5, 7, reticuleColour);  // Display '6' at the 3 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "12", 0, -6, 9, reticuleColour);  // Display '12' at the 12 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "18", 270, -6, 7, reticuleColour);  // Display '18' at the 9 o'clock position
 
   // Draw PHA marker
   let reticuleLifeUsed = (reticuleValidityCurrentYear-reticuleValidityYearStart)/(reticuleValidityYearEnd-reticuleValidityYearStart);
@@ -815,10 +815,10 @@ function drawPolarscopeReticuleMoveShootMove(cx, cy, reticuleColour, markerColou
 
   // Draw the labels:
   var labelRadius = 80;     // label radius
-  drawNumberAtAngle(cx, cy, labelRadius, "0", 180, -2, -1, reticuleColour);  // Display '0' at the 6 o'clock position
-  drawNumberAtAngle(cx, cy, labelRadius, "6", 90, -5, 0, reticuleColour);  // Display '6' at the 3 o'clock position
-  drawNumberAtAngle(cx, cy, labelRadius, "12", 0, -6, 2, reticuleColour);  // Display '12' at the 12 o'clock position
-  drawNumberAtAngle(cx, cy, labelRadius, "18", 270, -6, 0, reticuleColour);  // Display '18' at the 9 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "0", 180, -2, 6, reticuleColour);  // Display '0' at the 6 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "6", 90, -5, 7, reticuleColour);  // Display '6' at the 3 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "12", 0, -6, 9, reticuleColour);  // Display '12' at the 12 o'clock position
+  drawNumberAtAngle(cx, cy, labelRadius, "18", 270, -6, 7, reticuleColour);  // Display '18' at the 9 o'clock position
 
   // Draw PHA marker
   let reticuleLifeUsed = (reticuleValidityCurrentYear-reticuleValidityYearStart)/(reticuleValidityYearEnd-reticuleValidityYearStart);
