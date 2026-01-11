@@ -284,18 +284,23 @@ function showReticuleValidityEndYearMenu() {
 
 // Create longitude angle digits combiner
 function getLongitudeAngle() {
-  
-  var myLongitudeAngleMod = ((Number(mySettings.lonAngleHundreds) * 100) + (Number(mySettings.lonAngleTens) * 10) + Number(mySettings.lonAngleOnes));
-  var myLongitudeAngle;
-  
-  if (lonDirection == "West") {
-    myLongitudeAngle = myLongitudeAngleMod * (-1)
-  else
-    myLongitudeAngle = myLongitudeAngleMod
-  };
 
-  return (myLongitudeAngle);
+  var myLongitudeAngleMod =
+    (Number(mySettings.lonAngleHundreds) * 100) +
+    (Number(mySettings.lonAngleTens) * 10) +
+    Number(mySettings.lonAngleOnes);
+
+  var myLongitudeAngle;
+
+  if (lonDirection == "West") {
+    myLongitudeAngle = myLongitudeAngleMod * (-1);
+  } else {
+    myLongitudeAngle = myLongitudeAngleMod;
+  }
+
+  return myLongitudeAngle;
 }
+
 
 // Create reticule validity start year digits combiner
 function getReticuleValidityStartYear() {
