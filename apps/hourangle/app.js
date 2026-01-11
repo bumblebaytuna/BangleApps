@@ -1,4 +1,4 @@
-// ------------------------------------------
+.// ------------------------------------------
 // -------- Settings Read-Write Functions --------
 // ------------------------------------------
 
@@ -292,7 +292,7 @@ function getLongitudeAngle() {
 
   var myLongitudeAngle;
 
-  if (lonDirection == "West") {
+  if (mySettings.lonDirection == "West") {
     myLongitudeAngle = myLongitudeAngleMod * (-1);
   } else {
     myLongitudeAngle = myLongitudeAngleMod;
@@ -304,7 +304,7 @@ function getLongitudeAngle() {
 
 // Create reticule validity start year digits combiner
 function getReticuleValidityStartYear() {
-  var myReticuleValidityStartYearMod = ((Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes));
+  var myReticuleValidityStartYear = ((Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes));
   return (myReticuleValidityStartYear);
 }
 
