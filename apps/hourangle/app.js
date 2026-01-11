@@ -56,6 +56,7 @@ function showMainSettingsMenu() {
       min: 1,
       max: 2,
       step: 1, 
+      format: v => v,
       onchange: v => {
         mySettings.reticuleStyle = v;
         saveSettings();
@@ -69,6 +70,7 @@ function showMainSettingsMenu() {
     "Longitude Direction": {
       value: Number(mySettings.lonDirection),
       options: {1: "East",2: "West"},
+      format: v => v,
       onchange: v => {
         mySettings.lonDirection = v;
         saveSettings();
@@ -108,7 +110,7 @@ function showLongitudeAngleMenu() {
       min: 0,
       max: 1,
       step: 1,
-      format: v => {,
+      format: v => v,
       onchange: v => {
         mySettings.lonAngleHundreds = v;
         saveSettings();
