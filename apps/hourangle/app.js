@@ -24,7 +24,7 @@ function saveSettings() {require("Storage").writeJSON(STORAGE_FILE, mySettings);
 function showRootMenu() {
   
   E.showMenu({
-    "": { "title": "Hour Angle" },
+    "": { "title": "Polaris Hour Angle" },
     "< Back": () => showRootMenu(), // for the button
     "Run": loadMainApp,
     "Settings": showMainSettingsMenu,
