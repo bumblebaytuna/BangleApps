@@ -15,7 +15,7 @@ The app is designed for Northern Hemisphere use only
 <table>
   <tr>
     <td align="center">
-      <a href="/images/Display_Style_01.png">
+      <a href="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Alignment_using_the_app.png)">
         <img src="/images/Display_Style_01.png" width="200">
       </a><br>
       <em>Figure 1. Polarscope Display Style 1</em>
@@ -44,8 +44,8 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 <table>
   <tr>
     <td align="center">
-      <a href="/images/Alignment_using_the_app.png">
-        <img src="/images/Alignment_using_the_app.png" width="500">
+      <a href="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Alignment_using_the_app.png">
+        <img src="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Alignment_using_the_app.png" width="500">
       </a><br>
       <em>Figure 3. Telescope/tracker Alignment Using the App</em>
     </td>
