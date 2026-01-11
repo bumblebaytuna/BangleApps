@@ -21,13 +21,26 @@ function saveSettings() {require("Storage").writeJSON(STORAGE_FILE, mySettings);
 // ---- Settings Menu Creation Functions ----
 // ------------------------------------------
 
+// Create Root Menu
+function showRootMenu() {
+  
+  E.showMenu({
+    "": { "title": "Hour Angle" },
+    "< Back": () => load(), // using load() always shows the watch's main menu
+    "Run": loadMainApp,
+    "Settings": showMainSettingsMenu
+  //showMenu closure brackets
+  });
+//function closure bracket
+}
+
 // Create Main Settings Menu
 function showMainSettingsMenu() {
  
   E.showMenu({
     //common parts
     "": { "title": "Settings" },
-    "< Back": () => load(), // using load() always shows the watch's main menu
+    "< Back": () => showRootMenu, 
     //custom parts
     "useGPS": {
       value: !!mySettings.useGPS,
@@ -848,11 +861,12 @@ let waitingPageIntervalID;  // for GPS waiting page
 var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 
 // MAIN APP START - Register the app in Bangle.js menu
-E.showMenu({
-  "": { "title": "Hour Angle" },
-  "Run": loadMainApp,
-  "Settings": showMainSettingsMenu
-});
+//E.showMenu({
+//  "": { "title": "Hour Angle" },
+//  "Run": loadMainApp,
+//  "Settings": showMainSettingsMenu
+//});
+showRootMenu();
 
 // MAIN FEATURE START (Put inside a function)
 
