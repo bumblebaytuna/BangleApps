@@ -53,7 +53,9 @@ function showMainSettingsMenu() {
     },
     "Style": {
       value: Number(mySettings.reticuleStyle),
-      options: {1: "Takahashi",2: "Move-Shoot-Move"},
+      min: 1,
+      max: 2,
+      step: 1, 
       onchange: v => {
         mySettings.reticuleStyle = v;
         saveSettings();
@@ -106,7 +108,7 @@ function showLongitudeAngleMenu() {
       min: 0,
       max: 1,
       step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      format: v => {,
       onchange: v => {
         mySettings.lonAngleHundreds = v;
         saveSettings();
@@ -279,17 +281,20 @@ function showReticuleValidityEndYearMenu() {
 
 // Create longitude angle digits combiner
 function getLongitudeAngle() {
-  return ((Number(mySettings.lonAngleHundreds) * 100) + (Number(mySettings.lonAngleTens) * 10) + Number(mySettings.lonAngleOnes));
+  var myLongitudeAngle = (Number(mySettings.lonAngleHundreds) * 100) + (Number(mySettings.lonAngleTens) * 10) + Number(mySettings.lonAngleOnes);
+  return (myLongitudeAngle);
 }
 
 // Create reticule validity start year digits combiner
 function getReticuleValidityStartYear() {
-  return ((Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes));
+  var myReticuleValidityStartYear = (Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes);
+  return (myReticuleValidityStartYear);
 }
 
 // Create reticule validity end year digits combiner
 function getReticuleValidityEndYear() {
-  return ((Number(mySettings.reticuleValidityEndYearThousands) * 100) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes));
+  var myReticuleValidityEndYear = (Number(mySettings.reticuleValidityEndYearThousands) * 1000) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes);
+  return (myReticuleValidityEndYear);
 }
 
 
