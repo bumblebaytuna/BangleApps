@@ -89,7 +89,7 @@ function showLongitudeAngleMenu() {
   
   E.showMenu({
     //common parts
-    "": { "title": "Longitude: " + angle + "°" },
+    "": { "title": "Longitude: " + lonangle + "°" },
     "< Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
