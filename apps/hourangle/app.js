@@ -225,7 +225,7 @@ function getLongitudeAngle() {
 
 // Create reticule validity start year digits combiner
 function getReticuleValidityStartYear() {
-  return ((Number(mySettings.reticuleValidityStartYearThousands) * 100) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes));
+  return ((Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes));
 }
 
 // Create reticule validity end year digits combiner
