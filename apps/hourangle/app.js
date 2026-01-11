@@ -704,7 +704,7 @@ function updateDisplay() {
   let dateObj = {year:myYear, month:myMonth, day:myDay, hour:myHour, min:myMinute, sec:mySecond};
 
   // Get location longitude
-  lonDegrees = Number(getLongitudeAngle());
+  var lonDegrees = Number(getLongitudeAngle());
   
   // Calculate Polaris Hour Angle for current location & time
   let HA = polarisHourAngle(lonDegrees, dateObj);
