@@ -281,19 +281,19 @@ function showReticuleValidityEndYearMenu() {
 
 // Create longitude angle digits combiner
 function getLongitudeAngle() {
-  var myLongitudeAngle = (Number(mySettings.lonAngleHundreds) * 100) + (Number(mySettings.lonAngleTens) * 10) + Number(mySettings.lonAngleOnes);
+  var myLongitudeAngle = ((Number(mySettings.lonAngleHundreds) * 100) + (Number(mySettings.lonAngleTens) * 10) + Number(mySettings.lonAngleOnes));
   return (myLongitudeAngle);
 }
 
 // Create reticule validity start year digits combiner
 function getReticuleValidityStartYear() {
-  var myReticuleValidityStartYear = (Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes);
+  var myReticuleValidityStartYear = ((Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes));
   return (myReticuleValidityStartYear);
 }
 
 // Create reticule validity end year digits combiner
 function getReticuleValidityEndYear() {
-  var myReticuleValidityEndYear = (Number(mySettings.reticuleValidityEndYearThousands) * 1000) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes);
+  var myReticuleValidityEndYear = ((Number(mySettings.reticuleValidityEndYearThousands) * 1000) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes));
   return (myReticuleValidityEndYear);
 }
 
