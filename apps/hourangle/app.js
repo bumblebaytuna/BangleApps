@@ -703,8 +703,11 @@ function updateDisplay() {
   // Declare time date object
   let dateObj = {year:myYear, month:myMonth, day:myDay, hour:myHour, min:myMinute, sec:mySecond};
 
+  // Get location longitude
+  lonDegrees = Number(getLongitudeAngle());
+  
   // Calculate Polaris Hour Angle for current location & time
-  let HA = polarisHourAngle(mySettings.lonDegrees, dateObj);
+  let HA = polarisHourAngle(lonDegrees, dateObj);
   console.log("Polaris Hour Angle =", HA.toFixed(2), "degrees");
 
   //set the reticule centre point
