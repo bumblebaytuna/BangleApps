@@ -14,7 +14,6 @@ function loadSettings() {
 }
 
 // Save Settings function
-//function saveSettings() {require("Storage").writeJSON("hourangle.json", mySettings);}
 function saveSettings() {require("Storage").writeJSON(STORAGE_FILE, mySettings);}
 
 // ------------------------------------------
@@ -40,7 +39,7 @@ function showMainSettingsMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Settings" },
-    "< Back": () => showRootMenu, 
+    "< Back": () => showRootMenu(), 
     //custom parts
     "useGPS": {
       value: !!mySettings.useGPS,
@@ -106,7 +105,7 @@ function showLongitudeAngleMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Longitude: " + lonangle + "°" },
-    "< Back": showMainSettingsMenu,
+    "< Back": showMainSettingsMenu(),
     //custom parts
     "Hundreds": {
       value: Number(mySettings.lonAngleHundreds),
@@ -158,7 +157,7 @@ function showReticuleValidityStartYearMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Start Year: " + validityStartYear + "°" },
-    "< Back": showMainSettingsMenu,
+    "< Back": showMainSettingsMenu(),
     //custom parts
     "Thousands": {
       value: Number(mySettings.reticuleValidityStartYearThousands),
@@ -167,7 +166,7 @@ function showReticuleValidityStartYearMenu() {
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        mySettings.lonAngleHundreds = v;
+        mySettings.reticuleValidityStartYearThousands = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
@@ -203,7 +202,7 @@ function showReticuleValidityStartYearMenu() {
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        mySettings.reticuleValidityStartYearTens = v;
+        mySettings.reticuleValidityStartYearOnes = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
@@ -219,17 +218,17 @@ function showReticuleValidityStartYearMenu() {
 
 // Create longitude angle digits combiner
 function getLongitudeAngle() {
-  return (Number(mySettings.lonAngleHundreds) * 100) + (Number(mySettings.lonAngleTens) * 10) + Number(mySettings.lonAngleOnes);
+  return ((Number(mySettings.lonAngleHundreds) * 100) + (Number(mySettings.lonAngleTens) * 10) + Number(mySettings.lonAngleOnes));
 }
 
 // Create reticule validity start year digits combiner
 function getReticuleValidityStartYear() {
-  return (Number(mySettings.reticuleValidityStartYearThousands) * 100) + Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes);
+  return ((Number(mySettings.reticuleValidityStartYearThousands) * 100) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes));
 }
 
 // Create reticule validity end year digits combiner
 function getReticuleValidityEndYear() {
-  return (Number(mySettings.reticuleValidityEndYearThousands) * 100) + Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes);
+  return ((Number(mySettings.reticuleValidityEndYearThousands) * 100) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes));
 }
 
 
