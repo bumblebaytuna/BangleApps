@@ -15,14 +15,14 @@ The app is designed for Northern Hemisphere use only
 <table>
   <tr>
     <td align="center">
-      <a href="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Alignment_using_the_app.png)">
-        <img src="/images/Display_Style_01.png" width="200">
+      <a href="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Display_Style_01.png">
+        <img src="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Display_Style_01.png" width="200">
       </a><br>
       <em>Figure 1. Polarscope Display Style 1</em>
     </td>
     <td align="center">
-      <a href="/images/Display_Style_02.png">
-        <img src="/images/Display_Style_02.png" width="200">
+      <a href="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Display_Style_02.png">
+        <img src="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Display_Style_02.png" width="200">
       </a><br>
       <em>Figure 2. Polarscope Display Style 2</em>
     </td>
