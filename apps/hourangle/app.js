@@ -45,24 +45,13 @@ function showMainSettingsMenu() {
     //custom parts
     "Use GPS": {
       value: !!mySettings.useGPS,
-      format: v => v ? true : false, // forces Boolean/Checkbox use
+      format: v => v ? "Yes" : "No",
       onchange: v => {
         mySettings.useGPS = v;
         saveSettings();
       }
     },
-    "Brightness": {
-      value: Number(mySettings.brightness),
-      min: 0,
-      max: 7,
-      step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
-      onchange: v => {
-        mySettings.brightness = v;
-        saveSettings();
-      }
-    },
-    "Reticule Style": {
+    "Style": {
       value: Number(mySettings.reticuleStyle),
       options: {1: "Takahashi",2: "Move-Shoot-Move"},
       onchange: v => {
@@ -71,9 +60,9 @@ function showMainSettingsMenu() {
       }  
     },
     
-    "Reticule Start Year": showReticuleValidityStartYearMenu, // Opens nested submenu
+    "Start Year": showReticuleValidityStartYearMenu, // Opens nested submenu
 
-    //"Reticule End Year": showReticuleValidityEndYearMenu, // Opens nested submenu
+    "End Year": showReticuleValidityEndYearMenu, // Opens nested submenu
     
     "Longitude Direction": {
       value: Number(mySettings.lonDirection),
