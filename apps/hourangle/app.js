@@ -30,9 +30,13 @@ function showMainSettingsMenu() {
     //custom parts
     "Longitude Direction": {
       value: mySettings.lonDirection,
-      options: ["East", "West"],
-      format: v => v.charAt(0).toUpperCase() + v.slice(1),
-      onchange: v => { mySettings.lonDirection = v; saveSettings(); }
+      options: {1: "East",2: "West"},
+      //format: v => v.charAt(0).toUpperCase() + v.slice(1),
+      //onchange: v => { mySettings.lonDirection = v; saveSettings(); },
+      onchange: v => {
+        mySettings.lonDirection = v;
+        saveSettings();
+      }
     },
     "useGPS": {
       value: mySettings.useGPS,
@@ -41,9 +45,10 @@ function showMainSettingsMenu() {
     },
     "Brightness": {
       value: mySettings.brightness,
-      min: 0,
-      max: 7,
-      step: 1,
+      options: {0,1,2,3,4,5,6,7,8,9},
+      //min: 0,
+      //max: 7,
+      //step: 1,
       format: v => v + String.fromCharCode(176), // this plus the min and max forces Spinner use
       onchange: v => {
         mySettings.brightness = v;
