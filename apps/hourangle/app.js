@@ -164,14 +164,13 @@ function showWaitingForGPS(messageColour) {
   // Remember old colour
   let oldColour = g.getColor();
 
-
   // Set new colour
-  g.setColor(messageColour[0], messageColour[1], messageColour[2]);
+  g.setColor(messageColour);
 
-  g.setColor(1,1,1); // white background
+  g.setColor("#FFFFFF"); // white background
   g.clear();
 
-  g.setColor(0,0,0); // black text
+  g.setColor("#000000"); // black text
   g.setFont("Vector",20);
   g.drawString("Waiting for", 35, 50);
   g.drawString(" GPS fix...", 35, 72);
@@ -250,7 +249,7 @@ function drawCircle(cx, cy, r, circleColour) {
   let oldColour = g.getColor();
 
   // Set new colour
-  g.setColor(circleColour[0], circleColour[1], circleColour[2]);
+  g.setColor(circleColour);
 
   // Draws a circle
   let x = 0;
@@ -293,7 +292,7 @@ function drawFilledCircle(cx, cy, r, circleColour) {
   let oldColour = g.getColor();
 
   // Set new colour
-  g.setColor(circleColour[0], circleColour[1], circleColour[2]);
+  g.setColor(circleColour);
   
   let x = 0;
   let y = r;
@@ -327,13 +326,13 @@ function drawFilledCircle(cx, cy, r, circleColour) {
 
 function drawDottedLine(x0, y0, x1, y1, dotSpacing, thickness, lineColour) {
   // Draws a dotted line with thickness
-  // color = [r,g,b], dotSpacing = pixels between dots, thickness = thickness of the line
+  // color = "#html", dotSpacing = pixels between dots, thickness = thickness of the line
 
   // Remember old colour
   let oldColour = g.getColor();
 
   // Set new colour
-  g.setColor(lineColour[0], lineColour[1], lineColour[2]);
+  g.setColor(lineColour);
 
   let dx = x1 - x0;
   let dy = y1 - y0;
@@ -363,7 +362,7 @@ function drawCustomLine(x0, y0, x1, y1, lineColour) {
   let oldColour = g.getColor();
 
   // Set new colour
-  g.setColor(lineColour[0], lineColour[1], lineColour[2]);
+  g.setColor(lineColour);
 
   // Draws a line
   g.drawLine(x0, y0, x1, y1);
@@ -385,7 +384,7 @@ function drawNumberAtAngle(cx, cy, radius, number, angle_deg, xoffset, yoffset, 
   let oldColour = g.getColor();
 
   // Set new colour
-  g.setColor(labelColour[0], labelColour[1], labelColour[2]);
+  g.setColor(labelColour);
  
   let angle = (90 - angle_deg) * Math.PI / 180;  // Anti-clockwise angle
 
@@ -425,7 +424,7 @@ function drawPolarisMarkerCircle(cx, cy, radius, HA_deg, size, markerColour) {
   let oldColour = g.getColor();
 
   // Set new colour
-  g.setColor(markerColour[0], markerColour[1], markerColour[2]);
+  g.setColor(markerColour);
 
   // let angle = (HA_deg - 90) * Math.PI / 180; // 0 deg at top, clockwise rotation
   // let angle = (90 + HA_deg) * Math.PI / 180;  // 0° at 6 o'clock, anti-clockwise rotation
@@ -451,7 +450,7 @@ function drawOuterTicks(cx, cy, radius, numberofticks, ticklength, tickColour) {
   let oldColour = g.getColor();
 
   // Set new colour
-  g.setColor(tickColour[0], tickColour[1], tickColour[2]);
+  g.setColor(tickColour);
   
   for (let i = 0; i < numberofticks; i++) {
 
@@ -480,7 +479,7 @@ function drawInnerTicks(cx, cy, radius, numberofticks, ticklength, tickColour) {
   let oldColour = g.getColor();
 
   // Set new colour
-  g.setColor(tickColour[0], tickColour[1], tickColour[2]);
+  g.setColor(tickColour);
 
   for (let i = 0; i < numberofticks; i++) {
 
@@ -509,7 +508,7 @@ function drawPolarscopeReticuleTakOrionSkyWatcher(cx, cy, reticuleColour, marker
   let oldColour = g.getColor();
 
   // Set new colour
-  g.setColor(reticuleColour[0], reticuleColour[1], reticuleColour[2]); 
+  g.setColor(reticuleColour); 
 
   // Draw the outer circle and markers
   var outercircleradius = 67;     // circle radius
@@ -564,7 +563,7 @@ function drawPolarscopeReticuleMoveShootMove(cx, cy, reticuleColour, markerColou
   let oldColour = g.getColor();
 
   // Set new colour
-  g.setColor(reticuleColour[0], reticuleColour[1], reticuleColour[2]);
+  g.setColor(reticuleColour);
 
   // Draw the outer circle (no markers)
   var outercircleradius = 67;     // circle radius
@@ -717,22 +716,18 @@ function updateDisplay() {
   var cy = 88;         // reticule centre y
 
   // Clean the display
-  g.setColor(
-    mySettings.backgroundColour[0],
-    mySettings.backgroundColour[1],
-    mySettings.backgroundColour[2]
-  );
+  g.setColor(mySettings.backgroundColour);
   g.clear();
 
   // Set the reticule colour based on the current theme (dark or light mode)
   if (g.theme.dark) {
     // Dark theme is active
     console.log("Watch is using dark theme, setting reticule to white");
-    mySettings.reticuleColour = [1, 1, 1]; // White reticule for dark mode
+    mySettings.reticuleColour = "#FFFFFF"; // White reticule for dark mode
   } else {
     // Light theme is active
     console.log("Watch is using light theme, setting reticule to dark");
-    mySettings.reticuleColour = [0, 0, 0]; // Black reticule for light mode
+    mySettings.reticuleColour = "#000000"; // Black reticule for light mode
   }
   
   // Draw reticule in chosen style
@@ -820,14 +815,13 @@ const DEFAULTS = {
   lonAngleHundreds:0,  // default lon location is 0 degrees
   lonAngleTens:0,  // default lon location is 0 degrees
   lonAngleOnes:0,  // default lon location is 0 degrees
-  lonAngleDegrees:0, // default lon location is 0 degrees
   lonDirection:1, // default is West. West = 1, east = 0
   useGPS:0, // default GPS use is disabled
   reticuleRefreshIntervalMillisecs:60000, // default app display refresh is every 60 secs
   gpsfixWaitIntervalMillisecs:10000, // default GPS first fix waiting interval between checks
-  backgroundColour:[1,1,1], // default background colour is white
-  reticuleColour:[0,0,0], // default polarscope reticule colour is black
-  polarisMarkerColour:[0,0,1], // default polaris marker colour and line is blue
+  backgroundColour:"#FFFFFF", // default background colour is white
+  reticuleColour:"#000000", // default polarscope reticule colour is black
+  polarisMarkerColour:"#0277BD", // default polaris marker colour and line is a blue/green which works in both light and dark mode
   reticuleValidityYearStart:2000, // default polarscope reticule validity period start is year 2000
   reticuleValidityYearEnd:2030, // default polarscope reticule validity period start is year 2030
   reticuleStyle:1, // default polarscope reticule style is 1 (for Takahashi, Orion, and Skywatcher mounts)
