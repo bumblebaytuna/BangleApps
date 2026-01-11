@@ -64,13 +64,14 @@ function showMainSettingsMenu() {
       }
     },
     "Longitude Angle": showLongitudeAngleMenu, // Nested submenu
+    //common parts
+    "Version": {value: mySettings.swVersion}, //read only
     "Reset (immediate)": () => {
       mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
       saveSettings();
       Bangle.setLCDBrightness(mySettings.brightness);
       E.showMessage("Settings reset!");
-    },
-    "Version": {value: mySettings.swVersion} //read only
+    }
   //showMenu closure brackets
   });
 //function closure bracket
