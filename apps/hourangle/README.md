@@ -8,7 +8,7 @@ Many astronomers and astrophotgraphers rely on using a telescope mount called an
 
 Common wisdom is that the nerthern Pole Star (Polaris) marks the celestial pole. In reality it is not, it is close, but slightly offset from it. This means it also does a full rotation around the celestial pole every day. Due to natural star movment it is also slowly moving away from the pole every year. 
 
-This app mimics Polaris’s position around the celestial pole at the current time and date. It resembles a clock-face but shows **24 hours rather than 12**, corresponding to one full daily rotation of Polaris around the Pole. Equatorial mounts and some star trackers are also fitted with a similar clock-face device called a polarscope. The exact alignment procedure depends on the telescope or star-tracker brand, but the aim is to get the position of Polaris on the polar-scope's clock face to match the position on the app's clockface.
+This app mimics Polaris’s position around the celestial pole at the current time and date. It resembles a clock-face but a full rotation represents **24 hours rather than 12**, corresponding to one daily rotation of Polaris around the Pole. Equatorial mounts and some star trackers are also fitted with a similar clock-face device called a polarscope. The exact alignment procedure depends on the telescope or star-tracker brand, but the aim is to get the position of Polaris on the polar-scope's clock face to match the position on the app's clockface.
 
 The app is designed for Northern Hemisphere use only
 
