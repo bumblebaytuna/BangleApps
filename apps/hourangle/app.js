@@ -28,8 +28,8 @@ function showRootMenu() {
     "< Back": () => showRootMenu(), // for the button
     "Run": loadMainApp,
     "Settings": showMainSettingsMenu,
-    "Exit": () => load() // using load() always shows the watch's main menu
-    "Version": {value: mySettings.swVersion}, //read only
+    "Exit": () => load(), // using load() always shows the watch's main menu
+    "Version": {value: mySettings.swVersion} //read only
   //showMenu closure brackets
   });
 //function closure bracket
