@@ -31,22 +31,33 @@ function showMainSettingsMenu() {
     "Longitude Direction": {
       value: mySettings.lonDirection,
       options: ["East", "West"],
-      format: v => v,
+      format: v => v.charAt(0).toUpperCase() + v.slice(1),
       onchange: v => { mySettings.lonDirection = v; saveSettings(); }
     },
     "useGPS": {
       value: mySettings.useGPS,
-      format: v => v ? "On" : "Off",
+      format: v => v ? true : false, // forces Boolean/Checkbox use
       onchange: v => { mySettings.useGPS = v; saveSettings(); }
     },
     "Brightness": {
       value: mySettings.brightness,
-      min: 0, max: 7, step: 1,
+      min: 0,
+      max: 7,
+      step: 1,
+      format: v => v + String.fromCharCode(176), // this plus the min and max forces Spinner use
       onchange: v => {
         mySettings.brightness = v;
         saveSettings();
       }
     },
+    "Reticule Style": {
+      value: mySettings.reticuleStyle,
+      options: {1: "Takahashi",2: "Move-Shoot-Move"},
+      onchange: v => {
+        mySettings.reticuleStyle = v;
+        saveSettings();
+      }  
+}
     "Longitude Angle": showLongitudeAngleMenu, // Nested submenu
     "Reset (immediate)": () => {
       mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
@@ -54,6 +65,7 @@ function showMainSettingsMenu() {
       Bangle.setLCDBrightness(mySettings.brightness);
       E.showMessage("Settings reset!");
     }
+    "Version": {value: mySettings.swVersion} //read only
   });
 }
 
@@ -783,7 +795,8 @@ const DEFAULTS = {
   theme: "dark", // test defaults to check settings menu structure is working properly
   vibration: false, // test defaults to check settings menu structure is working properly
   brightness: 6, // test defaults to check settings menu structure is working properly
-  advancedOption: false // test defaults to check settings menu structure is working properly
+  advancedOption: false, // test defaults to check settings menu structure is working properly
+  swVersion: "0.26" // version of this software
 };
 
 // Collects the global app settings from the storage file, the loadSettings() function uses the above defaults if the settings file is missing or empty
