@@ -289,7 +289,8 @@ function showLongitudeMenu() {
       format: v => ["East","West"][v],
       onchange: v => {
         mySettings.lonDirection = ["East","West"][v];
-        saveSettings();
+        saveSettings()
+        showLongitudeMenu();
       }
     },
 
