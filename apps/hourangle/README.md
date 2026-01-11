@@ -4,7 +4,7 @@ This app helps align your camera star-tracker or telescope equatorial mount with
 ## Background
 Due to the Earth's daily rotation the sky appears to rotate around an imaginary point known as the celestial pole. 
 
-Many astronomers and astrophotgraphers rely on using a telescope mount called an equatorial mount. It has to be accurately aligned with the celestial pole, and then a drive inside it follows the daily rotation of the sky. This makes it look to the observer/photographer like the sky is still. It stops objects drifting out of view, and/or long-exposure photographs smearing. More recently we have seen the arrival of portable mini equatorial mounts called star-trackers for people who want to take nightscape photos with DSLR cameras. Some of these also rely on accurate polar alignment. 
+Many astronomers and astrophotgraphers rely on using a telescope mount called an equatorial mount. It has to be accurately aligned with the celestial pole, and then a powered drive inside it (which can be anything from clockwork to electric) follows the daily rotation of the sky. This makes it look to the observer/photographer like the sky is still. It stops objects drifting out of view, and/or long-exposure photographs smearing. More recently we have seen the arrival of portable mini equatorial mounts called star-trackers for people who want to take nightscape photos with DSLR cameras. Some of these also rely on accurate polar alignment. 
 
 Common wisdom is that the nerthern Pole Star (Polaris) marks the celestial pole. In reality it is not, it is close, but slightly offset from it. This means it also does a full rotation around the celestial pole every day. Due to natural star movment it is also slowly moving away from the pole every year. 
 
