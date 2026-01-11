@@ -28,14 +28,6 @@ function showMainSettingsMenu() {
     "": { "title": "Settings" },
     "< Back": () => load(), // using load() always shows the watch's main menu
     //custom parts
-    "Longitude Direction": {
-      value: mySettings.lonDirection,
-      options: {1: "East",2: "West"},
-      onchange: v => {
-        mySettings.lonDirection = v;
-        saveSettings();
-      }
-    },
     "useGPS": {
       value: !!mySettings.useGPS,
       format: v => v ? true : false, // forces Boolean/Checkbox use
@@ -63,6 +55,14 @@ function showMainSettingsMenu() {
         saveSettings();
       }  
     },
+    "Longitude Direction": {
+      value: Number(mySettings.lonDirection),
+      options: {1: "East",2: "West"},
+      onchange: v => {
+        mySettings.lonDirection = v;
+        saveSettings();
+      }
+    },
     "Longitude Angle": showLongitudeAngleMenu, // Nested submenu
     "Reset (immediate)": () => {
       mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
@@ -76,11 +76,20 @@ function showMainSettingsMenu() {
 //function closure bracket
 }
 
+// Create longitude digits combiner
+function getLongitudeAngle() {
+  return (mySettings.lonAngleHundreds * 100) + (mySettings.lonAngleTens * 10) + mySettings.lonAngleOnes;
+}
+
 // Create Nested submenu example
 function showLongitudeAngleMenu() {
+  
+  // create the number for the title
+  let lonangle = getLongitudeAngle();
+  
   E.showMenu({
     //common parts
-    "": { "title": "Advanced Settings" },
+    "": { "title": "Longitude: " + angle + "°" },
     "< Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
@@ -92,6 +101,7 @@ function showLongitudeAngleMenu() {
       onchange: v => {
         mySettings.brightness = v;
         saveSettings();
+        showLongitudeAngleMenu(); // redraw menu so it updates the title
       }
     },
     "Tens": {
@@ -103,6 +113,7 @@ function showLongitudeAngleMenu() {
       onchange: v => {
         mySettings.brightness = v;
         saveSettings();
+        showLongitudeAngleMenu(); // redraw menu so it updates the title
       }
     },
     "Ones": {
@@ -114,6 +125,7 @@ function showLongitudeAngleMenu() {
       onchange: v => {
         mySettings.brightness = v;
         saveSettings();
+        showLongitudeAngleMenu(); // redraw menu so it updates the title
       }
     }
   //menu closure brackets
@@ -798,8 +810,11 @@ const STORAGE_FILE = "hourangle.settings.json";
 
 // sets default values in case settings file is missing or empty
 const DEFAULTS = {
-  lonDegrees:0, // default lon location is 0 degrees
-  lonDirection: "West", // default is West.
+  lonAngleHundreds:0,  // default lon location is 0 degrees
+  lonAngleTens:0,  // default lon location is 0 degrees
+  lonAngleOnes:0,  // default lon location is 0 degrees
+  lonAngleDegrees:0, // default lon location is 0 degrees
+  lonDirection:1, // default is West. West = 1, east = 0
   useGPS:0, // default GPS use is disabled
   reticuleRefreshIntervalMillisecs:60000, // default app display refresh is every 60 secs
   gpsfixWaitIntervalMillisecs:10000, // default GPS first fix waiting interval between checks
