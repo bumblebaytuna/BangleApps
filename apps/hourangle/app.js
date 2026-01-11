@@ -71,9 +71,9 @@ function showMainSettingsMenu() {
       value: Number(mySettings.lonDirection),
       min: 1,
       max: 2,
-      format: v => ["East","West"],[v],
+      format: v => ["East","West"][v],
       onchange: v => {
-        mySettings.lonDirection = ["East","West"],[v];
+        mySettings.lonDirection = ["East","West"][v];
         saveSettings();
       }
     },
