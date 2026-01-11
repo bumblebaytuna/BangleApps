@@ -27,7 +27,7 @@ function showRootMenu() {
     "": { "title": "Hour Angle" },
     "Run": loadMainApp,
     "Settings": showMainSettingsMenu,
-    "Exit": load // using load() always shows the watch's main menu
+    "Exit": () => load() // using load() always shows the watch's main menu
   //showMenu closure brackets
   });
 //function closure bracket
