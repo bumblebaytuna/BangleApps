@@ -25,7 +25,7 @@ function showRootMenu() {
   
   E.showMenu({
     "": { "title": "Hour Angle" },
-    "< Back": () => showRootMenu(),
+    "< Back": () => showRootMenu(), // for the button
     "Run": loadMainApp,
     "Settings": showMainSettingsMenu,
     "Exit": () => load() // using load() always shows the watch's main menu
@@ -40,7 +40,7 @@ function showMainSettingsMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Settings" },
-    "< Back": () => showRootMenu(),
+    "< Back": () => showRootMenu(),  // for the button
     "Back": showRootMenu,
     //custom parts
     "Use GPS": {
@@ -100,7 +100,7 @@ function showLongitudeAngleMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Longitude: " + lonangle + "°" },
-    "< Back": () => showMainSettingsMenu(),
+    "< Back": () => showMainSettingsMenu(),  // for the button
     "Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
@@ -153,7 +153,7 @@ function showReticuleValidityStartYearMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Start Year: " + validityStartYear + "°" },
-    "< Back": () => showMainSettingsMenu(),
+    "< Back": () => showMainSettingsMenu(),  // for the button
     "Back": showMainSettingsMenu,
     //custom parts
     "Thousands": {
@@ -218,7 +218,7 @@ function showReticuleValidityEndYearMenu() {
   E.showMenu({
     //common parts
     "": { "title": "End Year: " + validityEndYear + "°" },
-    "< Back": () => showMainSettingsMenu(),
+    "< Back": () => showMainSettingsMenu(),  // for the button
     "Back": showMainSettingsMenu,
     //custom parts
     "Thousands": {
