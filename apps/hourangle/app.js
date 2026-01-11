@@ -218,6 +218,72 @@ function showReticuleValidityStartYearMenu() {
 //function closure bracket
 }
 
+// Create Nested Reticule Validity End Year submenu
+function showReticuleValidityEndYearMenu() {
+  
+  // create the number for the title
+  let validityEndYear = getReticuleValidityEndYear();
+  
+  E.showMenu({
+    //common parts
+    "": { "title": "End Year: " + validityEndYear + "°" },
+    "< Back": () => showMainSettingsMenu(),
+    "Back": showMainSettingsMenu,
+    //custom parts
+    "Thousands": {
+      value: Number(mySettings.reticuleValidityEndYearThousands),
+      min: 1,
+      max: 2,
+      step: 1,
+      format: v => v, 
+      onchange: v => {
+        mySettings.reticuleValidityEndYearThousands = v;
+        saveSettings();
+        showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
+      }
+    },
+    "Hundreds": {
+      value: Number(mySettings.reticuleValidityEndYearHundreds),
+      min: 0,
+      max: 9,
+      step: 1,
+      format: v => v, 
+      onchange: v => {
+        mySettings.reticuleValidityEndYearHundreds = v;
+        saveSettings();
+        showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
+      }
+    },
+    "Tens": {
+      value: Number(mySettings.reticuleValidityEndYearTens),
+      min: 0,
+      max: 9,
+      step: 1,
+      format: v => v, 
+      onchange: v => {
+        mySettings.reticuleValidityEndYearTens = v;
+        saveSettings();
+        showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
+      }
+    },
+    "Ones": {
+      value: Number(mySettings.reticuleValidityEndYearOnes),
+      min: 0,
+      max: 9,
+      step: 1,
+      format: v => v, 
+      onchange: v => {
+        mySettings.reticuleValidityEndYearOnes = v;
+        saveSettings();
+        showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
+      }
+    }
+  //menu closure brackets
+  });
+//function closure bracket
+}
+
+
 // ------------------------------------------
 // --- Settings Digit Combiner Functions ----
 // ------------------------------------------
@@ -233,9 +299,9 @@ function getReticuleValidityStartYear() {
 }
 
 // Create reticule validity end year digits combiner
-//function getReticuleValidityEndYear() {
-//  return ((Number(mySettings.reticuleValidityEndYearThousands) * 100) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes));
-//}
+function getReticuleValidityEndYear() {
+  return ((Number(mySettings.reticuleValidityEndYearThousands) * 100) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes));
+}
 
 
 // ------------------------------------------
