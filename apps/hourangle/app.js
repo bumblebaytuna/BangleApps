@@ -284,13 +284,22 @@ function showReticuleValidityEndYearMenu() {
 
 // Create longitude angle digits combiner
 function getLongitudeAngle() {
-  var myLongitudeAngle = ((Number(mySettings.lonAngleHundreds) * 100) + (Number(mySettings.lonAngleTens) * 10) + Number(mySettings.lonAngleOnes));
+  
+  var myLongitudeAngleMod = ((Number(mySettings.lonAngleHundreds) * 100) + (Number(mySettings.lonAngleTens) * 10) + Number(mySettings.lonAngleOnes));
+  var myLongitudeAngle;
+  
+  if (lonDirection == "West") {
+    myLongitudeAngle = myLongitudeAngleMod * (-1)
+  else
+    myLongitudeAngle = myLongitudeAngleMod
+  };
+
   return (myLongitudeAngle);
 }
 
 // Create reticule validity start year digits combiner
 function getReticuleValidityStartYear() {
-  var myReticuleValidityStartYear = ((Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes));
+  var myReticuleValidityStartYearMod = ((Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes));
   return (myReticuleValidityStartYear);
 }
 
@@ -980,7 +989,7 @@ const DEFAULTS = {
   lonAngleHundreds:0,  // default lon location is 0 degrees
   lonAngleTens:0,  // default lon location is 0 degrees
   lonAngleOnes:0,  // default lon location is 0 degrees
-  lonDirection:1, // default is West. West = 1, east = 0
+  lonDirection:"West", // default is West. West = 1, east = 0
   useGPS:0, // default GPS use is disabled
   reticuleRefreshIntervalMillisecs:60000, // default app display refresh is every 60 secs
   gpsfixWaitIntervalMillisecs:10000, // default GPS first fix waiting interval between checks
