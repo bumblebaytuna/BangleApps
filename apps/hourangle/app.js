@@ -69,6 +69,9 @@ function showMainSettingsMenu() {
         saveSettings();
       }  
     },
+    
+    "Reticule Start Year": showReticuleValidityStartYearMenu, // Opens nested submenu
+    
     "Longitude Direction": {
       value: Number(mySettings.lonDirection),
       options: {1: "East",2: "West"},
@@ -77,7 +80,9 @@ function showMainSettingsMenu() {
         saveSettings();
       }
     },
-    "Longitude Angle": showLongitudeAngleMenu, // Nested submenu
+    
+    "Longitude Angle": showLongitudeAngleMenu, // Opens nested submenu
+    
     //common parts
     "Version": {value: mySettings.swVersion}, //read only
     "Reset (immediate)": () => {
@@ -91,12 +96,8 @@ function showMainSettingsMenu() {
 //function closure bracket
 }
 
-// Create longitude digits combiner
-function getLongitudeAngle() {
-  return (mySettings.lonAngleHundreds * 100) + (mySettings.lonAngleTens * 10) + mySettings.lonAngleOnes;
-}
 
-// Create Nested submenu example
+// Create Nested Longitude Angle submenu
 function showLongitudeAngleMenu() {
   
   // create the number for the title
@@ -146,6 +147,89 @@ function showLongitudeAngleMenu() {
   //menu closure brackets
   });
 //function closure bracket
+}
+
+// Create Nested Reticule Validity Start Year submenu
+function showReticuleValidityStartYearMenu() {
+  
+  // create the number for the title
+  let validityStartYear = getReticuleValidityStartYear();
+  
+  E.showMenu({
+    //common parts
+    "": { "title": "Start Year: " + validityStartYear + "°" },
+    "< Back": showMainSettingsMenu,
+    //custom parts
+    "Thousands": {
+      value: Number(mySettings.reticuleValidityStartYearThousands),
+      min: 1,
+      max: 2,
+      step: 1,
+      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      onchange: v => {
+        mySettings.lonAngleHundreds = v;
+        saveSettings();
+        showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
+      }
+    },
+    "Hundreds": {
+      value: Number(mySettings.reticuleValidityStartYearHundreds),
+      min: 0,
+      max: 9,
+      step: 1,
+      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      onchange: v => {
+        mySettings.reticuleValidityStartYearHundreds = v;
+        saveSettings();
+        showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
+      }
+    },
+    "Tens": {
+      value: Number(mySettings.reticuleValidityStartYearTens),
+      min: 0,
+      max: 9,
+      step: 1,
+      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      onchange: v => {
+        mySettings.reticuleValidityStartYearTens = v;
+        saveSettings();
+        showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
+      }
+    },
+    "Ones": {
+      value: Number(mySettings.reticuleValidityStartYearOnes),
+      min: 0,
+      max: 9,
+      step: 1,
+      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      onchange: v => {
+        mySettings.reticuleValidityStartYearTens = v;
+        saveSettings();
+        showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
+      }
+    }
+  //menu closure brackets
+  });
+//function closure bracket
+}
+
+// ------------------------------------------
+// --- Settings Digit Combiner Functions ----
+// ------------------------------------------
+
+// Create longitude angle digits combiner
+function getLongitudeAngle() {
+  return (Number(mySettings.lonAngleHundreds) * 100) + (Number(mySettings.lonAngleTens) * 10) + Number(mySettings.lonAngleOnes);
+}
+
+// Create reticule validity start year digits combiner
+function getReticuleValidityStartYear() {
+  return (Number(mySettings.reticuleValidityStartYearThousands) * 100) + Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes);
+}
+
+// Create reticule validity end year digits combiner
+function getReticuleValidityEndYear() {
+  return (Number(mySettings.reticuleValidityEndYearThousands) * 100) + Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes);
 }
 
 
@@ -839,11 +923,19 @@ const DEFAULTS = {
   reticuleValidityYearStart:2000, // default polarscope reticule validity period start is year 2000
   reticuleValidityYearEnd:2030, // default polarscope reticule validity period start is year 2030
   reticuleStyle:1, // default polarscope reticule style is 1 (for Takahashi, Orion, and Skywatcher mounts)
+  reticuleValidityStartYearThousands:2,  // default reticule validity start year is 2000
+  reticuleValidityStartYearHundreds:0,  // default reticule validity start year is 2000
+  reticuleValidityStartYearTens:0,  // default reticule validity start year is 2000
+  reticuleValidityStartYearOnes:0,  // default reticule validity start year is 2000
+  reticuleValidityEndYearThousands:2,  // default reticule validity end year is 2030
+  reticuleValidityEndYearHundreds:0,  // default reticule validity end year is 2030
+  reticuleValidityEndYearTens:3,  // default reticule validity end year is 2030
+  reticuleValidityEndYearOnes:0,  // default reticule validity end year is 2030
   theme: "dark", // test defaults to check settings menu structure is working properly
   vibration: false, // test defaults to check settings menu structure is working properly
   brightness: 6, // test defaults to check settings menu structure is working properly
   advancedOption: false, // test defaults to check settings menu structure is working properly
-  swVersion: "0.26" // version of this software
+  swVersion: "0.27" // version of this software
 };
 
 // Collects the global app settings from the storage file, the loadSettings() function uses the above defaults if the settings file is missing or empty
