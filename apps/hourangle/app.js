@@ -722,14 +722,16 @@ function updateDisplay() {
   );
   g.clear();
 
-  // Get the current theme (dark or light mode)
-    if (mySettings.backgroundColour[0] === 0 &&
-    mySettings.backgroundColour[1] === 0 &&
-    mySettings.backgroundColour[2] === 0) {
-      mySettings.reticuleColour = [1, 1, 1]; // White reticule for dark mode
-    } else {
-      mySettings.reticuleColour = [0, 0, 0]; // Black reticule for light mode
-    }
+  // Set the reticule colour based on the current theme (dark or light mode)
+  if (g.theme.dark) {
+    // Dark theme is active
+    console.log("Watch is using dark theme, setting reticule to white");
+    mySettings.reticuleColour = [1, 1, 1]; // White reticule for dark mode
+  } else {
+    // Light theme is active
+    console.log("Watch is using light theme, setting reticule to dark");
+    mySettings.reticuleColour = [0, 0, 0]; // Black reticule for light mode
+  }
   
   // Draw reticule in chosen style
   if (mySettings.reticuleStyle == 1) {
