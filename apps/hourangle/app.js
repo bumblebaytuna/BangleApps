@@ -25,6 +25,7 @@ function showRootMenu() {
   
   E.showMenu({
     "": { "title": "Hour Angle" },
+    "< Back": () => showRootMenu(),
     "Run": loadMainApp,
     "Settings": showMainSettingsMenu,
     "Exit": () => load() // using load() always shows the watch's main menu
@@ -39,6 +40,7 @@ function showMainSettingsMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Settings" },
+    "< Back": () => showRootMenu(),
     "Back": showRootMenu,
     //custom parts
     "Use GPS": {
@@ -107,6 +109,7 @@ function showLongitudeAngleMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Longitude: " + lonangle + "°" },
+    "< Back": () => showMainSettingsMenu(),
     "Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
@@ -159,6 +162,7 @@ function showReticuleValidityStartYearMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Start Year: " + validityStartYear + "°" },
+    "< Back": () => showMainSettingsMenu(),
     "Back": showMainSettingsMenu,
     //custom parts
     "Thousands": {
