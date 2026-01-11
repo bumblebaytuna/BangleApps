@@ -39,9 +39,9 @@ function showMainSettingsMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Settings" },
-    "< Back": () => showRootMenu(), 
+    "Back": showRootMenu,
     //custom parts
-    "useGPS": {
+    "Use GPS": {
       value: !!mySettings.useGPS,
       format: v => v ? true : false, // forces Boolean/Checkbox use
       onchange: v => {
@@ -107,7 +107,7 @@ function showLongitudeAngleMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Longitude: " + lonangle + "°" },
-    "< Back": showMainSettingsMenu(),
+    "Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
       value: Number(mySettings.lonAngleHundreds),
@@ -159,7 +159,7 @@ function showReticuleValidityStartYearMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Start Year: " + validityStartYear + "°" },
-    "< Back": showMainSettingsMenu(),
+    "Back": showMainSettingsMenu,
     //custom parts
     "Thousands": {
       value: Number(mySettings.reticuleValidityStartYearThousands),
