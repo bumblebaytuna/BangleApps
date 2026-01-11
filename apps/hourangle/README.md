@@ -56,6 +56,17 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 - All of your parameters will be saved in the watch. Just change the longitude value if you move location.
 - There is also a Reset option in the menu. This will set all parameters back to their default settings.
 
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Menu_Structure.png">
+        <img src="https://github.com/bumblebaytuna/BangleApps/blob/master/apps/hourangle/images/Menu_Structure.png" width="500">
+      </a><br>
+      <em>Figure 4. Menu Structure in the App</em>
+    </td>
+  </tr>
+</table>
+
 ## Future Development
 
 - This app reliably does the job for which it was intended and I use it myself
