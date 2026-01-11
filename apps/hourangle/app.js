@@ -69,10 +69,11 @@ function showMainSettingsMenu() {
     
     "Longitude Direction": {
       value: Number(mySettings.lonDirection),
-      options: {1: "East",2: "West"},
-      format: v => v,
+      min: 1,
+      max: 2,
+      format: v => ["East","West"],[v],
       onchange: v => {
-        mySettings.lonDirection = v;
+        mySettings.lonDirection = ["East","West"],[v];
         saveSettings();
       }
     },
