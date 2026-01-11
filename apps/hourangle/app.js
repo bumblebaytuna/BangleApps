@@ -93,37 +93,37 @@ function showLongitudeAngleMenu() {
     "< Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
-      value: Number(mySettings.brightness),
+      value: Number(mySettings.lonAngleHundreds),
       min: 0,
       max: 1,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        mySettings.brightness = v;
+        mySettings.lonAngleHundreds = v;
         saveSettings();
         showLongitudeAngleMenu(); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(mySettings.brightness),
+      value: Number(mySettings.lonAngleTens),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        mySettings.brightness = v;
+        mySettings.lonAngleTens = v;
         saveSettings();
         showLongitudeAngleMenu(); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(mySettings.brightness),
+      value: Number(mySettings.lonAngleOnes),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        mySettings.brightness = v;
+        mySettings.lonAngleOnes = v;
         saveSettings();
         showLongitudeAngleMenu(); // redraw menu so it updates the title
       }
