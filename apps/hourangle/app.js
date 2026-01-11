@@ -31,32 +31,32 @@ function showMainSettingsMenu() {
     "Longitude Direction": {
       value: mySettings.lonDirection,
       options: {1: "East",2: "West"},
-      //format: v => v.charAt(0).toUpperCase() + v.slice(1),
-      //onchange: v => { mySettings.lonDirection = v; saveSettings(); },
       onchange: v => {
         mySettings.lonDirection = v;
         saveSettings();
       }
     },
     "useGPS": {
-      value: mySettings.useGPS,
+      value: !!mySettings.useGPS,
       format: v => v ? true : false, // forces Boolean/Checkbox use
-      onchange: v => { mySettings.useGPS = v; saveSettings(); }
+      onchange: v => {
+        mySettings.useGPS = v;
+        saveSettings();
+      }
     },
     "Brightness": {
-      value: mySettings.brightness,
-      options: {0,1,2,3,4,5,6,7,8,9},
-      //min: 0,
-      //max: 7,
-      //step: 1,
-      format: v => v + String.fromCharCode(176), // this plus the min and max forces Spinner use
+      value: Number(mySettings.brightness),
+      min: 0,
+      max: 7,
+      step: 1,
+      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.brightness = v;
         saveSettings();
       }
     },
     "Reticule Style": {
-      value: mySettings.reticuleStyle,
+      value: Number(mySettings.reticuleStyle),
       options: {1: "Takahashi",2: "Move-Shoot-Move"},
       onchange: v => {
         mySettings.reticuleStyle = v;
@@ -84,24 +84,33 @@ function showLongitudeAngleMenu() {
     "< Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
-      value: mySettings.brightness,
-      min: 0, max: 1, step: 1,
+      value: Number(mySettings.brightness),
+      min: 0,
+      max: 1,
+      step: 1,
+      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.brightness = v;
         saveSettings();
       }
     },
     "Tens": {
-      value: mySettings.brightness,
-      min: 0, max: 9, step: 1,
+      value: Number(mySettings.brightness),
+      min: 0,
+      max: 9,
+      step: 1,
+      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.brightness = v;
         saveSettings();
       }
     },
     "Ones": {
-      value: mySettings.brightness,
-      min: 0, max: 9, step: 1,
+      value: Number(mySettings.brightness),
+      min: 0,
+      max: 9,
+      step: 1,
+      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.brightness = v;
         saveSettings();
