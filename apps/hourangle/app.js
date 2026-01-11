@@ -36,8 +36,6 @@ function showRootMenu() {
 
 // Create Main Settings Menu
 function showMainSettingsMenu() {
- 
-  var mylon = getLongitudeAngle();
   
   E.showMenu({
     //common parts
@@ -55,6 +53,7 @@ function showMainSettingsMenu() {
     //    saveSettings();
     //  }
     //},
+    
     "Style": {
       value: Number(mySettings.reticuleStyle),
       min: 1,
@@ -69,21 +68,7 @@ function showMainSettingsMenu() {
     
     "Start Year": showReticuleValidityStartYearMenu, // Opens nested submenu
     "End Year": showReticuleValidityEndYearMenu, // Opens nested submenu
-    
-    "Current Longitude": {value: mylon}, //read only
-    
-    "Change Direction": {
-      value: Number(mySettings.lonDirection),
-      min: 0,
-      max: 1,
-      format: v => ["East","West"][v],
-      onchange: v => {
-        mySettings.lonDirection = ["East","West"][v];
-        saveSettings();
-      }
-    },
-
-    "Change Angle": showLongitudeAngleMenu, // Opens nested submenu
+    "Longitude": showLongitudeMenu, // Opens nested submenu
     
     //common parts
     "Version": {value: mySettings.swVersion}, //read only
@@ -99,7 +84,7 @@ function showMainSettingsMenu() {
 }
 
 
-// Create Nested Longitude Angle submenu
+// Create Longitude Angle change submenu
 function showLongitudeAngleMenu() {
   
   // create the number for the title
@@ -152,7 +137,7 @@ function showLongitudeAngleMenu() {
 //function closure bracket
 }
 
-// Create Nested Reticule Validity Start Year submenu
+// Create Reticule Validity Start Year change submenu
 function showReticuleValidityStartYearMenu() {
   
   // create the number for the title
@@ -217,7 +202,7 @@ function showReticuleValidityStartYearMenu() {
 //function closure bracket
 }
 
-// Create Nested Reticule Validity End Year submenu
+// Create Reticule Validity End Year change submenu
 function showReticuleValidityEndYearMenu() {
   
   // create the number for the title
@@ -228,6 +213,7 @@ function showReticuleValidityEndYearMenu() {
     "": { "title": "End Year: " + validityEndYear },
     "< Back": () => showMainSettingsMenu(),  // for the button
     "Back": showMainSettingsMenu,
+    
     //custom parts
     "Thousands": {
       value: Number(mySettings.reticuleValidityEndYearThousands),
@@ -282,6 +268,38 @@ function showReticuleValidityEndYearMenu() {
 //function closure bracket
 }
 
+// Create Longitude submenu
+function showLongitudeMenu() {
+   
+  var mylon = getLongitudeAngle();
+  
+  E.showMenu({
+    //common parts
+    "": { "title": "Longitude" },
+    "< Back": () => showMainSettingsMenu(), // for the button
+    "Back": showMainSettingsMenu,
+
+    //custom parts
+    "Current Longitude": {value: mylon}, //read only
+    
+    "Change Direction": {
+      value: Number(mySettings.lonDirection),
+      min: 0,
+      max: 1,
+      format: v => ["East","West"][v],
+      onchange: v => {
+        mySettings.lonDirection = ["East","West"][v];
+        saveSettings();
+      }
+    },
+
+    "Change Angle": showLongitudeAngleMenu // Opens nested submenu
+    
+  //showMenu closure brackets
+  });
+  
+//function closure bracket
+}
 
 // ------------------------------------------
 // --- Settings Digit Combiner Functions ----
