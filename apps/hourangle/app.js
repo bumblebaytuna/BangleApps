@@ -37,6 +37,8 @@ function showRootMenu() {
 // Create Main Settings Menu
 function showMainSettingsMenu() {
  
+  var mylon = getLongitudeAngle();
+  
   E.showMenu({
     //common parts
     "": { "title": "Settings" },
@@ -64,10 +66,8 @@ function showMainSettingsMenu() {
     },
     
     "Start Year": showReticuleValidityStartYearMenu, // Opens nested submenu
-
     "End Year": showReticuleValidityEndYearMenu, // Opens nested submenu
-
-    var mylon = getLongitudeAngle();
+    
     "Current Longitude": {value: mylon}, //read only
     
     "Change Direction": {
