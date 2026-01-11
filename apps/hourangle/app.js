@@ -84,59 +84,6 @@ function showMainSettingsMenu() {
 }
 
 
-// Create Longitude Angle change submenu
-function showLongitudeAngleMenu() {
-  
-  // create the number for the title
-  let lonangle = getLongitudeAngleNumeric();
-  
-  E.showMenu({
-    //common parts
-    "": { "title": "Longitude: " + lonangle + "°" },
-    "< Back": () => showMainSettingsMenu(),  // for the button
-    "Back": showMainSettingsMenu,
-    //custom parts
-    "Hundreds": {
-      value: Number(mySettings.lonAngleHundreds),
-      min: 0,
-      max: 1,
-      step: 1,
-      format: v => v,
-      onchange: v => {
-        mySettings.lonAngleHundreds = v;
-        saveSettings();
-        showLongitudeAngleMenu(); // redraw menu so it updates the title
-      }
-    },
-    "Tens": {
-      value: Number(mySettings.lonAngleTens),
-      min: 0,
-      max: 9,
-      step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
-      onchange: v => {
-        mySettings.lonAngleTens = v;
-        saveSettings();
-        showLongitudeAngleMenu(); // redraw menu so it updates the title
-      }
-    },
-    "Ones": {
-      value: Number(mySettings.lonAngleOnes),
-      min: 0,
-      max: 9,
-      step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
-      onchange: v => {
-        mySettings.lonAngleOnes = v;
-        saveSettings();
-        showLongitudeAngleMenu(); // redraw menu so it updates the title
-      }
-    }
-  //menu closure brackets
-  });
-//function closure bracket
-}
-
 // Create Reticule Validity Start Year change submenu
 function showReticuleValidityStartYearMenu() {
   
@@ -294,11 +241,64 @@ function showLongitudeMenu() {
       }
     },
 
-    "Change Angle": showLongitudeAngleMenu // Opens nested submenu
+    "Change Angle": showLongitudeAngleChangeMenu // Opens nested submenu
     
   //showMenu closure brackets
   });
   
+//function closure bracket
+}
+
+// Create Longitude Angle change submenu
+function showLongitudeAngleChangeMenu() {
+  
+  // create the number for the title
+  let lonangle = getLongitudeAngleString();
+  
+  E.showMenu({
+    //common parts
+    "": { "title": "Longitude: " + lonangle },
+    "< Back": () => showMainSettingsMenu(),  // for the button
+    "Back": showMainSettingsMenu,
+    //custom parts
+    "Hundreds": {
+      value: Number(mySettings.lonAngleHundreds),
+      min: 0,
+      max: 1,
+      step: 1,
+      format: v => v,
+      onchange: v => {
+        mySettings.lonAngleHundreds = v;
+        saveSettings();
+        showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
+      }
+    },
+    "Tens": {
+      value: Number(mySettings.lonAngleTens),
+      min: 0,
+      max: 9,
+      step: 1,
+      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      onchange: v => {
+        mySettings.lonAngleTens = v;
+        saveSettings();
+        showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
+      }
+    },
+    "Ones": {
+      value: Number(mySettings.lonAngleOnes),
+      min: 0,
+      max: 9,
+      step: 1,
+      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      onchange: v => {
+        mySettings.lonAngleOnes = v;
+        saveSettings();
+        showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
+      }
+    }
+  //menu closure brackets
+  });
 //function closure bracket
 }
 
