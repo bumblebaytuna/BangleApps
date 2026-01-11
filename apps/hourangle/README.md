@@ -27,18 +27,20 @@ This app mimics Polaris’s position around the celestial pole at the current ti
   </tr>
 </table>
 
-## Usage
+## Setup
 
 The exact alignment procedure depends on the telescope or star-tracker brand, but the goal is to match the polar-scope view of Polaris to that on the app.
 
 - Note this app is designed for Northern Hemisphere use only
-- Go into Bangle.js 2 > Settings > Apps > Hour Angle. 
+- Go into Bangle.js 2 > Polaris Hour Angle.
+- The first menu gives you achoice of Run or Settings. Choose Settings 
 - Set your location's longitude, both the angle (in degrees) and whether it is East or West. The angle is to a resolution of the nearest degree. Just round your location's longitude to the nearest degree and the position error on the Bangle.js 2 display will be less than a pixel wide (i.e not noticeable).
 - Set the validity years of your polarscope. It is typically a 20-30 year period and normally written/etched into the polarscope view. If you do not know the validity years then don't worry, just make a rough estimate based on the age of the mount/star-tracker.
 - Set the clock-face style to display. The app currently comes with two clock-faces. Style 1 is similar to polarscopes found in Takahashi, Orion, and Skywatcher equatorial mounts and camera star-trackers. Style 2 is similar to the polarscope for a Move Shoot Move camera star-tracker.
 - Ensure your Bangle watch time is correct. Do not worry if your watch is set to a different time zone, the app only uses the watch's UTC time signal.
 - Ensure your polarscope is correctly fitted and calibrated to your mount/star-tracker
-- Restart the app and it will draw the clockface and Polaris' position based on your parameters above
+- Restart the app and choose Run. It will draw the clockface and Polaris' position based on your parameters above
+- Match your polar-scope view of Polaris to that on the app
 
 <table>
   <tr>
@@ -50,6 +52,9 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
     </td>
   </tr>
 </table>
+
+- All of your parameters will be saved in the watch. Just change the longitude value if you move location.
+- There is also a Reset option in the menu. This will set all parameters back to their default settings.
 
 ## Future Development
 
