@@ -24,9 +24,6 @@ function saveSettings() {require("Storage").writeJSON(STORAGE_FILE, mySettings);
 // Create Main Settings Menu
 function showMainSettingsMenu() {
  
-  // get the current longitude angle for the longitude settings title
-  let lonangle = getLongitudeAngle();
-  
   E.showMenu({
     //common parts
     "": { "title": "Settings" },
@@ -67,7 +64,7 @@ function showMainSettingsMenu() {
         saveSettings();
       }
     },
-    "Longitude Angle + lonangle + "°"": showLongitudeAngleMenu, // Nested submenu
+    "Longitude Angle": showLongitudeAngleMenu, // Nested submenu
     //common parts
     "Version": {value: mySettings.swVersion}, //read only
     "Reset (immediate)": () => {
