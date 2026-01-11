@@ -44,15 +44,17 @@ function showMainSettingsMenu() {
     "": { "title": "Settings" },
     "< Back": () => showRootMenu(),  // for the button
     "Back": showRootMenu,
+    
     //custom parts
-    "Use GPS": {
-      value: !!mySettings.useGPS,
-      format: v => v ? "Yes" : "No",
-      onchange: v => {
-        mySettings.useGPS = v;
-        saveSettings();
-      }
-    },
+    
+    //"Use GPS": {
+    //  value: !!mySettings.useGPS,
+    //  format: v => v ? "Yes" : "No",
+    //  onchange: v => {
+    //    mySettings.useGPS = v;
+    //    saveSettings();
+    //  }
+    //},
     "Style": {
       value: Number(mySettings.reticuleStyle),
       min: 1,
@@ -158,7 +160,7 @@ function showReticuleValidityStartYearMenu() {
   
   E.showMenu({
     //common parts
-    "": { "title": "Start Year: " + validityStartYear + "°" },
+    "": { "title": "Start Year: " + validityStartYear },
     "< Back": () => showMainSettingsMenu(),  // for the button
     "Back": showMainSettingsMenu,
     //custom parts
@@ -223,7 +225,7 @@ function showReticuleValidityEndYearMenu() {
   
   E.showMenu({
     //common parts
-    "": { "title": "End Year: " + validityEndYear + "°" },
+    "": { "title": "End Year: " + validityEndYear },
     "< Back": () => showMainSettingsMenu(),  // for the button
     "Back": showMainSettingsMenu,
     //custom parts
