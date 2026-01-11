@@ -88,7 +88,7 @@ function showMainSettingsMenu() {
 function showLongitudeAngleMenu() {
   
   // create the number for the title
-  let lonangle = getLongitudeAngle();
+  let lonangle = getLongitudeAngleNumeric();
   
   E.showMenu({
     //common parts
@@ -271,7 +271,7 @@ function showReticuleValidityEndYearMenu() {
 // Create Longitude submenu
 function showLongitudeMenu() {
    
-  var mylon = getLongitudeAngle();
+  var mylon = getLongitudeAngleString();
   
   E.showMenu({
     //common parts
@@ -280,7 +280,7 @@ function showLongitudeMenu() {
     "Back": showMainSettingsMenu,
 
     //custom parts
-    "Current Longitude": {value: mylon}, //read only
+    "Current": {value: mylon}, //read only
     
     "Change Direction": {
       value: Number(mySettings.lonDirection),
@@ -305,8 +305,8 @@ function showLongitudeMenu() {
 // --- Settings Digit Combiner Functions ----
 // ------------------------------------------
 
-// Create longitude angle digits combiner
-function getLongitudeAngle() {
+// Create numeric longitude angle from settings digits
+function getLongitudeAngleNumeric() {
 
   var myLongitudeAngleMod =
     (Number(mySettings.lonAngleHundreds) * 100) +
@@ -319,6 +319,25 @@ function getLongitudeAngle() {
     myLongitudeAngle = myLongitudeAngleMod * (-1);
   } else {
     myLongitudeAngle = myLongitudeAngleMod;
+  }
+
+  return myLongitudeAngle;
+}
+
+// Create string longitude angle from settings digits
+function getLongitudeAngleString() {
+
+  var myLongitudeAngleMod =
+    (Number(mySettings.lonAngleHundreds) * 100) +
+    (Number(mySettings.lonAngleTens) * 10) +
+    Number(mySettings.lonAngleOnes);
+
+  var myLongitudeAngle;
+
+  if (mySettings.lonDirection == "West") {
+    myLongitudeAngle = myLongitudeAngleMod + "° W";
+  } else {
+    myLongitudeAngle = myLongitudeAngleMod + "° E";
   }
 
   return myLongitudeAngle;
