@@ -543,7 +543,7 @@ function drawPolarscopeReticuleTakOrionSkyWatcher(cx, cy, reticuleColour, marker
   let reticuleLifeUsed = (reticuleValidityCurrentYear-reticuleValidityYearStart)/(reticuleValidityYearEnd-reticuleValidityYearStart);
   console.log("Reticule Life Used =", reticuleLifeUsed.toFixed(2));
   let polarisMarkerReticuleRadius = innercircleradius+((outercircleradius-innercircleradius)*reticuleLifeUsed);
-  let polarisMarker = drawPolarisMarkerCircle(cx, cy, polarisMarkerReticuleRadius, hourAngle, 3, markerColour);
+  let polarisMarker = drawPolarisMarkerCircle(cx, cy, polarisMarkerReticuleRadius, hourAngle, mySettings.polarisMarkerSize, markerColour);
 
   // Draw dotted line from center of reticule to the PHA marker
   drawDottedLine(cx, cy, polarisMarker.x, polarisMarker.y, 6, 2, markerColour);
@@ -600,7 +600,7 @@ function drawPolarscopeReticuleMoveShootMove(cx, cy, reticuleColour, markerColou
   let reticuleLifeUsed = (reticuleValidityCurrentYear-reticuleValidityYearStart)/(reticuleValidityYearEnd-reticuleValidityYearStart);
   console.log("Reticule Life Used =", reticuleLifeUsed.toFixed(2));
   let polarisMarkerReticuleRadius = innercircleradius+((outercircleradius-innercircleradius)*reticuleLifeUsed);
-  let polarisMarker = drawPolarisMarkerCircle(cx, cy, polarisMarkerReticuleRadius, hourAngle, 3, markerColour);
+  let polarisMarker = drawPolarisMarkerCircle(cx, cy, polarisMarkerReticuleRadius, hourAngle, mySettings.polarisMarkerSize, markerColour);
 
   // Draw dotted line from center of reticule to the PHA marker
   drawDottedLine(cx, cy, polarisMarker.x, polarisMarker.y, 6, 2, markerColour);
@@ -822,6 +822,7 @@ const DEFAULTS = {
   backgroundColour:"#FFFFFF", // default background colour is white
   reticuleColour:"#000000", // default polarscope reticule colour is black
   polarisMarkerColour:"#0277BD", // default polaris marker colour and line is a blue/green which works in both light and dark mode
+  polarisMarkerSize:5, // default polaris marker size is 5
   reticuleValidityYearStart:2000, // default polarscope reticule validity period start is year 2000
   reticuleValidityYearEnd:2030, // default polarscope reticule validity period start is year 2030
   reticuleStyle:1, // default polarscope reticule style is 1 (for Takahashi, Orion, and Skywatcher mounts)
