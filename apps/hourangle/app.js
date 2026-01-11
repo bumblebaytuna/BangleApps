@@ -70,6 +70,8 @@ function showMainSettingsMenu() {
     },
     
     "Reticule Start Year": showReticuleValidityStartYearMenu, // Opens nested submenu
+
+    "Reticule End Year": showReticuleValidityEndYearMenu, // Opens nested submenu
     
     "Longitude Direction": {
       value: Number(mySettings.lonDirection),
