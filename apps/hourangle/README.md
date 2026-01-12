@@ -10,6 +10,7 @@ Common wisdom is that the northern Pole Star (Polaris) marks the celestial pole.
 
 This app mimics Polaris’s position around the celestial pole at the current time and date. It resembles a clock-face. Equatorial mounts and some star trackers are fitted with a similar clock-face device called a polarscope. The exact alignment procedure depends on the telescope or star-tracker brand, but the aim is to get the position of Polaris on the polar-scope's clock face to match the position on the app's clockface.
 
+
 <table>
   <tr>
     <td align="center">
@@ -27,10 +28,12 @@ This app mimics Polaris’s position around the celestial pole at the current ti
   </tr>
 </table>
 
+
 ## Setup
 
 The exact alignment procedure depends on the telescope or star-tracker brand, but the goal is to match the polar-scope view of Polaris to that on the app. Note this app is designed for Northern Hemisphere use only
 - If you get stuck at any point during this initial setup procedure, familiarise yourself with the app's menu structure shown below.
+
 
 <table>
   <tr>
@@ -42,6 +45,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
     </td>
   </tr>
 </table>
+
 
 **Preparation**
 - First ensure you know
@@ -68,6 +72,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 - Start the app and choose Run. It will draw the clockface and Polaris' position based on your settings
 - Match your polar-scope view of Polaris to that on the app
 
+
 <table>
   <tr>
     <td align="center">
@@ -78,6 +83,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
     </td>
   </tr>
 </table>
+
 
 
 ## Future Development
