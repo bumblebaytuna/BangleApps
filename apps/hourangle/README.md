@@ -97,7 +97,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 
 - Because I have limited time and resources I will never be extending the app to cover the following features, please don't waste time asking for them.
   
-  - **Southern Hemisphere polar alignment**. I think it unikely practical or useful on a watch display this small
+  - **Southern Hemisphere polar alignment**. I think it unlikely practical or useful on a watch display this small, sorry
     
   - **Support for Bangle.js 1**. It doesn't have enough memory to run the app.
   
