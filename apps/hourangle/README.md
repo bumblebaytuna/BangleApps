@@ -101,7 +101,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
     
   - **Support for Bangle.js 1**. It doesn't have enough memory to run the app.
   
-  - **Reliance on a data connection to another device (e.g. mobile phone)**. This feature will never be offered, the design philosophy of this app is for it to be simple, reliable, and standalone/off-grid.
+  - **Reliance on a data connection to another device (e.g. mobile phone)**. This feature will never be offered, the design philosophy is for it to be simple, reliable, and standalone/off-grid.
 
 ## References
 
