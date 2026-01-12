@@ -54,10 +54,10 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 - It will show the first menu and give you a choice of Run, Settings, or Exit.
 - Choose Settings, and adjust the settings described below
   
-- **Settings > Longitude**: Set your location's longitude. The angle is to a resolution of the nearest degree. Just round your location's longitude to the nearest degree and the position error on the Bangle.js 2 display will be less than a pixel wide (i.e not noticeable). The default setting is 0 degrees West.
-- **Settings > Start Year**: Set the starting validity year of your polarscope. The default setting is the year 2000.
-- **Settings > End Year**: Set the starting validity year of your polarscope. The default setting is the year 2030.
-- **Settings > Style**: Choose a clock-face style to display. The app currently comes with two clock-faces. Style 1 is similar to polarscopes found in Takahashi, Orion, and Skywatcher equatorial mounts and camera star-trackers. Style 2 is similar to the polarscope for a Move-Shoot-Move camera star-tracker.
+  - **Settings > Longitude**: Set your location's longitude. The angle is to a resolution of the nearest degree. Just round your location's longitude to the nearest degree and the position error on the Bangle.js 2 display will be less than a pixel wide (i.e not noticeable). The default setting is 0 degrees West.
+  - **Settings > Start Year**: Set the starting validity year of your polarscope. The default setting is the year 2000.
+  - **Settings > End Year**: Set the starting validity year of your polarscope. The default setting is the year 2030.
+  - **Settings > Style**: Choose a clock-face style to display. The app currently comes with two clock-faces. Style 1 is similar to polarscopes found in Takahashi, Orion, and Skywatcher equatorial mounts and camera star-trackers. Style 2 is similar to the polarscope for a Move-Shoot-Move camera star-tracker.
 - All of your parameters will be saved in the watch.
 - You only need to adjust the longitude value if you significantly change location. You only need to adjust the validity years if you buy a new mount or polarscope.
 - There is also a Reset option in the menu. This will set all parameters back to their default settings.
