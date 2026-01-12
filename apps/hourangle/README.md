@@ -53,7 +53,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
     - The longitude of your observing location (in degrees, and whether it is East or West)
     - The validity years of your mount/star-tracker's polarscope. Typically 20-30 years, and is normally written/etched onto the polarscope view. If you do not know the validity years then don't worry, just make a rough estimate based on the age of your mount/star-tracker.
 
-**App setup**
+**App Setup**
 - Then go into the Bangle.js 2 launcher > Hour Angle.
 - It will show the first menu and give you a choice of Run, Settings, or Exit.
 - Choose Settings, and adjust the settings described below
@@ -66,7 +66,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 - You only need to adjust the longitude value if you significantly change location. You only need to adjust the validity years if you buy a new mount or polarscope.
 - There is also a Reset option in the menu. This will set all parameters back to their default settings.
 
-**Using the App outside**
+**Using Outside**
 - Ensure your Bangle watch time is correct. Don't worry if you are in a different time zone, the app only uses the watch's UTC time signal.
 - Ensure your polarscope is correctly fitted and calibrated to your mount/star-tracker
 - Start the app and choose Run. It will draw the clockface and Polaris' position based on your settings
