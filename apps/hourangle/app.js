@@ -652,8 +652,7 @@ function drawPolarisMarkerCircle(cx, cy, radius, HA_deg, size, markerColour) {
 
   // let angle = (HA_deg - 90) * Math.PI / 180; // 0 deg at top, clockwise rotation
   // let angle = (90 + HA_deg) * Math.PI / 180;  // 0° at 6 o'clock, anti-clockwise rotation
-  //let angle = (90 - HA_deg) * Math.PI / 180;  // anti-clockwise rotation from 6 o'clock - OLD
-  let angle = (HA_deg * Math.PI / 180) - (Math.PI / 2);   // anti-clockwise rotation from 6 o'clock
+  let angle = (90 - HA_deg) * Math.PI / 180;  // anti-clockwise rotation from 6 o'clock
   let x = cx + Math.round(radius * Math.cos(angle));
   let y = cy + Math.round(radius * Math.sin(angle));
 
@@ -850,42 +849,70 @@ function polarisHourAngle(lon, dateObj) {
   // Based on 'Astronomical Algorithms 2nd Edition, Jean Meeus
   
   // get the date parameters
+  //let Y = dateObj.year;
+  //let M = dateObj.month;
+  //let Dzero = dateObj.day; 
   let Y = dateObj.year;
   let M = dateObj.month;
-  let D = dateObj.day + dateObj.hour/24 + dateObj.min/(24*60) + dateObj.sec/(24*3600); // Note this is the Day fraction, not the day. e.g midday on the first day of the month is 1.5
+  let D = dateObj.day + (dateObj.hour/24) + (dateObj.min/(24*60)) + (dateObj.sec/(24*60*60)); // Note this is the Day decimal, not the whole day. e.g midday on the first day of the month is 1.5
 
   // Meeus, Chapter 7. If the month number (M) is >2, leave the year (Y) and month (M) unchanged. If M = 1 or 2, replace Y with Y-1, and M with M+12. i.e. if the date is in Jan or Feb, it is considered the 13th or 14th month of the previous year
   if (M <= 2) { Y -= 1; M += 12; }
 
+  console.log("Y =", Y);
+  console.log("M =", M);
+  console.log("D =", D);
+  
   // If converting from a Gregorian calendar, Calculate A and B as below
   let A = Math.floor(Y/100);
   let B = 2 - A + Math.floor(A/4);
+  console.log("A =", A);
+  console.log("B =", B);
 
   // Calculate the Julian Day at that date and time
   let JD = Math.floor(365.25*(Y+4716)) + Math.floor(30.6001*(M+1)) + D + B - 1524.5;
+  console.log("JD =", JD);
   
-  // Meeus, Chapter 12, Calculate Greenwich Sidereal Time in degrees at that date and time
-  let T = (JD - 2451545.0)/36525;
-  let GST = 280.46061837 + (360.98564736629*(JD-2451545)) + (0.000387933*T*T) - (T*T*T/38710000);
-
-  // Convert to a 0-360 degree angle
+  // Meeus, Chapter 12, Calculate Local Sidereal Time at Greenwich (Greenwich Sidereal Time) in degrees at that date and time
+  let T = (JD - 2451545.0)/36525.0; // measured in centuries
+  console.log("T =", T, "centuries");
+  let GST = 280.46061837 + (360.98564736629*(JD-2451545.0)) + (0.000387933*T*T) - (T*T*T/38710000.0);
+  
+   // Convert to a 0-360 degree angle
   GST = GST % 360;
   if (GST < 0) GST += 360;
-
-  // Meeus, Chapter 13, Calculate the Local Sidereal Time for the observong location
-  let LST = GST + lon;  // longitude east positive version
+  console.log("GST =", GST, "degrees at that instant"); // Works fine to here
+  
+  // Meeus, Chapter 13, Calculate the Local Sidereal Time for the observing location
+  let LST = GST +lon;  // longitude east positive version
+  console.log("Longitude =", lon, "degrees");
 
   // Convert to a 0-360 degree angle
   LST = LST % 360;
   if (LST < 0) LST += 360;
 
-  //Polaris' Right Ascension is 40.41°
-  let polarisRA = 40.41;
+  //Polaris' Right Ascension is 40.409° (J2000 epoch)
+  let polarisRAatJ2000 = 37.954540;
 
-   // Calculate Hour Angle for Polaris at that date and time
-  let HA = LST - polarisRA;
-  if (HA < 0) HA += 360;
-  return HA;
+  // the Right Ascension for Polaris is based on the J2000 epoch and so now needs to be
+  // offset to account for precession, nutation, and aberration since that epoch
+  // this is done by a single formula,   // Meeus, Chapter 21
+  let yearssinceJ2000epoch = T*100; //centuries (T) since J2000 epoch * 100
+  let nutationchangeperyear = 0.014; //degrees per year, valid approximation for the next 50-100 years
+  let correctionoffset = yearssinceJ2000epoch*nutationchangeperyear;
+
+  let adjustedRA = polarisRAatJ2000 + correctionoffset;
+  console.log("Adjusted RA =", adjustedRA, "degrees");
+  
+   // Calculate Hour Angle (in degrees) for Polaris at that date and time
+  let HAdegrees = LST - adjustedRA;
+  
+  // Convert to a 0-360 degree angle
+  if (HAdegrees < 0) HAdegrees += 360;
+  
+  // Output
+  console.log("Polaris Hour Angle =", HAdegrees.toFixed(2), "degrees");
+  return HAdegrees;
 }
 
 
@@ -945,6 +972,7 @@ function updateDisplay() {
   var lonDegrees = Number(getLongitudeAngleNumeric());
   
   // Calculate Polaris Hour Angle for current location & time
+  console.log("Longitude =", lonDegrees, "degrees");
   let HA = polarisHourAngle(lonDegrees, dateObj);
   console.log("Polaris Hour Angle =", HA.toFixed(2), "degrees");
 
