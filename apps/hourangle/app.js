@@ -845,31 +845,43 @@ function drawPolarscopeReticuleMoveShootMove(cx, cy, reticuleColour, markerColou
 
 // --- Hour Angle Calculation ---
 function polarisHourAngle(lon, dateObj) {
+  
+  // Based on 'Astronomical Algorithms 2nd Edition, Jean Meeus
+  
+  // get the date parameters
   let Y = dateObj.year;
   let M = dateObj.month;
-  let D = dateObj.day + dateObj.hour/24 + dateObj.min/(24*60) + dateObj.sec/(24*3600);
+  let D = dateObj.day + dateObj.hour/24 + dateObj.min/(24*60) + dateObj.sec/(24*3600); // Note this is the Day fraction, not the day. e.g midday on the first day of the month is 1.5
 
+  // Meeus, Chapter 7. If the month number (M) is >2, leave the year (Y) and month (M) unchanged. If M = 1 or 2, replace Y with Y-1, and M with M+12. i.e. if the date is in Jan or Feb, it is considered the 13th or 14th month of the previous year
   if (M <= 2) { Y -= 1; M += 12; }
 
+  // If converting from a Gregorian calendar, Calculate A and B as below
   let A = Math.floor(Y/100);
   let B = 2 - A + Math.floor(A/4);
 
+  // Calculate the Julian Day at that date and time
   let JD = Math.floor(365.25*(Y+4716)) + Math.floor(30.6001*(M+1)) + D + B - 1524.5;
-
-  // Greenwich Sidereal Time in degrees
+  
+  // Meeus, Chapter 12, Calculate Greenwich Sidereal Time in degrees at that date and time
   let T = (JD - 2451545.0)/36525;
-  let GST = 280.46061837 + 360.98564736629*(JD-2451545) + 0.000387933*T*T - T*T*T/38710000;
+  let GST = 280.46061837 + (360.98564736629*(JD-2451545)) + (0.000387933*T*T) - (T*T*T/38710000);
+
+  // Convert to a 0-360 degree angle
   GST = GST % 360;
   if (GST < 0) GST += 360;
 
-  // Local Sidereal Time
-  let LST = GST + lon;  // longitude east positive
+  // Meeus, Chapter 13, Calculate the Local Sidereal Time for the observong location
+  let LST = GST + lon;  // longitude east positive version
+
+  // Convert to a 0-360 degree angle
   LST = LST % 360;
   if (LST < 0) LST += 360;
 
-  // Polaris RA H 40.41°
+  //Polaris' Right Ascension is 40.41°
   let polarisRA = 40.41;
 
+   // Calculate Hour Angle for Polaris at that date and time
   let HA = LST - polarisRA;
   if (HA < 0) HA += 360;
   return HA;
