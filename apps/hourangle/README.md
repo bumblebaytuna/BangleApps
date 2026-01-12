@@ -30,7 +30,7 @@ This app mimics Polaris’s position around the celestial pole at the current ti
 ## Setup
 
 The exact alignment procedure depends on the telescope or star-tracker brand, but the goal is to match the polar-scope view of Polaris to that on the app. Note this app is designed for Northern Hemisphere use only
-- If you get stuck at any point, familiarise yourself with the menu structure shown below.
+- If you get stuck at any point during this initial setup procedure, familiarise yourself with the app's menu structure shown below.
 
 <table>
   <tr>
