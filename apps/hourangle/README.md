@@ -82,7 +82,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 
 ## Future Development
 
-- I designed this app many years ago and have ported it to various devices. It reliably does the job for which it was intended. I regularly use it and thoroughly field-test it myself.
+- I designed this app many years ago and have ported it to various devices. It reliably does the job for which it was intended and I regularly use it myself.
 - If you spot a bug please raise a request via the BangleApps issues
 - I'm happy to consider adding extra polarscope clockface styles, just ask via BangleApps
 - Use of the watch's GPS to automatically collect your current longitude and time has been developed and is undergoing field testing. I am unsure yet if it really is a feature worth having due to the time it takes to get a GPS fix, whereas manual input of location in the settings is always reliable and gives instant results. I would rather this app is reliable and bullet-proof, there are already enough things that can go wrong when doing astronomy/astrophotography.
