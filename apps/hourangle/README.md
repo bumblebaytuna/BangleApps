@@ -86,7 +86,11 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 - If you spot a bug please raise a request via the BangleApps issues
 - I'm happy to consider adding extra polarscope clockface styles, just ask via BangleApps
 - Use of the watch's GPS to automatically collect the current longitude and time has been developed and is undergoing field testing. I am unsure yet if it is a feature worth having due to the time it takes and reliaiblity of getting a GPS fix, whereas manual location input is reliable and gives instant results. I would rather this app is known for being reliable and bullet-proof, there are already enough things that can go wrong when doing astronomy/astrophotography.
+
+## Limitations
+
 - Because I have limited time and resources I will not be extending the app to cover the following areas, so please don't waste time asking.
+  
   - i) Southern Hemisphere polar alignment. I think it unikely practical or useful on a watch display this small
   - ii) Support for Bangle.js 1. I can only guarantee it working on the Espruino WEB IDE Bangle.js 1 emulator. Use it at your own risk.
   - iii) Reliance on a data connection to another device (e.g. mobile phone). These types of features will never be offered, the whole point is for it to be usable standalone/off-grid.
