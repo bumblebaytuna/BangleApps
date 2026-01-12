@@ -63,7 +63,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 - There is also a Reset option in the menu. This will set all parameters back to their default settings.
 
 **Using the App outside**
-- Ensure your Bangle watch time is correct. Do not worry if your watch is set to a different time zone, the app only uses the watch's UTC time signal.
+- Ensure your Bangle watch time is correct. Don't worry if you are in a different time zone, the app only uses the watch's UTC time signal.
 - Ensure your polarscope is correctly fitted and calibrated to your mount/star-tracker
 - Start the app and choose Run. It will draw the clockface and Polaris' position based on your settings
 - Match your polar-scope view of Polaris to that on the app
