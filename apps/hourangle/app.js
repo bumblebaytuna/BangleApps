@@ -652,7 +652,8 @@ function drawPolarisMarkerCircle(cx, cy, radius, HA_deg, size, markerColour) {
 
   // let angle = (HA_deg - 90) * Math.PI / 180; // 0 deg at top, clockwise rotation
   // let angle = (90 + HA_deg) * Math.PI / 180;  // 0° at 6 o'clock, anti-clockwise rotation
-  let angle = (90 - HA_deg) * Math.PI / 180;  // anti-clockwise rotation from 6 o'clock
+  //let angle = (90 - HA_deg) * Math.PI / 180;  // anti-clockwise rotation from 6 o'clock - OLD
+  let angle = (HA_deg * Math.PI / 180) - (Math.PI / 2);   // anti-clockwise rotation from 6 o'clock
   let x = cx + Math.round(radius * Math.cos(angle));
   let y = cy + Math.round(radius * Math.sin(angle));
 
