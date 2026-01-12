@@ -45,8 +45,8 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 
 **Preparation**
 - First ensure you know
-  i) the longitude of your observing locatiom, and
-  ii) the validity years of the polarscope on your mount/star-tracker. Polarscopes have a period for which they are vaild, typically 20-30 years, and is normally written/etched into the polarscope view. If you do not know the validity years then don't worry, just make a rough estimate based on the age of your mount/star-tracker.
+    - i) the longitude of your observing locatiom, and
+    - ii) the validity years of the polarscope on your mount/star-tracker. Polarscopes have a period for which they are vaild, typically 20-30 years, and is normally written/etched into the polarscope view. If you do not know the validity years then don't worry, just make a rough estimate based on the age of your mount/star-tracker.
 
 **App setup**
 - Then go into the Bangle.js 2 launcher > Hour Angle.
