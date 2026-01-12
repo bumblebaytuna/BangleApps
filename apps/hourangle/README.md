@@ -92,9 +92,12 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 - Because I have limited time and resources I will not be extending the app to cover the following areas, so please don't waste time asking.
   
   - i) Southern Hemisphere polar alignment. I think it unikely practical or useful on a watch display this small
+    
   - ii) Support for Bangle.js 1. I can only guarantee it working on the Espruino WEB IDE Bangle.js 1 emulator. Use it at your own risk.
+  
   - iii) Reliance on a data connection to another device (e.g. mobile phone). These types of features will never be offered, the whole point is for it to be usable standalone/off-grid.
-  - iv) Red mode to protect night vision. Yes I know ths is a subject with lots of opinion. Red colour does have the least effect on night-vision, but practically it is also one of the most difficult colours to read. I will never be developing a pure red colour mode for that reason. This app needs to be usable by people with non-perfect eyesight. If the future Bangle.js 3 is produced with a higher colour-depth display then I may consider a mode which mixes in a little green light with the red (e.g an orange mode) which will make it much easier to read, but I can't properly do that at present with a Bangle.js 2 display.
+  
+  - iv) Red mode to protect night vision. Yes I know ths is a subject charged with lots of opinion and emotion. Red colour does have the least effect on night-vision, but practically it is also one of the most difficult colours to read. I will never be developing a pure red colour mode for that reason. This app needs to be usable by people with non-perfect eyesight. If the future Bangle.js 3 is produced with a higher colour-depth display then I may consider a mode which mixes in a little green light with the red (e.g an orange mode) which will make it much easier to read, but I can't properly do that at present with a Bangle.js 2 display. The app already works in dark mode, and becuase it is on such a small device you can easily shield it from others. If you need the display generally darker for night use then just change the brightness in the main watch settings.
 
 ## References
 
