@@ -43,16 +43,25 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
   </tr>
 </table>
 
-- Go into Bangle.js 2 launcher > Hour Angle.
-- The first menu gives you a choice of Run, Settings, or Exit.
+**Preparation**
+- First ensure you know
+  i) the longitude of your observing locatiom, and
+  ii) the validity years of the polarscope on your mount/star-tracker. Polarscopes have a period for which they are vaild, typically 20-30 years, and is normally written/etched into the polarscope view. If you do not know the validity years then don't worry, just make a rough estimate based on the age of your mount/star-tracker.
+
+**App setup**
+- Then go into the Bangle.js 2 launcher > Hour Angle.
+- It will show the first menu and give you a choice of Run, Settings, or Exit.
+- Choose Settings, and adjust the settings described below
   
 - **Settings > Longitude**: Set your location's longitude, both the angle (in degrees) and whether it is East or West. The angle is to a resolution of the nearest degree. Just round your location's longitude to the nearest degree and the position error on the Bangle.js 2 display will be less than a pixel wide (i.e not noticeable). The default setting is 0 degrees West.
-- **Settings > Start Year**: Polarscopes have a period for which they are vaild, typically 20-30 years and normally written/etched into the polarscope view. Set the starting validity year of your polarscope. If you do not know the validity years then don't worry, just make a rough estimate based on the age of the mount/star-tracker. The default setting is year 2000.
-- **Settings > End Year**: Set the starting validity year of your polarscope. The default setting is year 2030.
-- **Settings > Style**: Choose the clock-face style to display. The app currently comes with two clock-faces. Style 1 is similar to polarscopes found in Takahashi, Orion, and Skywatcher equatorial mounts and camera star-trackers. Style 2 is similar to the polarscope for a Move-Shoot-Move camera star-tracker.
-- All of your parameters will be saved in the watch. Just change the longitude value if you move location.
+- **Settings > Start Year**: Set the starting validity year of your polarscope. The default setting is the year 2000.
+- **Settings > End Year**: Set the starting validity year of your polarscope. The default setting is the year 2030.
+- **Settings > Style**: Choose a clock-face style to display. The app currently comes with two clock-faces. Style 1 is similar to polarscopes found in Takahashi, Orion, and Skywatcher equatorial mounts and camera star-trackers. Style 2 is similar to the polarscope for a Move-Shoot-Move camera star-tracker.
+- All of your parameters will be saved in the watch.
+- You only need to adjust the longitude value if you significantly change location. You only need to adjust the validity years if you buy a new mount or polarscope.
 - There is also a Reset option in the menu. This will set all parameters back to their default settings.
-    
+
+**Using the App outside**
 - Ensure your Bangle watch time is correct. Do not worry if your watch is set to a different time zone, the app only uses the watch's UTC time signal.
 - Ensure your polarscope is correctly fitted and calibrated to your mount/star-tracker
 - Restart the app and choose Run. It will draw the clockface and Polaris' position based on your parameters above
