@@ -6,8 +6,8 @@ The app is a suite of tools to help astronomers and astrophotgraphers outside. T
 
 
 ## Purpose
-
 [⬆ Back to Top](#Start)<br>
+
 This app helps align your camera star-tracker or telescope equatorial mount with the northern Pole Star (also known as Polaris). Correct alignment prevents sky objects drifting out of view and/or smearing during long-exposure photographs.
 
 ## Background
