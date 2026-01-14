@@ -879,13 +879,13 @@ function polarisHourAngle(lon, dateObj) {
   let hh = dateObj.hour;
   let mm = dateObj.min;
   let ss = dateObj.sec;
-  let decimalDay = dateObj.day + (hh/24) + (mm/(24*60)) + (ss/(24*60*60)); // Note this is the Day decimal, not the whole day. e.g midday on the first day of the month is 1.5
+  //let decimalDay = dateObj.day + (hh/24) + (mm/(24*60)) + (ss/(24*60*60)); // Note this is the Day decimal, not the whole day. e.g midday on the first day of the month is 1.5
 
   // Meeus, Chapter 7. If the month number (M) is >2, leave the year (Y) and month (M) unchanged. If M = 1 or 2, replace Y with Y-1, and M with M+12.
   if (M <= 2) { Y -= 1; M += 12; }
 
   // Meeus Chapters 10 and 22. The time needs to be adjusted for Earth's nutation and obliquity.
-  // DO NOT APPLY \94T TO SIDEREAL TIME  leave UT intact
+  // DO NOT APPLY T TO SIDEREAL TIME leave UT intact
   // let t = (Y-2000)/100;
   // let deltaT = 102 + (102*t) + (25.3*t*t) + (0.37*(Y-2100));
   // decimalDay = decimalDay + deltaT/(24*60*60);
@@ -912,9 +912,10 @@ function polarisHourAngle(lon, dateObj) {
 
   // Polaris' Right Ascension at J2000 epoch
   let polarisRAatJ2000 = 40.489; // degrees (mean J2000)
+  let polarisDECatJ2000 = 89.2641; // degrees (mean J2000)
 
   // ------------------------------------------------------------
-  // Meeus, Chapter 21  Precession of RA from J2000 \92 mean-of-date
+  // Meeus, Chapter 21 Precession of RA from J2000 \92 mean-of-date
   // ------------------------------------------------------------
 
   let T = ( (JDat0h + timeOfDayInDecimalHours/24) - 2451545.0 ) / 36525;
@@ -925,20 +926,18 @@ function polarisHourAngle(lon, dateObj) {
   let theta = (2004.3109*T - 0.42665*T*T - 0.041833*T*T*T) / 3600;
 
   // Convert to radians
-  let ra0 = degToRad(polarisRAatJ2000);
-  let dec0 = degToRad(89.2641); // Polaris Dec (mean J2000, degrees)
+  //let ra0 = degToRad(polarisRAatJ2000); // Polaris Dec (mean J2000, radians)
+  //let dec0 = degToRad(polarisDECatJ2000); // Polaris Dec (mean J2000, radians)
 
-  let A1 = Math.cos(dec0) * Math.sin(ra0 + degToRad(zeta));
-  let B1 = Math.cos(degToRad(theta)) * Math.cos(dec0) * Math.cos(ra0 + degToRad(zeta))
-         - Math.sin(degToRad(theta)) * Math.sin(dec0);
-  let C1 = Math.sin(degToRad(theta)) * Math.cos(dec0) * Math.cos(ra0 + degToRad(zeta))
-         + Math.cos(degToRad(theta)) * Math.sin(dec0);
+  let A1 = Math.cos(degToRad(polarisDECatJ2000)) * Math.sin(degToRad(polarisRAatJ2000 + zeta));
+  let B1 = (Math.cos(degToRad(theta))*Math.cos(degToRad(polarisDECatJ2000))* Math.cos(degToRad(polarisRAatJ2000)) + degToRad(zeta)) - (Math.sin(degToRad(theta))*Math.sin(degToRad(polarisDECatJ2000)));
+  //let C1 = Math.sin(degToRad(theta)) * Math.cos(degToRad(polarisDECatJ2000))*Math.cos(degToRad(polarisRAatJ2000 + zeta)) + Math.cos(degToRad(theta)) * Math.sin(degToRad(polarisDECatJ2000));
 
   let raDate = Math.atan2(A1, B1) + degToRad(z);
   raDate = wrap360(raDate * 180 / Math.PI);
 
   // ------------------------------------------------------------
-  // Meeus, Chapter 13  Hour Angle (mean quantities, consistent)
+  // Meeus, Chapter 13 Hour Angle (mean quantities, consistent)
   // ------------------------------------------------------------
 
   let newHourAngle = adjustedGMST + lon - raDate;
