@@ -6,11 +6,13 @@ The app is a suite of tools to help astronomers and astrophotgraphers outside. T
 
 
 ## Purpose
-[⬆ Back to Top](#Start)<br>
+[⬆ Back to top](#Start)<br>
 
 This app helps align your camera star-tracker or telescope equatorial mount with the northern Pole Star (also known as Polaris). Correct alignment prevents sky objects drifting out of view and/or smearing during long-exposure photographs.
 
 ## Background
+[⬆ Back to top](#Start)<br>
+
 Due to the Earth's rotation the sky looks to us like it rotates around an imaginary point known as the celestial pole. Each rotation takes slightly less than a day.
 
 Many astronomers and astrophotgraphers rely on using a telescope mount called an equatorial mount. It has to be accurately aligned with the celestial pole, the powered drive inside it (which can be anything from clockwork to electric) then follows the daily rotation of the sky. This makes it look to the observer/photographer looking through a telescope or camera like the sky is still. It stops objects drifting out of view, and/or long-exposure photographs smearing. More recently we have seen the arrival of highly portable mini-equatorial mounts called star-trackers for people who like taking nightscape photos with DSLR cameras. These also rely on getting the polar alignment as accurate as possible. The more accurate the alignment, the longer the exposure that can be taken. 
@@ -39,6 +41,7 @@ This app mimics Polaris’s position around the celestial pole at the current ti
 
 
 ## Setup
+[⬆ Back to top](#Start)<br>
 
 The exact alignment procedure depends on the telescope or star-tracker brand, but the goal is to match the polar-scope view of Polaris to that on the app. Note this app is designed for Northern Hemisphere use only
 - If you get stuck at any point during this initial setup procedure, familiarise yourself with the app's menu structure shown below.
@@ -57,6 +60,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 
 
 **Preparation**
+
 - First ensure you know
   
     - The longitude of your observing location (in degrees, and whether it is East or West)
@@ -96,6 +100,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 
 
 ## Future Development
+[⬆ Back to top](#Start)<br>
 
 - I designed this app many years ago and have ported it to various devices. It reliably does the job for which it was intended and I regularly use it myself. If you spot a bug please raise a request via the BangleApps issues
 - **Extra Polarscope Clock-face Styles**. Happy to consider adding more clock-face styles. Just ask via BangleApps, quoting your polarscope make, model, and validity dates.
@@ -103,6 +108,7 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
 - **Night-Vision Mode**. I know this is a subject charged with lots of opinion and emotion. My view is you have to balance getting perfect night vision with the practicality of seeing what you are doing. Yes, assuming the same light intensity, a red-coloured display does have the least effect on night-vision, but practically it is also one of the most difficult colours to read. This app needs to be usable by people with non-perfect eyesight, which constitutes the majority of astronomers and astrophotographers except the youngest. For this reason I will never develop a pure red night-vision mode for this app. If the future Bangle.js 3 is produced as planned with a higher colour-depth display then I will consider adding a night-vision mode which mixes in a little green light with the red light (e.g an orange mode) which will make it much easier to read. I can't do that properly at present due to the Bangle.js 2 display's limited colour-depth. The app already works when the watch is in dark mode, and because it is on such a small device it is easy to shield if you are concerned it may cause a light nuisance to others. If you need the watch darker for your own night-vision then it is not an issue specific to this app, change the watch to dark mode and reduce the display brightness in the main watch settings (Launcher > Settings > LCD > Brightness. Mine stays permanently on dark mode and brightness 1 for both day and night use).
 
 ## Limitations
+[⬆ Back to top](#Start)<br>
 
 - Because I have limited time and resources I will never be extending the app to cover the following features, please don't waste time asking for them.
   
@@ -113,5 +119,6 @@ The exact alignment procedure depends on the telescope or star-tracker brand, bu
   - **Reliance on a data connection to another device (e.g. mobile phone)**. This feature will never be offered, the design philosophy is for it to be simple, reliable, and standalone/off-grid.
 
 ## References
+[⬆ Back to top](#Start)<br>
 
 - Algorithms from 'Astronomical Algorithms 2nd Edition, Jean Meeus'
