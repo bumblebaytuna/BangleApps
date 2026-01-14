@@ -367,6 +367,17 @@ function degToRad(deg) {
   return deg * Math.PI / 180;
 }
 
+function degToHHMMSS(deg) {
+  
+  let decimalhours = deg/15;
+  let hournumber = Math.floor(decimalhours);
+  let minutesremainder = (decimalhours-hournumber)*60;
+  let minutesnumber = Math.floor(minutesremainder);
+  let secondsremainder = (minutesremainder-minutesnumber)*60;
+  
+  return hournumber.toString() + "H" + minutesnumber.toString() + "M" + (secondsremainder.toFixed(0)).toString();
+}
+
 // ------------------------------------------
 // -------- GPS Control Functions --------
 // ------------------------------------------
@@ -930,6 +941,7 @@ function polarisHourAngle(lon, dateObj) {
   
   // Output
   console.log("Polaris Hour Angle =", HAdegrees.toFixed(2), "degrees");
+  console.log("Polaris Hour Angle =", degToHHMMSS(HAdegrees));
   return HAdegrees;
 }
 
@@ -992,7 +1004,6 @@ function updateDisplay() {
   // Calculate Polaris Hour Angle for current location & time
   console.log("Longitude =", lonDegrees, "degrees");
   let HA = polarisHourAngle(lonDegrees, dateObj);
-  console.log("Polaris Hour Angle =", HA.toFixed(2), "degrees");
 
   //set the reticule centre point
   var cx = 90;         // reticule centre x
