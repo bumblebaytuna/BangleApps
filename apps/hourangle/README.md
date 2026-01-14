@@ -2,7 +2,7 @@
 The app is a suite of tools to help astronomers and astrophotgraphers outside. The link to instructions for each tool can be found below.
 
 [Polaris Hour Angle](#Purpose)
-[Future Development](#Future Development)
+[Future Development](#Future-Development)
 
 
 ## Purpose
