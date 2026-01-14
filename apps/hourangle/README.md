@@ -1,6 +1,10 @@
 ## Start
-The app is a suite of tools to help astronomers and astrophotgraphers. 
-I have deliberately focused on real-time tools. It is not designed to be your advance planner, please continue to use other advance planning tools as required. It is good for the opportunistic astronomer who may not want to plan (or cannot plan due to weather unpredictability) and just wants to set up quickly and know what can be done there and then. 
+
+This app provides a suite of useful tools to help astronomers and astrophotographers outside. 
+
+It is deliberately focused on real-time tools for use outside in the dark during a session. It is not designed to be an advance planner, please continue to use other astronomy and photography tools as required. It is particularly useful for the opportunistic astronomer who may not want to plan (or cannot plan due to unpredictable and limited good weather) and just wants to get out there, set up quickly, and know what can be seen at the time. 
+
+My criteria is the tools must be genuinely useful. The Bangle 2 screen is tiny, has limited resolution, colour depth, and memory, so there are hard practical limits on what can be achieved. The currnet suite of tools are those which I think are useful within its current limits. If a new version of the Bangle gets released which removes some of these limitations I am confident the app can be expanded further (I have developed astronomy apps which functionally work fine on the Bangle 2 but are, for example, impractical to use due to its limited screen resolution and colour depth).
 
 Links to the instructions for each tool can be found below.
 
