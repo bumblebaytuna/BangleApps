@@ -2,7 +2,7 @@
 The app is a suite of tools to help astronomers and astrophotgraphers. 
 I have deliberately focused on real-time tools. It is not designed to be your advance planner, please continue to use other advance planning tools as required. It is good for the opportunistic astronomer who may not want to plan (or cannot plan due to weather unpredictability) and just wants to set up quickly and know what can be done there and then. 
 
-Links to instructions in this document for each tool can be found below.
+Links to the instructions for each tool can be found below.
 
 [Polaris Hour Angle](#Purpose)<br>
 [Future Development](#Future-Development)
