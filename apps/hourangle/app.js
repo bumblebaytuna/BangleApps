@@ -972,7 +972,7 @@ function updateDisplay() {
     //use offline date and time
     const now = new Date();
     myYear = now.getFullYear();
-    myMonth = now.getMonth() + 1;
+    myMonth = now.getMonth() + 1; //the getMonth function uses 0 to 11 so needs +1 to get month number
     myDay = now.getDate();
     myHour = now.getHours();
     myMinute = now.getMinutes();
