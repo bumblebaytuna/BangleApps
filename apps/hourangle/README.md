@@ -1,3 +1,10 @@
+## Start
+The app is a suite of tools to help astronomers and astrophotgraphers outside. The link to instructions for each tool can be found below.
+
+[Polaris Hour Angle](#Purpose)
+[Future Development](#Future Development)
+
+
 ## Purpose
 This app helps align your camera star-tracker or telescope equatorial mount with the northern Pole Star (also known as Polaris). Correct alignment prevents sky objects drifting out of view and/or smearing during long-exposure photographs.
 
