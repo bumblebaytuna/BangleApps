@@ -9,7 +9,7 @@ The app is a suite of tools to help astronomers and astrophotgraphers outside. T
 
 There were some of my own motivations. 
 
-- **Reducing risk of loss/damage to a smartphone in the dark.** This includes i) forgetting where it was left, ii) putting it on the car bonnet/hood and driving off later with it still there, iii) it unknowingly falling off the car's back seat whilst trying to pack-up. The list goes on; it is so easy to do when you are busy or distracted in the dark. Any tool that can usefully be put on something permanently strapped to you in this environment is a good thing.
+- **Reducing risk of loss/damage to a smartphone in the dark.** This includes i) forgetting where it was left, ii) putting it on the car bonnet/hood and driving off later with it still there, iii) it unknowingly falling off the car's back seat whilst trying to pack-up. The list goes on; it is so easy to do when you are busy or distracted in the dark. Any tool that can usefully be permanently strapped to you in this environment (and keep out of the way on your wrist) is a good thing.
   
 - **Being off-grid** Lots of astronomers like to keep it simple and straightforward. Also speaking to the National Parks (where many people do astornomy/astrphotography) who survey visitors explain that many people come to the parks to get away from th daily grind, which an include invasive technology. The more fancy technology involved the more battery power is needed and the more unreliable the session can become. A smart watch is far less intrusive and distracting than a phone. If it has useful tools you need you can check it and then get back to enjoying the outdoors.
   
