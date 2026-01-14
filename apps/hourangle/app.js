@@ -881,9 +881,15 @@ function polarisHourAngle(lon, dateObj) {
   // Calculate the Julian Day at that date and time
   let JD = Math.floor(365.25*(Y+4716)) + Math.floor(30.6001*(M+1)) + D + B - 1524.5;
   console.log("JD =", JD);
+
+  // Calculate the Julian Day at that date and time (accounting for Earth's nutation and obliquity), Meeus Chapters 10 and 22. Valid for years 2000 to 2100
+  let t = (Y-2000)/100;
+  let deltaT = 102 + (102*t) + (25.3*t*t) + (0.37*(Y-2100));
+  let JDE = JD-deltaT;
+  console.log("JDE =", JDE);
   
   // Meeus, Chapter 12, Calculate Local Sidereal Time at Greenwich (Greenwich Sidereal Time) in degrees at that date and time
-  let T = (JD - 2451545.0)/36525.0; // measured in centuries
+  let T = (JDE - 2451545.0)/36525.0; // measured in centuries
   console.log("T =", T, "centuries");
   let GST = 280.46061837 + (360.98564736629*(JD-2451545.0)) + (0.000387933*T*T) - (T*T*T/38710000.0);
   
