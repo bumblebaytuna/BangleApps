@@ -11,7 +11,7 @@ Links to the instructions for each tool can be found below.
 ## Why was it built
 [⬆ Back to top](#Start)<br>
 
-There were some of my own motivations. 
+There are some of my motivations. 
 
 - **Reducing risk of loss/damage to a smartphone in the dark.** This includes i) forgetting where it was left, ii) putting it on the car bonnet/hood and driving off later with it still there, iii) it unknowingly falling off the car's back seat whilst trying to pack-up. The list goes on; it is so easy to do when you are busy or distracted in the dark. Any tool that can usefully be permanently strapped to you in this environment (and keep out of the way on your wrist) is a good thing.
   
