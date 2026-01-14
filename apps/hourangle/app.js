@@ -864,13 +864,21 @@ function polarisHourAngle(lon, dateObj) {
   let Y = dateObj.year;
   let M = dateObj.month;
   let D = dateObj.day + (dateObj.hour/24) + (dateObj.min/(24*60)) + (dateObj.sec/(24*60*60)); // Note this is the Day decimal, not the whole day. e.g midday on the first day of the month is 1.5
-
+  console.log("Inputted Y =", Y);
+  console.log("Inputted M =", M);
+  console.log("Inputted D =", D);
+  
   // Meeus, Chapter 7. If the month number (M) is >2, leave the year (Y) and month (M) unchanged. If M = 1 or 2, replace Y with Y-1, and M with M+12. i.e. if the date is in Jan or Feb, it is considered the 13th or 14th month of the previous year
   if (M <= 2) { Y -= 1; M += 12; }
 
-  console.log("Y =", Y);
-  console.log("M =", M);
-  console.log("D =", D);
+  // Meeus Chapters 10 and 22. The time needs to be adjusted for Earth's nutation and obliquity. Valid for years 2000 to 2100
+  let t = (Y-2000)/100;
+  let deltaT = 102 + (102*t) + (25.3*t*t) + (0.37*(Y-2100));
+  D = D + deltaT/(24*60*60);
+
+  console.log("Adjusted Y =", Y);
+  console.log("Adjusted M =", M);
+  console.log("Adjusted D =", D);
   
   // If converting from a Gregorian calendar, Calculate A and B as below
   let A = Math.floor(Y/100);
@@ -881,15 +889,9 @@ function polarisHourAngle(lon, dateObj) {
   // Calculate the Julian Day at that date and time
   let JD = Math.floor(365.25*(Y+4716)) + Math.floor(30.6001*(M+1)) + D + B - 1524.5;
   console.log("JD =", JD);
-
-  // Calculate the Julian Day at that date and time (accounting for Earth's nutation and obliquity), Meeus Chapters 10 and 22. Valid for years 2000 to 2100
-  let t = (Y-2000)/100;
-  let deltaT = 102 + (102*t) + (25.3*t*t) + (0.37*(Y-2100));
-  let JDE = JD-deltaT;
-  console.log("JDE =", JDE);
   
   // Meeus, Chapter 12, Calculate Local Sidereal Time at Greenwich (Greenwich Sidereal Time) in degrees at that date and time
-  let T = (JDE - 2451545.0)/36525.0; // measured in centuries
+  let T = (JD - 2451545.0)/36525; // measured in centuries
   console.log("T =", T, "centuries");
   let GST = 280.46061837 + (360.98564736629*(JD-2451545.0)) + (0.000387933*T*T) - (T*T*T/38710000.0);
   
@@ -905,6 +907,7 @@ function polarisHourAngle(lon, dateObj) {
   // Convert to a 0-360 degree angle
   LST = LST % 360;
   if (LST < 0) LST += 360;
+  console.log("LST =", LST, "degrees at that instant");
 
   //Polaris' Right Ascension is 40.409° (J2000 epoch)
   let polarisRAatJ2000 = 37.954540;
