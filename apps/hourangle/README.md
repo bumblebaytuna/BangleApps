@@ -40,7 +40,7 @@ This app mimics Polaris’s position relative to the celestial pole at the curre
 </table>
 
 
-## Setup
+## Initial Setup
 [⬆ Back to top](#Start)<br>
 
 The exact alignment procedure depends on the telescope or star-tracker brand, but the goal is to match the polar-scope view of Polaris to that on the app. Note this app is designed for Northern Hemisphere use only
