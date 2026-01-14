@@ -378,6 +378,10 @@ function degToHHMMSS(deg) {
   return hournumber.toString() + "H " + minutesnumber.toString() + "M " + (secondsremainder.toFixed(0)).toString();
 }
 
+function wrap360(angledegrees) {
+  return ((angledegrees % 360) + 360) % 360;
+}
+
 // ------------------------------------------
 // -------- GPS Control Functions --------
 // ------------------------------------------
