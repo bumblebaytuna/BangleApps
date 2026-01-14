@@ -1137,7 +1137,7 @@ const DEFAULTS = {
   vibration: false, // test defaults to check settings menu structure is working properly
   brightness: 6, // test defaults to check settings menu structure is working properly
   advancedOption: false, // test defaults to check settings menu structure is working properly
-  swVersion: "0.28" // version of this software
+  swVersion: "0.29" // version of this software
 };
 
 // Collects the global app settings from the storage file, the loadSettings() function uses the above defaults if the settings file is missing or empty
@@ -1153,6 +1153,10 @@ let waitingPageIntervalID;  // for GPS waiting page
 
 // Declare global runtime variables to store the GPS date and time components
 var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
+
+//Ensure the version number in the old hourangle.settings.json file on the watch is up to date
+mySettings.swVersion = DEFAULTS.swVersion
+saveSettings();
 
 // MAIN APP START - Register the app in Bangle.js menu
 //E.showMenu({
