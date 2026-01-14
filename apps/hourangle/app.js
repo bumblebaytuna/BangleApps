@@ -863,86 +863,88 @@ function drawPolarscopeReticuleMoveShootMove(cx, cy, reticuleColour, markerColou
 // --------------------------- Astro Formulae --------------------
 // ---------------------------------------------------------------
 
-// --- Hour Angle Calculation ---
+// --- Hour Angle Calculation --- (Improved Accuracy Version)
 function polarisHourAngle(lon, dateObj) {
   
   // Based on 'Astronomical Algorithms 2nd Edition, Jean Meeus
   
   // get the date parameters
-  //let Y = dateObj.year;
-  //let M = dateObj.month;
-  //let Dzero = dateObj.day; 
   let Y = dateObj.year;
   let M = dateObj.month;
-  let D = dateObj.day + (dateObj.hour/24) + (dateObj.min/(24*60)) + (dateObj.sec/(24*60*60)); // Note this is the Day decimal, not the whole day. e.g midday on the first day of the month is 1.5
-  console.log("Inputted Y =", Y);
-  console.log("Inputted M =", M);
-  console.log("Inputted D =", D);
-  
-  // Meeus, Chapter 7. If the month number (M) is >2, leave the year (Y) and month (M) unchanged. If M = 1 or 2, replace Y with Y-1, and M with M+12. i.e. if the date is in Jan or Feb, it is considered the 13th or 14th month of the previous year
+  let D = dateObj.day;
+  let hh = dateObj.hour;
+  let mm = dateObj.min;
+  let ss = dateObj.sec;
+  let decimalDay = dateObj.day + (hh/24) + (mm/(24*60)) + (ss/(24*60*60)); // Note this is the Day decimal, not the whole day. e.g midday on the first day of the month is 1.5
+
+  // Meeus, Chapter 7. If the month number (M) is >2, leave the year (Y) and month (M) unchanged. If M = 1 or 2, replace Y with Y-1, and M with M+12.
   if (M <= 2) { Y -= 1; M += 12; }
 
-  // Meeus Chapters 10 and 22. The time needs to be adjusted for Earth's nutation and obliquity. Valid for years 2000 to 2100
-  let t = (Y-2000)/100;
-  let deltaT = 102 + (102*t) + (25.3*t*t) + (0.37*(Y-2100));
-  D = D + deltaT/(24*60*60);
+  // Meeus Chapters 10 and 22. The time needs to be adjusted for Earth's nutation and obliquity.
+  // DO NOT APPLY \94T TO SIDEREAL TIME  leave UT intact
+  // let t = (Y-2000)/100;
+  // let deltaT = 102 + (102*t) + (25.3*t*t) + (0.37*(Y-2100));
+  // decimalDay = decimalDay + deltaT/(24*60*60);
 
-  console.log("Adjusted Y =", Y);
-  console.log("Adjusted M =", M);
-  console.log("Adjusted D =", D);
-  
   // If converting from a Gregorian calendar, Calculate A and B as below
   let A = Math.floor(Y/100);
   let B = 2 - A + Math.floor(A/4);
-  console.log("A =", A);
-  console.log("B =", B);
 
-  // Calculate the Julian Day at that date and time
-  let JD = Math.floor(365.25*(Y+4716)) + Math.floor(30.6001*(M+1)) + D + B - 1524.5;
-  console.log("JD =", JD);
-  
-  // Meeus, Chapter 12, Calculate Local Sidereal Time at Greenwich (Greenwich Sidereal Time) in degrees at that date and time
-  let T = (JD - 2451545.0)/36525; // measured in centuries
-  console.log("T =", T, "centuries");
-  let GST = 280.46061837 + (360.98564736629*(JD-2451545.0)) + (0.000387933*T*T) - (T*T*T/38710000.0);
-  
-   // Convert to a 0-360 degree angle
-  GST = GST % 360;
-  if (GST < 0) GST += 360;
-  console.log("GST =", GST, "degrees at that instant"); // Works fine to here
-  
-  // Meeus, Chapter 13, Calculate the Local Sidereal Time for the observing location
-  let LST = GST +lon;  // longitude east positive version
-  console.log("Longitude =", lon, "degrees");
+  // Calculate the Julian Day at that date at 0h. Meeus, Chapter 12
+  let JDat0h = Math.floor(365.25*(Y+4716)) + Math.floor(30.6001*(M+1)) + D + B - 1524.5;
+  let Tat0h = (JDat0h - 2451545.0)/36525; // measured in centuries
 
-  // Convert to a 0-360 degree angle
-  LST = LST % 360;
-  if (LST < 0) LST += 360;
-  console.log("LST =", LST, "degrees at that instant");
+  let GMSTat0h = 100.46061837
+    + (36000.770053608 * Tat0h)
+    + (0.000387933 * Tat0h * Tat0h)
+    - (Tat0h * Tat0h * Tat0h / 38710000.0);
 
-  //Polaris' Right Ascension is 40.409° (J2000 epoch)
-  let polarisRAatJ2000 = 37.954540;
+  GMSTat0h = wrap360(GMSTat0h);
 
-  // the Right Ascension for Polaris is based on the J2000 epoch and so now needs to be
-  // offset to account for precession, nutation, and aberration since that epoch
-  // this is done by a single formula,   // Meeus, Chapter 21
-  let yearssinceJ2000epoch = T*100; //centuries (T) since J2000 epoch * 100
-  let nutationchangeperyear = 0.014; //degrees per year, valid approximation for the next 50-100 years
-  let correctionoffset = yearssinceJ2000epoch*nutationchangeperyear;
+  // Meeus, Chapter 12, Calculate Greenwich Mean Sidereal Time at given UT
+  let timeOfDayInDecimalHours = (ss/3600) + (mm/60) + hh;
+  let timeOfDayGMSTadjustment = 1.00273790935 * timeOfDayInDecimalHours * 15; // degrees
+  let adjustedGMST = wrap360(GMSTat0h + timeOfDayGMSTadjustment);
 
-  let adjustedRA = polarisRAatJ2000 + correctionoffset;
-  console.log("Adjusted RA =", adjustedRA, "degrees");
-  
-   // Calculate Hour Angle (in degrees) for Polaris at that date and time
-  let HAdegrees = LST - adjustedRA;
-  
-  // Convert to a 0-360 degree angle
-  if (HAdegrees < 0) HAdegrees += 360;
-  
+  // Polaris' Right Ascension at J2000 epoch
+  let polarisRAatJ2000 = 40.489; // degrees (mean J2000)
+
+  // ------------------------------------------------------------
+  // Meeus, Chapter 21  Precession of RA from J2000 \92 mean-of-date
+  // ------------------------------------------------------------
+
+  let T = ( (JDat0h + timeOfDayInDecimalHours/24) - 2451545.0 ) / 36525;
+
+  // Precession quantities (arcseconds)
+  let zeta  = (2306.2181*T + 0.30188*T*T + 0.017998*T*T*T) / 3600;
+  let z     = (2306.2181*T + 1.09468*T*T + 0.018203*T*T*T) / 3600;
+  let theta = (2004.3109*T - 0.42665*T*T - 0.041833*T*T*T) / 3600;
+
+  // Convert to radians
+  let ra0 = degToRad(polarisRAatJ2000);
+  let dec0 = degToRad(89.2641); // Polaris Dec (mean J2000, degrees)
+
+  let A1 = Math.cos(dec0) * Math.sin(ra0 + degToRad(zeta));
+  let B1 = Math.cos(degToRad(theta)) * Math.cos(dec0) * Math.cos(ra0 + degToRad(zeta))
+         - Math.sin(degToRad(theta)) * Math.sin(dec0);
+  let C1 = Math.sin(degToRad(theta)) * Math.cos(dec0) * Math.cos(ra0 + degToRad(zeta))
+         + Math.cos(degToRad(theta)) * Math.sin(dec0);
+
+  let raDate = Math.atan2(A1, B1) + degToRad(z);
+  raDate = wrap360(raDate * 180 / Math.PI);
+
+  // ------------------------------------------------------------
+  // Meeus, Chapter 13  Hour Angle (mean quantities, consistent)
+  // ------------------------------------------------------------
+
+  let newHourAngle = adjustedGMST + lon - raDate;
+  newHourAngle = wrap360(newHourAngle);
+
   // Output
-  console.log("Polaris Hour Angle =", HAdegrees.toFixed(2), "degrees");
-  console.log("Polaris Hour Angle =", degToHHMMSS(HAdegrees));
-  return HAdegrees;
+  console.log("Polaris Hour Angle =", newHourAngle.toFixed(2), "degrees");
+  console.log("Polaris Hour Angle =", degToHHMMSS(newHourAngle));
+
+  return newHourAngle;
 }
 
 
