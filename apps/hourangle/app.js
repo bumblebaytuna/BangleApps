@@ -359,6 +359,13 @@ function getReticuleValidityEndYear() {
   return (myReticuleValidityEndYear);
 }
 
+// ------------------------------------------
+// ------ Angle Conversion Functions --------
+// ------------------------------------------
+
+function degToRad(deg) {
+  return deg * Math.PI / 180;
+}
 
 // ------------------------------------------
 // -------- GPS Control Functions --------
@@ -610,7 +617,7 @@ function drawNumberAtAngle(cx, cy, radius, number, angle_deg, xoffset, yoffset, 
   // Set new colour
   g.setColor(labelColour);
  
-  let angle = (90 - angle_deg) * Math.PI / 180;  // Anti-clockwise angle
+  let angle = degToRad((90 - angle_deg));  // Anti-clockwise angle, in radians
 
   // Calculate x and y position based on polar coordinates
   let x = cx + Math.round(radius * Math.cos(angle));
@@ -650,9 +657,9 @@ function drawPolarisMarkerCircle(cx, cy, radius, HA_deg, size, markerColour) {
   // Set new colour
   g.setColor(markerColour);
 
-  // let angle = (HA_deg - 90) * Math.PI / 180; // 0 deg at top, clockwise rotation
-  // let angle = (90 + HA_deg) * Math.PI / 180;  // 0° at 6 o'clock, anti-clockwise rotation
-  let angle = (90 - HA_deg) * Math.PI / 180;  // anti-clockwise rotation from 6 o'clock
+  // let angle = degToRad((HA_deg - 90)); // 0 deg at top, clockwise rotation, in radians
+  // let angle = degToRad((90 + HA_deg));  // 0° at 6 o'clock, anti-clockwise rotation, in radians
+  let angle = degToRad((90 - HA_deg));  // anti-clockwise rotation from 6 o'clock, in radians
   let x = cx + Math.round(radius * Math.cos(angle));
   let y = cy + Math.round(radius * Math.sin(angle));
 
@@ -682,7 +689,8 @@ function drawOuterTicks(cx, cy, radius, numberofticks, ticklength, tickColour) {
     if (i === 0 || i === (numberofticks*1/4) || i === (numberofticks*2/4) || i === (numberofticks*3/4)) {
       continue;
     }
-    let angle = (2 * Math.PI / numberofticks) * i;
+    let anglepertick = degToRad(360/numberofticks); //in radians
+    let angle = anglepertick * i; //in radians
     let x1 = cx + Math.round(radius * Math.cos(angle));              // start at circle edge
     let y1 = cy + Math.round(radius * Math.sin(angle));
     let x2 = cx + Math.round((radius + ticklength) * Math.cos(angle)); // extend outward
@@ -711,7 +719,8 @@ function drawInnerTicks(cx, cy, radius, numberofticks, ticklength, tickColour) {
     if (i === 0 || i === (numberofticks*1/4) || i === (numberofticks*2/4) || i === (numberofticks*3/4)) {
       continue;
     }
-    let angle = (2 * Math.PI / numberofticks) * i;
+    let anglepertick = degToRad(360/numberofticks); //in radians
+    let angle = anglepertick * i; //in radians
     let x1 = cx + Math.round(radius * Math.cos(angle));              // start at circle edge
     let y1 = cy + Math.round(radius * Math.sin(angle));
     let x2 = cx + Math.round((radius - ticklength) * Math.cos(angle)); // extend outward
