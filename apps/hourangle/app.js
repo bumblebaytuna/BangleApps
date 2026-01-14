@@ -375,7 +375,7 @@ function degToHHMMSS(deg) {
   let minutesnumber = Math.floor(minutesremainder);
   let secondsremainder = (minutesremainder-minutesnumber)*60;
   
-  return hournumber.toString() + "H" + minutesnumber.toString() + "M" + (secondsremainder.toFixed(0)).toString();
+  return hournumber.toString() + "H " + minutesnumber.toString() + "M " + (secondsremainder.toFixed(0)).toString();
 }
 
 // ------------------------------------------
