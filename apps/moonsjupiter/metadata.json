@@ -8,6 +8,6 @@
   "supports" : ["BANGLEJS2"],
   "readme": "README.md",
   "storage": [
-    {"name":"moonsjupiter.app.js","url":"app.js"},
+    {"name":"moonsjupiter.app.js","url":"app.js"}
   ],
 }
