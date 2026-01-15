@@ -350,7 +350,7 @@ function drawJupiterSystem(){
 
   // Draw Jupiter system (white fill, black outline)
 
-  myscale = scenescale * zoomFactor;
+  let myscale = scenescale * zoomFactor;
 
   jupiterRadiusInPixels = myscale * 1.5;
 
@@ -465,7 +465,7 @@ function drawJupiterLabelSafe() {
   const padding = 2;
 
   // Determine top of touch zones (assuming bottom buttons height + margin)
-  const btnHeight = 34;      // height of your zoom buttons
+  //const btnHeight = 34;      // height of your zoom buttons
   const margin = 5;          // margin from edge
   //const touchTopY = g.getHeight() - btnHeight - margin;
 
