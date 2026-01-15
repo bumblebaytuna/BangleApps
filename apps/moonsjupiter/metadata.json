@@ -1,1 +1,13 @@
-
+{ "id": "moonsjupiter",
+  "name": "Jupiter Moons",
+  "shortName":"Jupiter Moons",
+  "version":"0.1",
+  "author": "bumblebaytuna",
+  "description": "An app to identify Jupiter's four major moons when looking through a telescope",
+  "tags": "",
+  "supports" : ["BANGLEJS2"],
+  "readme": "README.md",
+  "storage": [
+    {"name":"moonsjupiter.app.js","url":"app.js"},
+  ],
+}
