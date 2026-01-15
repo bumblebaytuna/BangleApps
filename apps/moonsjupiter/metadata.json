@@ -9,5 +9,5 @@
   "readme": "README.md",
   "storage": [
     {"name":"moonsjupiter.app.js","url":"app.js"}
-  ],
+  ]
 }
