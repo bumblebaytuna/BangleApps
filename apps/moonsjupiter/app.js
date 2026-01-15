@@ -467,7 +467,7 @@ function drawJupiterLabelSafe() {
   // Determine top of touch zones (assuming bottom buttons height + margin)
   const btnHeight = 34;      // height of your zoom buttons
   const margin = 5;          // margin from edge
-  const touchTopY = g.getHeight() - btnHeight - margin;
+  //const touchTopY = g.getHeight() - btnHeight - margin;
 
   // Compute Y position: halfway between bottom of Jupiter and top of touch zones
   //const lowerlabelsYposn = cy + jupiterRadiusInPixels + ((touchTopY - (cy + jupiterRadiusInPixels)) / 2);
@@ -515,7 +515,7 @@ function drawFieldOfViewLabelLeftTwoLines() {
 
   const textLine = `${RJinDeg} °`;
 
-  const padding = 12;
+  //const padding = 12;
   //const lineSpacing = 2; // pixels between lines
 
   // Determine top of touch zones (assuming bottom buttons height + margin)
@@ -533,7 +533,7 @@ function drawFieldOfViewLabelLeftTwoLines() {
   //g.fillRect(bbox.x1, bbox.y1, bbox.x2, bbox.y2);
 
   // --- Draw the text ---
-  g.setColor(0,0,0);
+  g.setColor(textColour);
   g.setFont("Vector", textHeight);
   g.setFontAlign(0,0); // centre alignment within bounding box
   g.drawString(textLine, labelX, labelYTop);
