@@ -21,11 +21,11 @@ function saveSettings() {require("Storage").writeJSON(STORAGE_FILE, mySettings);
 // -------------------------------------------
 
 // Create Root Menu
-function showRootMenu() {
+function showDashboardMenu() {
   
   E.showMenu({
     "": { "title": "Polaris Hour Angle" },
-    "< Back": () => showRootMenu(), // for the button
+    "< Back": () => showDashboardMenu(), // for the button
     "Run": loadPolarisHourAngleApp,
     "Settings": showMainSettingsMenu,
     "Exit": () => load(), // using load() always shows the watch's main menu
@@ -41,8 +41,8 @@ function showMainSettingsMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Settings" },
-    "< Back": () => showRootMenu(),  // for the button
-    "Back": showRootMenu,
+    "< Back": () => showDashboardMenu(),  // for the button
+    "Back": showDashboardMenu,
     
     //custom parts
     
@@ -1156,7 +1156,7 @@ mySettings.swVersion = DEFAULTS.swVersion
 saveSettings();
 
 // MAIN APP START
-showRootMenu();
+showDashboardMenu();
 
 // Cleanup on app exit
 // Cleans up the IntervalID, waitingIntervalID and turns off the GPS
