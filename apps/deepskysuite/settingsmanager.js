@@ -61,6 +61,10 @@ exports.DEFAULTS = DEFAULTS;
 
 // Create Main Settings Menu
 function showMainSettingsMenu() {
+
+  //access settings from this module
+  let myLocalSettings = loadSettings();
+  
   E.showMenu({
     // common parts
     "": { title: "Settings" },
@@ -69,13 +73,13 @@ function showMainSettingsMenu() {
 
     // custom parts
     "Style": {
-      value: Number(getFromMainApp.mySettings.reticuleStyle),
+      value: Number(myLocalSettings.reticuleStyle),
       min: 1,
       max: 2,
       step: 1,
       format: v => v,
       onchange: v => {
-        getFromMainApp.mySettings.reticuleStyle = v;
+        myLocalSettings.reticuleStyle = v;
         saveSettings();
       }
     },
@@ -86,13 +90,13 @@ function showMainSettingsMenu() {
 
     // common parts
     "Reset (immediate)": () => {
-      getFromMainApp.mySettings.theme = DEFAULTS.theme;
-      getFromMainApp.mySettings.vibration = DEFAULTS.vibration;
-      getFromMainApp.mySettings.brightness = DEFAULTS.brightness;
-      getFromMainApp.mySettings.advancedOption = DEFAULTS.advancedOption;
+      myLocalSettings.theme = DEFAULTS.theme;
+      myLocalSettings.vibration = DEFAULTS.vibration;
+      myLocalSettings.brightness = DEFAULTS.brightness;
+      myLocalSettings.advancedOption = DEFAULTS.advancedOption;
 
       saveSettings();
-      Bangle.setLCDBrightness(getFromMainApp.mySettings.brightness);
+      Bangle.setLCDBrightness(myLocalSettings.brightness);
       E.showMessage("Settings reset!");
     }
   //showMenu closure brackets
@@ -101,7 +105,10 @@ function showMainSettingsMenu() {
 }
 
 //function showMainSettingsMenu() {
-  
+
+  //access settings from this module
+  //let myLocalSettings = loadSettings();
+
   //E.showMenu({
     //common parts
     //"": { "title": "Settings" },
@@ -109,13 +116,13 @@ function showMainSettingsMenu() {
     //"Back": showDashboardMenu,
         
     //"Style": {
-    //  value: Number(getFromMainApp.mySettings.reticuleStyle),
+    //  value: Number(myLocalSettings.reticuleStyle),
     //  min: 1,
     //  max: 2,
     //  step: 1, 
     //  format: v => v,
     // onchange: v => {
-    //    getFromMainApp.mySettings.reticuleStyle = v;
+    //    myLocalSettings.reticuleStyle = v;
     //    getFromMainApp.saveSettings();
       //}  
     //},
@@ -126,9 +133,9 @@ function showMainSettingsMenu() {
     
     //common parts
     //"Reset (immediate)": () => {
-      //getFromMainApp.mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
-      //getFromMainApp.saveSettings();
-      //Bangle.setLCDBrightness(getFromMainApp.mySettings.brightness);
+      //myLocalSettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
+      //saveSettings();
+      //Bangle.setLCDBrightness(myLocalSettings.brightness);
       //E.showMessage("Settings reset!");
     //}
   //showMenu closure brackets
@@ -144,6 +151,9 @@ function showMainSettingsMenu() {
 
 // Create Reticule Validity Start Year change submenu
 function showReticuleValidityStartYearMenu() {
+
+  //access settings from this module
+  let myLocalSettings = loadSettings();
   
   // create the number for the title
   let validityStartYear = getReticuleValidityStartYear();
@@ -155,49 +165,49 @@ function showReticuleValidityStartYearMenu() {
     "Back": showMainSettingsMenu,
     //custom parts
     "Thousands": {
-      value: Number(getFromMainApp.mySettings.reticuleValidityStartYearThousands),
+      value: Number(myLocalSettings.reticuleValidityStartYearThousands),
       min: 1,
       max: 2,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        getFromMainApp.mySettings.reticuleValidityStartYearThousands = v;
+        myLocalSettings.reticuleValidityStartYearThousands = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
     "Hundreds": {
-      value: Number(getFromMainApp.mySettings.reticuleValidityStartYearHundreds),
+      value: Number(myLocalSettings.reticuleValidityStartYearHundreds),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        getFromMainApp.mySettings.reticuleValidityStartYearHundreds = v;
+        myLocalSettings.reticuleValidityStartYearHundreds = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(getFromMainApp.mySettings.reticuleValidityStartYearTens),
+      value: Number(myLocalSettings.reticuleValidityStartYearTens),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        getFromMainApp.mySettings.reticuleValidityStartYearTens = v;
+        myLocalSettings.reticuleValidityStartYearTens = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(getFromMainApp.mySettings.reticuleValidityStartYearOnes),
+      value: Number(myLocalSettings.reticuleValidityStartYearOnes),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        getFromMainApp.mySettings.reticuleValidityStartYearOnes = v;
+        myLocalSettings.reticuleValidityStartYearOnes = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
@@ -209,6 +219,9 @@ function showReticuleValidityStartYearMenu() {
 
 // Create Reticule Validity End Year change submenu
 function showReticuleValidityEndYearMenu() {
+
+  //access settings from this module
+  let myLocalSettings = loadSettings();
   
   // create the number for the title
   let validityEndYear = getReticuleValidityEndYear();
@@ -221,49 +234,49 @@ function showReticuleValidityEndYearMenu() {
     
     //custom parts
     "Thousands": {
-      value: Number(getFromMainApp.mySettings.reticuleValidityEndYearThousands),
+      value: Number(myLocalSettings.reticuleValidityEndYearThousands),
       min: 1,
       max: 2,
       step: 1,
       format: v => v, 
       onchange: v => {
-        getFromMainApp.mySettings.reticuleValidityEndYearThousands = v;
+        myLocalSettings.reticuleValidityEndYearThousands = v;
         saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
     "Hundreds": {
-      value: Number(getFromMainApp.mySettings.reticuleValidityEndYearHundreds),
+      value: Number(myLocalSettings.reticuleValidityEndYearHundreds),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, 
       onchange: v => {
-        getFromMainApp.mySettings.reticuleValidityEndYearHundreds = v;
+        myLocalSettings.reticuleValidityEndYearHundreds = v;
         saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(getFromMainApp.mySettings.reticuleValidityEndYearTens),
+      value: Number(myLocalSettings.reticuleValidityEndYearTens),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, 
       onchange: v => {
-        getFromMainApp.mySettings.reticuleValidityEndYearTens = v;
+        myLocalSettings.reticuleValidityEndYearTens = v;
         saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(getFromMainApp.mySettings.reticuleValidityEndYearOnes),
+      value: Number(myLocalSettings.reticuleValidityEndYearOnes),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, 
       onchange: v => {
-        getFromMainApp.mySettings.reticuleValidityEndYearOnes = v;
+        myLocalSettings.reticuleValidityEndYearOnes = v;
         saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
@@ -275,7 +288,11 @@ function showReticuleValidityEndYearMenu() {
 
 // Create Longitude submenu
 function showLongitudeMenu() {
-   
+  
+  //access settings from this module
+  let myLocalSettings = loadSettings();
+
+  //get longitude string
   var mylon = getLongitudeAngleString();
   
   E.showMenu({
@@ -288,12 +305,12 @@ function showLongitudeMenu() {
     "Current": {value: mylon}, //read only
     
     "Change Direction": {
-      value: Number(getFromMainApp.mySettings.lonDirection),
+      value: Number(myLocalSettings.lonDirection),
       min: 0,
       max: 1,
       format: v => ["East","West"][v],
       onchange: v => {
-        getFromMainApp.mySettings.lonDirection = ["East","West"][v];
+        myLocalSettings.lonDirection = ["East","West"][v];
         saveSettings();
         showLongitudeMenu();
       }
@@ -309,6 +326,9 @@ function showLongitudeMenu() {
 
 // Create Longitude Angle change submenu
 function showLongitudeAngleChangeMenu() {
+    
+  //access settings from this module
+  let myLocalSettings = loadSettings();
   
   // create the number for the title
   let lonangle = getLongitudeAngleString();
@@ -320,37 +340,37 @@ function showLongitudeAngleChangeMenu() {
     "Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
-      value: Number(getFromMainApp.mySettings.lonAngleHundreds),
+      value: Number(myLocalSettings.lonAngleHundreds),
       min: 0,
       max: 1,
       step: 1,
       format: v => v,
       onchange: v => {
-        getFromMainApp.mySettings.lonAngleHundreds = v;
+        myLocalSettings.lonAngleHundreds = v;
         saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(getFromMainApp.mySettings.lonAngleTens),
+      value: Number(myLocalSettings.lonAngleTens),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        getFromMainApp.mySettings.lonAngleTens = v;
+        myLocalSettings.lonAngleTens = v;
         saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(getFromMainApp.mySettings.lonAngleOnes),
+      value: Number(myLocalSettings.lonAngleOnes),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        getFromMainApp.mySettings.lonAngleOnes = v;
+        myLocalSettings.lonAngleOnes = v;
         saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
@@ -366,6 +386,9 @@ function showLongitudeAngleChangeMenu() {
 
 // Create numeric longitude angle from settings digits
 //function getLongitudeAngleNumeric() {
+    
+  //access settings from this module
+  //let myLocalSettings = loadSettings();
 
   //var myLongitudeAngleMod =
     //(Number(getFromMainApp.mySettings.lonAngleHundreds) * 100) +
@@ -385,15 +408,18 @@ function showLongitudeAngleChangeMenu() {
 
 // Create string longitude angle from settings digits
 function getLongitudeAngleString() {
-
+    
+  //access settings from this module
+  let myLocalSettings = loadSettings();
+  
   var myLongitudeAngleMod =
-    (Number(getFromMainApp.mySettings.lonAngleHundreds) * 100) +
-    (Number(getFromMainApp.mySettings.lonAngleTens) * 10) +
-    Number(getFromMainApp.mySettings.lonAngleOnes);
+    (Number(myLocalSettings.lonAngleHundreds) * 100) +
+    (Number(myLocalSettings.lonAngleTens) * 10) +
+    Number(myLocalSettings.lonAngleOnes);
 
   var myLongitudeAngle;
 
-  if (getFromMainApp.mySettings.lonDirection == "West") {
+  if (myLocalSettings.lonDirection == "West") {
     myLongitudeAngle = myLongitudeAngleMod + "° W";
   } else {
     myLongitudeAngle = myLongitudeAngleMod + "° E";
@@ -406,14 +432,14 @@ function getLongitudeAngleString() {
 // Create reticule validity start year digits combiner
 function getReticuleValidityStartYear() {
   var myReticuleValidityStartYear = 0;
-  myReticuleValidityStartYear = (Number(getFromMainApp.mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(getFromMainApp.mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(getFromMainApp.mySettings.reticuleValidityStartYearTens) * 10) + Number(getFromMainApp.mySettings.reticuleValidityStartYearOnes);
+  myReticuleValidityStartYear = (Number(myLocalSettings.reticuleValidityStartYearThousands) * 1000) + (Number(myLocalSettings.reticuleValidityStartYearHundreds) * 100) + (Number(myLocalSettings.reticuleValidityStartYearTens) * 10) + Number(myLocalSettings.reticuleValidityStartYearOnes);
   return (myReticuleValidityStartYear);
 }
 
 // Create reticule validity end year digits combiner
 function getReticuleValidityEndYear() {
   var myReticuleValidityEndYear = 0;
-  myReticuleValidityEndYear = (Number(getFromMainApp.mySettings.reticuleValidityEndYearThousands) * 1000) + (Number(getFromMainApp.mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(getFromMainApp.mySettings.reticuleValidityEndYearTens) * 10) + Number(getFromMainApp.mySettings.reticuleValidityEndYearOnes);
+  myReticuleValidityEndYear = (Number(myLocalSettings.reticuleValidityEndYearThousands) * 1000) + (Number(myLocalSettings.reticuleValidityEndYearHundreds) * 100) + (Number(myLocalSettings.reticuleValidityEndYearTens) * 10) + Number(myLocalSettings.reticuleValidityEndYearOnes);
   return (myReticuleValidityEndYear);
 }
 
@@ -431,5 +457,9 @@ function loadSettings() {
 }
 
 function saveSettings() {
-  require("Storage").writeJSON(STORAGE_FILE, getFromMainApp.mySettings);
+  
+  //access settings from this module
+  let myLocalSettings = loadSettings();
+  
+  require("Storage").writeJSON(STORAGE_FILE, myLocalSettings);
 }
