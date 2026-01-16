@@ -48,9 +48,9 @@ const DEFAULTS = {
 
 //Define which functions are allowed to be accessed by other JS files/modules
 //If they are not in the list below, they remain private for use by this file/module
-exports.showMainSettingsMenu = showMainSettingsMenu;
-exports.loadSettings = loadSettings;
-exports.saveSettings = saveSettings;
+exports.showMainSettingsMenu = showMainSettingsMenu
+exports.loadSettings = loadSettings
+exports.saveSettings = saveSettings
 exports.DEFAULTS = DEFAULTS;
 
 // -------------------------------------------
@@ -96,7 +96,7 @@ function showMainSettingsMenu() {
   //showMenu closure brackets
   });
   //function closure bracket
-};
+}
 
 //function showMainSettingsMenu() {
   
@@ -426,8 +426,8 @@ function loadSettings() {
     ctx.DEFAULTS, // global defaults passed via init()
     require("Storage").readJSON(ctx.STORAGE_FILE, true) || {}
   );
-};
+}
 
 function saveSettings() {
   require("Storage").writeJSON(ctx.STORAGE_FILE, ctx.mySettings);
-};
+}
