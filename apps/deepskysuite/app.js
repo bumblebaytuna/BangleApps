@@ -693,7 +693,7 @@ let refreshStarted = false;  // Global flag to track if the cyclic display refre
 var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 
 //Load the settings adjuster module
-const settingsManager = require("settingsManager");
+const settingsManager = require("settingsmanager");
 
 //Ensure the version number in the old hourangle.settings.json file on the watch is up to date
 let mySettings = settingsManager.loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
