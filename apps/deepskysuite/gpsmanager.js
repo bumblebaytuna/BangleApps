@@ -24,6 +24,7 @@ exports.startWaitingForGPS = startWaitingForGPS;
 exports.showWaitingForGPS = showWaitingForGPS;
 exports.onGPSEvent = onGPSEvent;
 exports.fakeGPSEvent = fakeGPSEvent;
+exports.gpsFixReceived = gpsFixReceived;
 
 // -------------------------------------------------
 // -------- GPS Manager: Control Functions ----------
