@@ -107,7 +107,7 @@ function showReticuleValidityStartYearMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Start Year: " + validityStartYear },
-    "< Back": () => showMainSettingsMenu(),  // for the button
+    "< Back": () => exports.showMainSettingsMenu(),  // for the button
     "Back": showMainSettingsMenu,
     //custom parts
     "Thousands": {
@@ -172,7 +172,7 @@ function showReticuleValidityEndYearMenu() {
   E.showMenu({
     //common parts
     "": { "title": "End Year: " + validityEndYear },
-    "< Back": () => showMainSettingsMenu(),  // for the button
+    "< Back": () => exports.showMainSettingsMenu(),  // for the button
     "Back": showMainSettingsMenu,
     
     //custom parts
@@ -237,7 +237,7 @@ function showLongitudeMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Longitude" },
-    "< Back": () => showMainSettingsMenu(), // for the button
+    "< Back": () => exports.showMainSettingsMenu(), // for the button
     "Back": showMainSettingsMenu,
 
     //custom parts
@@ -272,7 +272,7 @@ function showLongitudeAngleChangeMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Longitude: " + lonangle },
-    "< Back": () => showMainSettingsMenu(),  // for the button
+    "< Back": () => exports.showMainSettingsMenu(),  // for the button
     "Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
