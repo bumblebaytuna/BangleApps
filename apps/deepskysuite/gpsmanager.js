@@ -18,7 +18,7 @@ let gpsFixReceived = false;  // Global flag to track if GPS fix is received
 // -------- GPS Manager: Exports Control -----------
 // -------------------------------------------------
 
-//Define which functions are allowed to be accessed by other JS files/modules
+//Define which functions, variables, and constants, are allowed to be accessed by other JS files/modules
 //If they are not in the list below, they remain private for use by this file/module
 exports.startWaitingForGPS = startWaitingForGPS;
 exports.showWaitingForGPS = showWaitingForGPS;
