@@ -58,7 +58,7 @@ exports.DEFAULTS = DEFAULTS;
 // -------------------------------------------
 
 // Create Main Settings Menu
-showMainSettingsMenu() {
+function showMainSettingsMenu() {
   E.showMenu({
     // common parts
     "": { title: "Settings" },
@@ -419,7 +419,7 @@ function getReticuleValidityEndYear() {
 // -------- Settings: Settings File Read-Write Functions --------
 // --------------------------------------------------------------
 
-loadSettings() {
+function loadSettings() {
   // returns a new settings object, merging defaults
   return Object.assign(
     {}, // ensure a new object
@@ -428,6 +428,6 @@ loadSettings() {
   );
 };
 
-saveSettings() {
+function saveSettings() {
   require("Storage").writeJSON(ctx.STORAGE_FILE, ctx.mySettings);
 };
