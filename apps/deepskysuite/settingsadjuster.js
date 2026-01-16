@@ -108,7 +108,7 @@ function showReticuleValidityStartYearMenu() {
     //common parts
     "": { "title": "Start Year: " + validityStartYear },
     "< Back": () => exports.showMainSettingsMenu(),  // for the button
-    "Back": showMainSettingsMenu,
+    "Back": exports.showMainSettingsMenu,
     //custom parts
     "Thousands": {
       value: Number(ctx.mySettings.reticuleValidityStartYearThousands),
@@ -173,7 +173,7 @@ function showReticuleValidityEndYearMenu() {
     //common parts
     "": { "title": "End Year: " + validityEndYear },
     "< Back": () => exports.showMainSettingsMenu(),  // for the button
-    "Back": showMainSettingsMenu,
+    "Back": exports.showMainSettingsMenu,
     
     //custom parts
     "Thousands": {
@@ -238,7 +238,7 @@ function showLongitudeMenu() {
     //common parts
     "": { "title": "Longitude" },
     "< Back": () => exports.showMainSettingsMenu(), // for the button
-    "Back": showMainSettingsMenu,
+    "Back": exports.showMainSettingsMenu,
 
     //custom parts
     "Current": {value: mylon}, //read only
@@ -273,7 +273,7 @@ function showLongitudeAngleChangeMenu() {
     //common parts
     "": { "title": "Longitude: " + lonangle },
     "< Back": () => exports.showMainSettingsMenu(),  // for the button
-    "Back": showMainSettingsMenu,
+    "Back": exports.showMainSettingsMenu,
     //custom parts
     "Hundreds": {
       value: Number(ctx.mySettings.lonAngleHundreds),
