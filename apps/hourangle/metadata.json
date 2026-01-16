@@ -11,7 +11,7 @@
   "storage": [
     {"name":"deepskysuite.app.js","url":"app.js"},
     {"name":"deepskysuite.img","url":"app-icon.js","evaluate":true},
-    {"name":"moonsofjupiter.js","url":"moonsofjupiter.js","evaluate":true},
+    {"name":"moonsofjupiter.js","url":"moonsofjupiter.js","evaluate":true}
   ],
   "data": [{"name":"deepskysuite.settings.json"}]
 }
