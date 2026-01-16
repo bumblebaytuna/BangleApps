@@ -109,7 +109,7 @@ function onGPSEvent(fix) {
     console.log("----------");
 
     stopWaitingForGPS();   // ← STOP 1-sec waiting page refresh
-    startRefreshLoop(); // Immediately refresh display once GPS fix is received
+    ctx.startRefreshLoop(); // Immediately refresh display once GPS fix is received
     return true;  // Return true to indicate GPS fix received
   }
   return false;  // Return false if no valid fix is received
