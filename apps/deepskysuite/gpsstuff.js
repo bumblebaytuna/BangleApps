@@ -8,7 +8,14 @@ exports.init = function (_ctx) {
 };
 
 // -------------------------------------------------
-// -------- Settings: GPS Control Functions --------
+// -------- GPS Manager: Declarations --------------
+// -------------------------------------------------
+
+let waitingPageIntervalID;  // for GPS waiting page
+let gpsStartTime = null; // Holds the stopwatch counter (counts-up) value when waiting for the GPS to get a fix
+
+// -------------------------------------------------
+// -------- GPS Manager: Control Functions ----------
 // -------------------------------------------------
 
 exports.startWaitingForGPS = function () {
