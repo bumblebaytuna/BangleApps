@@ -30,7 +30,7 @@ exports.fakeGPSEvent = fakeGPSEvent;
 // -------- GPS Manager: Control Functions ----------
 // -------------------------------------------------
 
-startWaitingForGPS() {
+function startWaitingForGPS() {
   // draw immediately
   showWaitingForGPS(ctx.mySettings.reticuleColour);
 
@@ -49,7 +49,7 @@ function stopWaitingForGPS() {
   }
 }
 
-showWaitingForGPS(messageColour) {
+function showWaitingForGPS(messageColour) {
 
   // Remember old colour
   let oldColour = g.getColor();
@@ -86,7 +86,7 @@ showWaitingForGPS(messageColour) {
 }
 
 // Function to handle when GPS fix is received
-onGPSEvent(fix) {
+function onGPSEvent(fix) {
   if (fix && fix.fix && fix.time) {
     gpsFixReceived = true;  // Mark GPS fix as received
     
@@ -116,7 +116,7 @@ onGPSEvent(fix) {
 }
 
 // function to simulate a fake GPS fix - FOR TESTING PURPOSES ONLY
-fakeGPSEvent() {
+function fakeGPSEvent() {
   var fakeFix = {
     fix: 1,                 // indicate GPS fix
     lat: 50.9,              // fake latitude
