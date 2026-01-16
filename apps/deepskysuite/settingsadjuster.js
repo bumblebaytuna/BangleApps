@@ -7,6 +7,10 @@ exports.init = function (_ctx) {
   ctx = _ctx;
 };
 
+
+// define the settings storage file on the watch, this is created and stored on the watch
+//const STORAGE_FILE = "hourangle.settings.json";
+
 // -------------------------------------------
 // ---- Settings: Menu Creation Functions ----
 // -------------------------------------------
