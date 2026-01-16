@@ -714,7 +714,8 @@ const gpsManager = require("gpsmanager");
 
 // this is to feed the gpsManager.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to gpsManager.js.
 gpsManager.init({
-  mySettings: mySettings
+  mySettings: mySettings,
+  startRefreshLoop: startRefreshLoop
 });
 
 //------- Main Sequence -------------
