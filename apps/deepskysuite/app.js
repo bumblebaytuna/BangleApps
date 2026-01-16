@@ -17,10 +17,10 @@ function loadSettings() {
 function saveSettings() {require("Storage").writeJSON(STORAGE_FILE, mySettings);}
 
 // -------------------------------------------
-// ---- Settings: Menu Creation Functions ----
+// ---- DASHBOARD: Menu Creation Function ----
 // -------------------------------------------
 
-// Create Root Menu
+// Create Dashboard Menu
 function showDashboardMenu() {
   
   E.showMenu({
@@ -34,6 +34,10 @@ function showDashboardMenu() {
   });
 //function closure bracket
 }
+
+// -------------------------------------------
+// ---- Settings: Menu Creation Functions ----
+// -------------------------------------------
 
 // Create Main Settings Menu
 function showMainSettingsMenu() {
