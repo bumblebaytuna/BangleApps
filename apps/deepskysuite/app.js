@@ -10,6 +10,18 @@ function showDashboardMenu() {
     "Version": {value: mySettings.swVersion} //read only
   //showMenu closure brackets
   });
+
+  //Temporary test menu to check if reason menu is not loading proerly is to do with eternal links/dependencies
+  //  E.showMenu({
+  //  "": { "title": "Polaris Hour Angle" },
+  //  "< Back": () => showDashboardMenu(), // for the button
+    //"Run": loadPolarisHourAngleApp,
+    //"Settings": settingsManager.showMainSettingsMenu,
+    //"Exit": () => load(), // using load() always shows the watch's main menu
+    //"Version": {value: mySettings.swVersion} //read only
+  //showMenu closure brackets
+  //});
+  
 //function closure bracket
 }
 
