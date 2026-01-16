@@ -65,13 +65,13 @@ exports.showMainSettingsMenu = function () {
     //"Back": showDashboardMenu,
         
     //"Style": {
-    //  value: Number(mySettings.reticuleStyle),
+    //  value: Number(ctx.mySettings.reticuleStyle),
     //  min: 1,
     //  max: 2,
     //  step: 1, 
     //  format: v => v,
     // onchange: v => {
-    //    mySettings.reticuleStyle = v;
+    //    ctx.mySettings.reticuleStyle = v;
     //    saveSettings();
       //}  
     //},
@@ -82,9 +82,9 @@ exports.showMainSettingsMenu = function () {
     
     //common parts
     //"Reset (immediate)": () => {
-      //mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
+      //ctx.mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
       //saveSettings();
-      //Bangle.setLCDBrightness(mySettings.brightness);
+      //Bangle.setLCDBrightness(ctx.mySettings.brightness);
       //E.showMessage("Settings reset!");
     //}
   //showMenu closure brackets
@@ -111,49 +111,49 @@ function showReticuleValidityStartYearMenu() {
     "Back": showMainSettingsMenu,
     //custom parts
     "Thousands": {
-      value: Number(mySettings.reticuleValidityStartYearThousands),
+      value: Number(ctx.mySettings.reticuleValidityStartYearThousands),
       min: 1,
       max: 2,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        mySettings.reticuleValidityStartYearThousands = v;
+        ctx.mySettings.reticuleValidityStartYearThousands = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
     "Hundreds": {
-      value: Number(mySettings.reticuleValidityStartYearHundreds),
+      value: Number(ctx.mySettings.reticuleValidityStartYearHundreds),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        mySettings.reticuleValidityStartYearHundreds = v;
+        ctx.mySettings.reticuleValidityStartYearHundreds = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(mySettings.reticuleValidityStartYearTens),
+      value: Number(ctx.mySettings.reticuleValidityStartYearTens),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        mySettings.reticuleValidityStartYearTens = v;
+        ctx.mySettings.reticuleValidityStartYearTens = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(mySettings.reticuleValidityStartYearOnes),
+      value: Number(ctx.mySettings.reticuleValidityStartYearOnes),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        mySettings.reticuleValidityStartYearOnes = v;
+        ctx.mySettings.reticuleValidityStartYearOnes = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
@@ -177,49 +177,49 @@ function showReticuleValidityEndYearMenu() {
     
     //custom parts
     "Thousands": {
-      value: Number(mySettings.reticuleValidityEndYearThousands),
+      value: Number(ctx.mySettings.reticuleValidityEndYearThousands),
       min: 1,
       max: 2,
       step: 1,
       format: v => v, 
       onchange: v => {
-        mySettings.reticuleValidityEndYearThousands = v;
+        ctx.mySettings.reticuleValidityEndYearThousands = v;
         saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
     "Hundreds": {
-      value: Number(mySettings.reticuleValidityEndYearHundreds),
+      value: Number(ctx.mySettings.reticuleValidityEndYearHundreds),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, 
       onchange: v => {
-        mySettings.reticuleValidityEndYearHundreds = v;
+        ctx.mySettings.reticuleValidityEndYearHundreds = v;
         saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(mySettings.reticuleValidityEndYearTens),
+      value: Number(ctx.mySettings.reticuleValidityEndYearTens),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, 
       onchange: v => {
-        mySettings.reticuleValidityEndYearTens = v;
+        ctx.mySettings.reticuleValidityEndYearTens = v;
         saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(mySettings.reticuleValidityEndYearOnes),
+      value: Number(ctx.mySettings.reticuleValidityEndYearOnes),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, 
       onchange: v => {
-        mySettings.reticuleValidityEndYearOnes = v;
+        ctx.mySettings.reticuleValidityEndYearOnes = v;
         saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
@@ -244,12 +244,12 @@ function showLongitudeMenu() {
     "Current": {value: mylon}, //read only
     
     "Change Direction": {
-      value: Number(mySettings.lonDirection),
+      value: Number(ctx.mySettings.lonDirection),
       min: 0,
       max: 1,
       format: v => ["East","West"][v],
       onchange: v => {
-        mySettings.lonDirection = ["East","West"][v];
+        ctx.mySettings.lonDirection = ["East","West"][v];
         saveSettings();
         showLongitudeMenu();
       }
@@ -276,37 +276,37 @@ function showLongitudeAngleChangeMenu() {
     "Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
-      value: Number(mySettings.lonAngleHundreds),
+      value: Number(ctx.mySettings.lonAngleHundreds),
       min: 0,
       max: 1,
       step: 1,
       format: v => v,
       onchange: v => {
-        mySettings.lonAngleHundreds = v;
+        ctx.mySettings.lonAngleHundreds = v;
         saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(mySettings.lonAngleTens),
+      value: Number(ctx.mySettings.lonAngleTens),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        mySettings.lonAngleTens = v;
+        ctx.mySettings.lonAngleTens = v;
         saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(mySettings.lonAngleOnes),
+      value: Number(ctx.mySettings.lonAngleOnes),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        mySettings.lonAngleOnes = v;
+        ctx.mySettings.lonAngleOnes = v;
         saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
@@ -324,13 +324,13 @@ function showLongitudeAngleChangeMenu() {
 function getLongitudeAngleNumeric() {
 
   var myLongitudeAngleMod =
-    (Number(mySettings.lonAngleHundreds) * 100) +
-    (Number(mySettings.lonAngleTens) * 10) +
-    Number(mySettings.lonAngleOnes);
+    (Number(ctx.mySettings.lonAngleHundreds) * 100) +
+    (Number(ctx.mySettings.lonAngleTens) * 10) +
+    Number(ctx.mySettings.lonAngleOnes);
 
   var myLongitudeAngle;
 
-  if (mySettings.lonDirection == "West") {
+  if (ctx.mySettings.lonDirection == "West") {
     myLongitudeAngle = myLongitudeAngleMod * (-1);
   } else {
     myLongitudeAngle = myLongitudeAngleMod;
@@ -343,13 +343,13 @@ function getLongitudeAngleNumeric() {
 function getLongitudeAngleString() {
 
   var myLongitudeAngleMod =
-    (Number(mySettings.lonAngleHundreds) * 100) +
-    (Number(mySettings.lonAngleTens) * 10) +
-    Number(mySettings.lonAngleOnes);
+    (Number(ctx.mySettings.lonAngleHundreds) * 100) +
+    (Number(ctx.mySettings.lonAngleTens) * 10) +
+    Number(ctx.mySettings.lonAngleOnes);
 
   var myLongitudeAngle;
 
-  if (mySettings.lonDirection == "West") {
+  if (ctx.mySettings.lonDirection == "West") {
     myLongitudeAngle = myLongitudeAngleMod + "° W";
   } else {
     myLongitudeAngle = myLongitudeAngleMod + "° E";
@@ -362,14 +362,14 @@ function getLongitudeAngleString() {
 // Create reticule validity start year digits combiner
 function getReticuleValidityStartYear() {
   var myReticuleValidityStartYear = 0;
-  myReticuleValidityStartYear = (Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes);
+  myReticuleValidityStartYear = (Number(ctx.mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(ctx.mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(ctx.mySettings.reticuleValidityStartYearTens) * 10) + Number(ctx.mySettings.reticuleValidityStartYearOnes);
   return (myReticuleValidityStartYear);
 }
 
 // Create reticule validity end year digits combiner
 function getReticuleValidityEndYear() {
   var myReticuleValidityEndYear = 0;
-  myReticuleValidityEndYear = (Number(mySettings.reticuleValidityEndYearThousands) * 1000) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes);
+  myReticuleValidityEndYear = (Number(ctx.mySettings.reticuleValidityEndYearThousands) * 1000) + (Number(ctx.mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(ctx.mySettings.reticuleValidityEndYearTens) * 10) + Number(ctx.mySettings.reticuleValidityEndYearOnes);
   return (myReticuleValidityEndYear);
 }
 
