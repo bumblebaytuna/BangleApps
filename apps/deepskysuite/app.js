@@ -683,10 +683,8 @@ function loadPolarisHourAngleApp() {
 // Declare global runtime variables
 let intervalID;
 let waitingIntervalID;
-let gpsStartTime = null; // Holds the stopwatch counter (counts-up) value when waiting for the GPS to get a fix
 let gpsFixReceived = false;  // Global flag to track if GPS fix is received
 let refreshStarted = false;  // Global flag to track if the cyclic display refresh is active
-let waitingPageIntervalID;  // for GPS waiting page
 
 // Declare global runtime variables to store the GPS date and time components
 var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
@@ -694,21 +692,16 @@ var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 //Load the settings adjuster module
 const settingsAdjuster = require("settingsadjuster");
 
-//define the defaults
-const DEFAULTS = settingsAdjuster.DEFAULTS;
-
 //Ensure the version number in the old hourangle.settings.json file on the watch is up to date
 let mySettings = settingsAdjuster.loadSettings(); // Collects the global app settings from the storage file, the settingsAdjuster.loadSettings function uses the above defaults at the top of the settingsadjuster.js file if the watch settings file is missing or empty
-mySettings.swVersion = DEFAULTS.swVersion;
+mySettings.swVersion = settingsAdjuster.DEFAULTS.swVersion;
 settingsAdjuster.saveSettings();
-
 
 // this is to feed the settingsadjuster.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to settingsadjuster.js.
 settingsAdjuster.init({
   mySettings: mySettings,
   showDashboardMenu: showDashboardMenu
 });
-
 
 //Load the GPS management module
 const gpsManager = require("gpsstuff");
