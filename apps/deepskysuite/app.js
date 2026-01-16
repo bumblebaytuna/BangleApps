@@ -707,7 +707,7 @@ settingsManager.init({
 });
 
 //Load the GPS management module
-const gpsManager = require("gpsstuff");
+const gpsManager = require("gpsmanager");
 
 // this is to feed the gpsManager.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to gpsManager.js.
 gpsManager.init({
