@@ -11,6 +11,7 @@ exports.init = function (_ctx) {
 
 let waitingPageIntervalID;  // for GPS waiting page
 let gpsStartTime = null; // Holds the stopwatch counter (counts-up) value when waiting for the GPS to get a fix
+let gpsFixReceived = false;  // Global flag to track if GPS fix is received
 
 
 // -------------------------------------------------
