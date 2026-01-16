@@ -425,7 +425,7 @@ function loadSettings() {
   // returns a new settings object, merging defaults
   return Object.assign(
     {}, // ensure a new object
-    getFromMainApp.DEFAULTS, // global defaults passed via init()
+    DEFAULTS, // global defaults passed via init()
     require("Storage").readJSON(STORAGE_FILE, true) || {}
   );
 }
