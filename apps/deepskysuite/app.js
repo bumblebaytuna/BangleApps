@@ -38,23 +38,23 @@ function getLongitudeAngleNumeric() {
 }
 
 // Create string longitude angle from settings digits
-function getLongitudeAngleString() {
+//function getLongitudeAngleString() {
 
-  var myLongitudeAngleMod =
-    (Number(mySettings.lonAngleHundreds) * 100) +
-    (Number(mySettings.lonAngleTens) * 10) +
-    Number(mySettings.lonAngleOnes);
+  //var myLongitudeAngleMod =
+    //(Number(mySettings.lonAngleHundreds) * 100) +
+    //(Number(mySettings.lonAngleTens) * 10) +
+    //Number(mySettings.lonAngleOnes);
 
-  var myLongitudeAngle;
+  //var myLongitudeAngle;
 
-  if (mySettings.lonDirection == "West") {
-    myLongitudeAngle = myLongitudeAngleMod + "° W";
-  } else {
-    myLongitudeAngle = myLongitudeAngleMod + "° E";
-  }
+  //if (mySettings.lonDirection == "West") {
+    //myLongitudeAngle = myLongitudeAngleMod + "° W";
+  //} else {
+    //myLongitudeAngle = myLongitudeAngleMod + "° E";
+  //}
 
-  return myLongitudeAngle;
-}
+  //return myLongitudeAngle;
+//}
 
 
 // Create reticule validity start year digits combiner
