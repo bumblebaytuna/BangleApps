@@ -646,13 +646,13 @@ function loadPolarisHourAngleApp() {
   
     if (!gpsFixReceived) {
       console.log("Awaiting GPS fix...");
-      showWaitingForGPS(mySettings.reticuleColour);
+      gpsManager.showWaitingForGPS(mySettings.reticuleColour);
     }
   
     waitingIntervalID = setInterval(function() {
       if (!gpsFixReceived) {
         console.log("Awaiting GPS fix...");
-        showWaitingForGPS(mySettings.reticuleColour);
+        gpsManager.showWaitingForGPS(mySettings.reticuleColour);
       }
     }, mySettings.gpsfixWaitIntervalMillisecs);
   
@@ -700,19 +700,26 @@ const DEFAULTS = settingsAdjuster.DEFAULTS;
 //Ensure the version number in the old hourangle.settings.json file on the watch is up to date
 let mySettings = settingsAdjuster.loadSettings(); // Collects the global app settings from the storage file, the settingsAdjuster.loadSettings function uses the above defaults at the top of the settingsadjuster.js file if the watch settings file is missing or empty
 mySettings.swVersion = DEFAULTS.swVersion;
-
 settingsAdjuster.saveSettings();
 
-// MAIN DASHBOARD START - NEW VERSION FOR SPLIT JS FILES
-// this needs to describe the functions, variables, and constant you want loaded for use by this file when the settingsadjuster is activated
+
+// this is to feed the settingsadjuster.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to settingsadjuster.js.
 settingsAdjuster.init({
   mySettings: mySettings,
-  saveSettings: settingsAdjuster.saveSettings,
-  DEFAULTS: DEFAULTS,
   showDashboardMenu: showDashboardMenu
 });
 
-// MAIN DASHBOARD START - OLD VERSION
+
+//Load the GPS management module
+const gpsManager = require("gpsstuff");
+
+// this is to feed the gpsManager.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to gpsManager.js.
+settingsAdjuster.init({
+  mySettings: mySettings,
+});
+
+
+// MAIN DASHBOARD START
 showDashboardMenu();
 
 // Cleanup on app exit
