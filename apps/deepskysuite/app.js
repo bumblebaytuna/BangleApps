@@ -5,7 +5,7 @@ function showDashboardMenu() {
     "": { "title": "Polaris Hour Angle" },
     "< Back": () => showDashboardMenu(), // for the button
     "Run": loadPolarisHourAngleApp,
-    "Settings": settingsAdjuster.showMainSettingsMenu,
+    "Settings": settingsManager.showMainSettingsMenu,
     "Exit": () => load(), // using load() always shows the watch's main menu
     "Version": {value: mySettings.swVersion} //read only
   //showMenu closure brackets
@@ -693,15 +693,15 @@ let refreshStarted = false;  // Global flag to track if the cyclic display refre
 var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 
 //Load the settings adjuster module
-const settingsAdjuster = require("settingsadjuster");
+const settingsManager = require("settingsManager");
 
 //Ensure the version number in the old hourangle.settings.json file on the watch is up to date
-let mySettings = settingsAdjuster.loadSettings(); // Collects the global app settings from the storage file, the settingsAdjuster.loadSettings function uses the above defaults at the top of the settingsadjuster.js file if the watch settings file is missing or empty
-mySettings.swVersion = settingsAdjuster.DEFAULTS.swVersion;
-settingsAdjuster.saveSettings();
+let mySettings = settingsManager.loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
+mySettings.swVersion = settingsManager.DEFAULTS.swVersion;
+settingsManager.saveSettings();
 
-// this is to feed the settingsadjuster.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to settingsadjuster.js.
-settingsAdjuster.init({
+// this is to feed the settingsManager.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to settingsManager.js.
+settingsManager.init({
   mySettings: mySettings,
   showDashboardMenu: showDashboardMenu
 });
