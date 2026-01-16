@@ -41,16 +41,22 @@ const DEFAULTS = {
   swVersion: "0.29" // version of this software
 };
 
+// -------------------------------------------------
+// -------- Settings Manager: Exports Control ------
+// -------------------------------------------------
+
+//Define which functions are allowed to be accessed by other JS files/modules
+//If they are not in the list below, they remain private for use by this file/module
+exports.showMainSettingsMenu = showMainSettingsMenu;
+exports.loadSettings = loadSettings;
+exports.saveSettings = saveSettings;
+
 // -------------------------------------------
 // ---- Settings: Menu Creation Functions ----
 // -------------------------------------------
 
 // Create Main Settings Menu
-// only use exports on functions which cross the boundary between different js files
-// The thing the world outside this file needs is access to this showMainSettingsMenu function
-
-// The ONLY thing the outside world needs
-exports.showMainSettingsMenu = function () {
+showMainSettingsMenu() {
   E.showMenu({
     // common parts
     "": { title: "Settings" },
@@ -411,7 +417,7 @@ function getReticuleValidityEndYear() {
 // -------- Settings: Settings File Read-Write Functions --------
 // --------------------------------------------------------------
 
-exports.loadSettings = function() {
+loadSettings() {
   // returns a new settings object, merging defaults
   return Object.assign(
     {}, // ensure a new object
@@ -420,7 +426,7 @@ exports.loadSettings = function() {
   );
 };
 
-exports.saveSettings = function() {
+saveSettings() {
   require("Storage").writeJSON(ctx.STORAGE_FILE, ctx.mySettings);
 };
 
