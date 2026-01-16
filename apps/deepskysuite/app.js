@@ -646,27 +646,27 @@ function loadPolarisHourAngleApp() {
     gpsManager.gpsStartTime = new Date();  // GPS start time
 
     //do not proceed until have a fix, let the user know waiting for a fix
-    if (!gpsFixReceived) {
+    if (!gpsManager.gpsFixReceived) {
       console.log("Awaiting GPS fix...");
       gpsManager.showWaitingForGPS(mySettings.reticuleColour);
     }
 
     //cycle through
     waitingIntervalID = setInterval(function() {
-      if (!gpsFixReceived) {
+      if (!gpsManager.gpsFixReceived) {
         console.log("Awaiting GPS fix...");
         gpsManager.showWaitingForGPS(mySettings.reticuleColour);
       }
     }, mySettings.gpsfixWaitIntervalMillisecs);
   
     // Check if GPS fix is acquired and then update
-    if (gpsFixReceived) {
+    if (gpsManager.gpsFixReceived) {
       console.log("GPS fix acquired...");
       //startRefreshLoop();  // Immediately update and start refresh cycle once GPS fix is received
     }
   
     intervalID = setInterval(function() {
-      if (gpsFixReceived) {
+      if (gpsManager.gpsFixReceived) {
         //updateDisplay();  // Update every 30 seconds
       }
     }, mySettings.reticuleRefreshIntervalMillisecs);
