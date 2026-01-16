@@ -27,7 +27,7 @@ function showDashboardMenu() {
     "": { "title": "Polaris Hour Angle" },
     "< Back": () => showDashboardMenu(), // for the button
     "Run": loadPolarisHourAngleApp,
-    "Settings": showMainSettingsMenu,
+    "Settings": SettingsAdjuster.showMainSettingsMenu,
     "Exit": () => load(), // using load() always shows the watch's main menu
     "Version": {value: mySettings.swVersion} //read only
   //showMenu closure brackets
@@ -1160,8 +1160,18 @@ var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 mySettings.swVersion = DEFAULTS.swVersion
 saveSettings();
 
-// MAIN APP START
-showDashboardMenu();
+// MAIN DASHBOARD START - NEW VERSION FOR SPLIT JS FILES
+const SettingsAdjuster = require("settingsadjuster");
+
+SettingsAdjuster.init({
+  mySettings,
+  saveSettings,
+  DEFAULTS,
+  showDashboardMenu
+});
+
+// MAIN DASHBOARD START - OLD VERSION
+//showDashboardMenu();
 
 // Cleanup on app exit
 // Cleans up the IntervalID, waitingIntervalID and turns off the GPS
