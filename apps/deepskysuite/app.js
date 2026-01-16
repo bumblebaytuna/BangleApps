@@ -11,7 +11,7 @@ function showDashboardMenu() {
   //showMenu closure brackets
   //});
 
-  Temporary test menu to check if reason menu is not loading proerly is to do with eternal links/dependencies
+  //Temporary test menu to check if reason menu is not loading proerly is to do with eternal links/dependencies
   E.showMenu({
   "": { "title": "Polaris Hour Angle" },
   "< Back": () => showDashboardMenu(), // for the button
