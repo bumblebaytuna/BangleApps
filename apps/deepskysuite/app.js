@@ -1,6 +1,6 @@
-// ------------------------------------------
-// -------- Settings Read-Write Functions --------
-// ------------------------------------------
+// --------------------------------------------------------------
+// -------- Settings: Settings File Read-Write Functions --------
+// --------------------------------------------------------------
 
 // Load Settings function
 function loadSettings() {
@@ -16,9 +16,9 @@ function loadSettings() {
 // Save Settings function
 function saveSettings() {require("Storage").writeJSON(STORAGE_FILE, mySettings);}
 
-// ------------------------------------------
-// ---- Settings Menu Creation Functions ----
-// ------------------------------------------
+// -------------------------------------------
+// ---- Settings: Menu Creation Functions ----
+// -------------------------------------------
 
 // Create Root Menu
 function showRootMenu() {
@@ -26,7 +26,7 @@ function showRootMenu() {
   E.showMenu({
     "": { "title": "Polaris Hour Angle" },
     "< Back": () => showRootMenu(), // for the button
-    "Run": loadMainApp,
+    "Run": loadPolarisHourAngleApp,
     "Settings": showMainSettingsMenu,
     "Exit": () => load(), // using load() always shows the watch's main menu
     "Version": {value: mySettings.swVersion} //read only
@@ -302,9 +302,9 @@ function showLongitudeAngleChangeMenu() {
 //function closure bracket
 }
 
-// ------------------------------------------
-// --- Settings Digit Combiner Functions ----
-// ------------------------------------------
+// -------------------------------------------
+// --- Settings: Digit Combiner Functions ----
+// -------------------------------------------
 
 // Create numeric longitude angle from settings digits
 function getLongitudeAngleNumeric() {
@@ -360,7 +360,7 @@ function getReticuleValidityEndYear() {
 }
 
 // ------------------------------------------
-// ------ Angle Conversion Functions --------
+// ------ COMMON???: Angle Conversion Functions --------
 // ------------------------------------------
 
 function degToRad(deg) {
@@ -382,9 +382,9 @@ function wrap360(angledegrees) {
   return ((angledegrees % 360) + 360) % 360;
 }
 
-// ------------------------------------------
-// -------- GPS Control Functions --------
-// ------------------------------------------
+// -------------------------------------------------
+// -------- Settings: GPS Control Functions --------
+// -------------------------------------------------
 
 function startWaitingForGPS() {
   // draw immediately
@@ -484,9 +484,9 @@ function fakeGPSEvent() {
 }
 
 
-// ------------------------------------------
-// -------- Common Drawing Functions --------
-// ------------------------------------------
+// --------------------------------------------------------------
+// -------- POLARIS HOUR ANGLE: Common Drawing Functions --------
+// --------------------------------------------------------------
 
 
 function drawCircle(cx, cy, r, circleColour) {
@@ -659,9 +659,8 @@ function drawNumberAtAngle(cx, cy, radius, number, angle_deg, xoffset, yoffset, 
 
 }
 
-// -------------------- Draw Polaris Mark on Circle --------------------
-
 function drawPolarisMarkerCircle(cx, cy, radius, HA_deg, size, markerColour) {
+  // Draw Polaris Mark on Circle
   // Draws a filled circle version of the Polaris marker at the hour angle on a circle of given radius
   // cx,cy = center, radius = circle radius
   // color = [r,g,b] array, e.g., [0,1,0] for green
@@ -748,10 +747,9 @@ function drawInnerTicks(cx, cy, radius, numberofticks, ticklength, tickColour) {
 
 }
 
-// Generate chosen Polarscope Reticules
-
 function drawPolarscopeReticuleTakOrionSkyWatcher(cx, cy, reticuleColour, markerColour, reticuleValidityYearStart, reticuleValidityYearEnd, reticuleValidityCurrentYear, hourAngle) {
-
+// Draw reticule for Takahashi, Orion, and Skywatcher style polarscopes
+  
   // Remember old colour
   let oldColour = g.getColor();
 
@@ -806,7 +804,8 @@ function drawPolarscopeReticuleTakOrionSkyWatcher(cx, cy, reticuleColour, marker
 }
 
 function drawPolarscopeReticuleMoveShootMove(cx, cy, reticuleColour, markerColour, reticuleValidityYearStart, reticuleValidityYearEnd, reticuleValidityCurrentYear, hourAngle) {
-
+// Draw reticule for Move Shoot Move style polarscopes
+  
   // Remember old colour
   let oldColour = g.getColor();
 
@@ -864,7 +863,7 @@ function drawPolarscopeReticuleMoveShootMove(cx, cy, reticuleColour, markerColou
 
 
 // ---------------------------------------------------------------
-// --------------------------- Astro Formulae --------------------
+// ----------- POLARIS HOUR ANGLE: Astro Formulae ----------------
 // ---------------------------------------------------------------
 
 // --- Hour Angle Calculation --- (Improved Accuracy Version)
@@ -915,7 +914,7 @@ function polarisHourAngle(lon, dateObj) {
   let polarisDECatJ2000 = 89.2641; // degrees (mean J2000)
 
   // ------------------------------------------------------------
-  // Meeus, Chapter 21 Precession of RA from J2000 \92 mean-of-date
+  // Meeus, Chapter 21 Precession of RA from J2000 mean-of-date
   // ------------------------------------------------------------
 
   let T = ( (JDat0h + timeOfDayInDecimalHours/24) - 2451545.0 ) / 36525;
@@ -950,11 +949,9 @@ function polarisHourAngle(lon, dateObj) {
   return newHourAngle;
 }
 
-
-
-// -------------------------------------------------
-// ----------- Main Control Functions ---------------
-// -------------------------------------------------
+// ----------------------------------------------------------------------
+// ----------- POLARIS HOUR ANGLE: Main Control Functions ---------------
+// ----------------------------------------------------------------------
 
 // Main refresh function
 function startRefreshLoop() {
@@ -1042,12 +1039,12 @@ function updateDisplay() {
 }
 
 
-// ---------------------------------------------------------------------
-// ----------- Main Startup and Calculation Function -------------------
-// ---------------------------------------------------------------------
+// --------------------------------------------------------------------------------
+// ----------- DASHBOARD: Main Startup and Calculation Function -------------------
+// --------------------------------------------------------------------------------
 
 // Main display update function
-function loadMainApp() {
+function loadPolarisHourAngleApp() {
     // Trigger fake GPS events every 10 seconds - ENABLE FOR TESTING ONLY
   setInterval(fakeGPSEvent, 10000);
   
@@ -1103,7 +1100,7 @@ function loadMainApp() {
 }
 
 // ---------------------------------------------------------------------
-// ----------- App Initialisation --------------------------------------
+// ----------- DASHBOARD: App Initialisation --------------------------------------
 // ---------------------------------------------------------------------
 
 // define the settings storage file on the watch, this is created and stored on the watch
@@ -1158,16 +1155,8 @@ var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 mySettings.swVersion = DEFAULTS.swVersion
 saveSettings();
 
-// MAIN APP START - Register the app in Bangle.js menu
-//E.showMenu({
-//  "": { "title": "Hour Angle" },
-//  "Run": loadMainApp,
-//  "Settings": showMainSettingsMenu
-//});
+// MAIN APP START
 showRootMenu();
-
-// MAIN FEATURE START (Put inside a function)
-
 
 // Cleanup on app exit
 // Cleans up the IntervalID, waitingIntervalID and turns off the GPS
