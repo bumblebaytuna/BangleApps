@@ -622,7 +622,7 @@ function updateDisplay() {
 // Main display update function
 function loadPolarisHourAngleApp() {
     // Trigger fake GPS events every 10 seconds - ENABLE FOR TESTING ONLY
-  setInterval(fakeGPSEvent, 10000);
+  setInterval(gpsManagerfakeGPSEvent, 10000);
   
   // --- Offline mode: draw immediately if GPS is not used ---
   if (mySettings.useGPS == 0) {
@@ -637,18 +637,21 @@ function loadPolarisHourAngleApp() {
     Bangle.setGPSPower(1);  // Start GPS
     
     // Start listening for GPS events
-    Bangle.on("GPS", onGPSEvent);
+    Bangle.on("GPS", gpsManager.onGPSEvent);
     
     // show waiting page
-    startWaitingForGPS();
-    
-    gpsStartTime = new Date();  // GPS start time
-  
+    gpsManager.startWaitingForGPS();
+
+    //collect start time
+    gpsManager.gpsStartTime = new Date();  // GPS start time
+
+    //do not proceed until have a fix, let the user know waiting for a fix
     if (!gpsFixReceived) {
       console.log("Awaiting GPS fix...");
       gpsManager.showWaitingForGPS(mySettings.reticuleColour);
     }
-  
+
+    //cycle through
     waitingIntervalID = setInterval(function() {
       if (!gpsFixReceived) {
         console.log("Awaiting GPS fix...");
