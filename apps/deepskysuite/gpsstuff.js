@@ -20,12 +20,12 @@ let gpsStartTime = null; // Holds the stopwatch counter (counts-up) value when w
 
 exports.startWaitingForGPS = function () {
   // draw immediately
-  showWaitingForGPS(mySettings.reticuleColour);
+  showWaitingForGPS(ctx.mySettings.reticuleColour);
 
   // refresh every 1 second
   waitingPageIntervalID = setInterval(() => {
     if (!gpsFixReceived) {
-      showWaitingForGPS(mySettings.reticuleColour);
+      showWaitingForGPS(ctx.mySettings.reticuleColour);
     }
   }, 1000);
 }
@@ -82,12 +82,12 @@ exports.onGPSEvent = function(fix) {
     var gpsTime = fix.time instanceof Date ? fix.time : new Date(fix.time);
     
     // populate the global variables
-    gpsYear = gpsTime.getFullYear();
-    gpsMonth = gpsTime.getMonth()+1;
-    gpsDay = gpsTime.getDate();
-    gpsHour = gpsTime.getHours();
-    gpsMinute = gpsTime.getMinutes();
-    gpsSecond = gpsTime.getSeconds();
+    ctx.gpsYear = gpsTime.getFullYear();
+    ctx.gpsMonth = gpsTime.getMonth()+1;
+    ctx.gpsDay = gpsTime.getDate();
+    ctx.gpsHour = gpsTime.getHours();
+    ctx.gpsMinute = gpsTime.getMinutes();
+    ctx.gpsSecond = gpsTime.getSeconds();
 
     console.log("----------");
     console.log("GPS event triggered:");
@@ -108,7 +108,7 @@ exports.fakeGPSEvent = function() {
   var fakeFix = {
     fix: 1,                 // indicate GPS fix
     lat: 50.9,              // fake latitude
-    lon: mySettings.lonDegrees,                // fake longitude
+    lon: ctx.mySettings.lonDegrees,                // fake longitude
     time: new Date(),       // must be a Date object
     satellites: 7
   };
