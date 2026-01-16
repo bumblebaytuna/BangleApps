@@ -3,18 +3,18 @@
 // --------------------------------------------------------------
 
 // Load Settings function
-function loadSettings() {
+//function settingsAdjuster.loadSettings {
   
   // return the requested key value
-  return Object.assign(
-    {},                 // ensure a new object
-    DEFAULTS,           // if the field is empty it reads the global defaults first
-    require("Storage").readJSON(STORAGE_FILE, true) || {}  // loads the settings file into memory
-  );
-}
+  //return Object.assign(
+    //{},                 // ensure a new object
+    //DEFAULTS,           // if the field is empty it reads the global defaults first
+    //require("Storage").readJSON(STORAGE_FILE, true) || {}  // loads the settings file into memory
+  //);
+//}
 
 // Save Settings function
-function saveSettings() {require("Storage").writeJSON(STORAGE_FILE, mySettings);}
+//funstion saveSettings() {require("Storage").writeJSON(STORAGE_FILE, mySettings);}
 
 // -------------------------------------------
 // ---- DASHBOARD: Menu Creation Function ----
@@ -27,7 +27,7 @@ function showDashboardMenu() {
     "": { "title": "Polaris Hour Angle" },
     "< Back": () => showDashboardMenu(), // for the button
     "Run": loadPolarisHourAngleApp,
-    "Settings": SettingsAdjuster.showMainSettingsMenu,
+    "Settings": settingsAdjuster.showMainSettingsMenu,
     "Exit": () => load(), // using load() always shows the watch's main menu
     "Version": {value: mySettings.swVersion} //read only
   //showMenu closure brackets
@@ -56,7 +56,7 @@ function showMainSettingsMenu() {
     //  format: v => v ? "Yes" : "No",
     //  onchange: v => {
     //    mySettings.useGPS = v;
-    //    saveSettings();
+    //    settingsAdjuster.saveSettings();
     //  }
     //},
     
@@ -68,7 +68,7 @@ function showMainSettingsMenu() {
       format: v => v,
       onchange: v => {
         mySettings.reticuleStyle = v;
-        saveSettings();
+        settingsAdjuster.saveSettings();
       }  
     },
     
@@ -79,7 +79,7 @@ function showMainSettingsMenu() {
     //common parts
     "Reset (immediate)": () => {
       mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
-      saveSettings();
+      settingsAdjuster.saveSettings();
       Bangle.setLCDBrightness(mySettings.brightness);
       E.showMessage("Settings reset!");
     }
@@ -109,7 +109,7 @@ function showReticuleValidityStartYearMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.reticuleValidityStartYearThousands = v;
-        saveSettings();
+        settingsAdjuster.saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -121,7 +121,7 @@ function showReticuleValidityStartYearMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.reticuleValidityStartYearHundreds = v;
-        saveSettings();
+        settingsAdjuster.saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -133,7 +133,7 @@ function showReticuleValidityStartYearMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.reticuleValidityStartYearTens = v;
-        saveSettings();
+        settingsAdjuster.saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -145,7 +145,7 @@ function showReticuleValidityStartYearMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.reticuleValidityStartYearOnes = v;
-        saveSettings();
+        settingsAdjuster.saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     }
@@ -175,7 +175,7 @@ function showReticuleValidityEndYearMenu() {
       format: v => v, 
       onchange: v => {
         mySettings.reticuleValidityEndYearThousands = v;
-        saveSettings();
+        settingsAdjuster.saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -187,7 +187,7 @@ function showReticuleValidityEndYearMenu() {
       format: v => v, 
       onchange: v => {
         mySettings.reticuleValidityEndYearHundreds = v;
-        saveSettings();
+        settingsAdjuster.saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -199,7 +199,7 @@ function showReticuleValidityEndYearMenu() {
       format: v => v, 
       onchange: v => {
         mySettings.reticuleValidityEndYearTens = v;
-        saveSettings();
+        settingsAdjuster.saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -211,7 +211,7 @@ function showReticuleValidityEndYearMenu() {
       format: v => v, 
       onchange: v => {
         mySettings.reticuleValidityEndYearOnes = v;
-        saveSettings();
+        settingsAdjuster.saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     }
@@ -241,7 +241,7 @@ function showLongitudeMenu() {
       format: v => ["East","West"][v],
       onchange: v => {
         mySettings.lonDirection = ["East","West"][v];
-        saveSettings();
+        settingsAdjuster.saveSettings();
         showLongitudeMenu();
       }
     },
@@ -274,7 +274,7 @@ function showLongitudeAngleChangeMenu() {
       format: v => v,
       onchange: v => {
         mySettings.lonAngleHundreds = v;
-        saveSettings();
+        settingsAdjuster.saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     },
@@ -286,7 +286,7 @@ function showLongitudeAngleChangeMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.lonAngleTens = v;
-        saveSettings();
+        settingsAdjuster.saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     },
@@ -298,7 +298,7 @@ function showLongitudeAngleChangeMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.lonAngleOnes = v;
-        saveSettings();
+        settingsAdjuster.saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     }
@@ -1142,8 +1142,8 @@ const DEFAULTS = {
   swVersion: "0.29" // version of this software
 };
 
-// Collects the global app settings from the storage file, the loadSettings() function uses the above defaults if the settings file is missing or empty
-let mySettings = loadSettings();
+// Collects the global app settings from the storage file, the settingsAdjuster.loadSettings function uses the above defaults if the settings file is missing or empty
+let mySettings = settingsAdjuster.loadSettings;
 
 // Declare global runtime variables
 let intervalID;
@@ -1158,12 +1158,13 @@ var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 
 //Ensure the version number in the old hourangle.settings.json file on the watch is up to date
 mySettings.swVersion = DEFAULTS.swVersion
-saveSettings();
+settingsAdjuster.saveSettings();
 
 // MAIN DASHBOARD START - NEW VERSION FOR SPLIT JS FILES
-const SettingsAdjuster = require("settingsadjuster");
+const settingsAdjuster = require("settingsadjuster");
 
-SettingsAdjuster.init({
+// this needs to describe the functions, variables, and constant you want loaded for use by this file when the settingsadjuster is activated
+settingsAdjuster.init({
   mySettings,
   saveSettings,
   DEFAULTS,
