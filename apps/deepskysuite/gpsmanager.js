@@ -1,5 +1,3 @@
-// settingsadjuster.js
-
 let ctx;
 
 // Called once by main app
