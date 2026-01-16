@@ -1,3 +1,12 @@
+// settingsadjuster.js
+
+let ctx;
+
+// Called once by main app
+exports.init = function (_ctx) {
+  ctx = _ctx;
+};
+
 // -------------------------------------------------
 // -------- Settings: GPS Control Functions --------
 // -------------------------------------------------
