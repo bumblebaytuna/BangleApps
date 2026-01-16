@@ -76,7 +76,7 @@ function showMainSettingsMenu() {
       format: v => v,
       onchange: v => {
         getFromMainApp.mySettings.reticuleStyle = v;
-        getFromMainApp.saveSettings();
+        saveSettings();
       }
     },
 
@@ -86,12 +86,12 @@ function showMainSettingsMenu() {
 
     // common parts
     "Reset (immediate)": () => {
-      getFromMainApp.mySettings.theme = getFromMainApp.DEFAULTS.theme;
-      getFromMainApp.mySettings.vibration = getFromMainApp.DEFAULTS.vibration;
-      getFromMainApp.mySettings.brightness = getFromMainApp.DEFAULTS.brightness;
-      getFromMainApp.mySettings.advancedOption = getFromMainApp.DEFAULTS.advancedOption;
+      getFromMainApp.mySettings.theme = DEFAULTS.theme;
+      getFromMainApp.mySettings.vibration = DEFAULTS.vibration;
+      getFromMainApp.mySettings.brightness = DEFAULTS.brightness;
+      getFromMainApp.mySettings.advancedOption = DEFAULTS.advancedOption;
 
-      getFromMainApp.saveSettings();
+      saveSettings();
       Bangle.setLCDBrightness(getFromMainApp.mySettings.brightness);
       E.showMessage("Settings reset!");
     }
@@ -151,8 +151,8 @@ function showReticuleValidityStartYearMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Start Year: " + validityStartYear },
-    "< Back": () => exports.showMainSettingsMenu(),  // for the button
-    "Back": exports.showMainSettingsMenu,
+    "< Back": () => showMainSettingsMenu(),  // for the button
+    "Back": showMainSettingsMenu,
     //custom parts
     "Thousands": {
       value: Number(getFromMainApp.mySettings.reticuleValidityStartYearThousands),
@@ -162,7 +162,7 @@ function showReticuleValidityStartYearMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         getFromMainApp.mySettings.reticuleValidityStartYearThousands = v;
-        getFromMainApp.saveSettings();
+        saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -174,7 +174,7 @@ function showReticuleValidityStartYearMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         getFromMainApp.mySettings.reticuleValidityStartYearHundreds = v;
-        getFromMainApp.saveSettings();
+        saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -186,7 +186,7 @@ function showReticuleValidityStartYearMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         getFromMainApp.mySettings.reticuleValidityStartYearTens = v;
-        getFromMainApp.saveSettings();
+        saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -198,7 +198,7 @@ function showReticuleValidityStartYearMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         getFromMainApp.mySettings.reticuleValidityStartYearOnes = v;
-        getFromMainApp.saveSettings();
+        saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     }
@@ -216,8 +216,8 @@ function showReticuleValidityEndYearMenu() {
   E.showMenu({
     //common parts
     "": { "title": "End Year: " + validityEndYear },
-    "< Back": () => exports.showMainSettingsMenu(),  // for the button
-    "Back": exports.showMainSettingsMenu,
+    "< Back": () => showMainSettingsMenu(),  // for the button
+    "Back": showMainSettingsMenu,
     
     //custom parts
     "Thousands": {
@@ -228,7 +228,7 @@ function showReticuleValidityEndYearMenu() {
       format: v => v, 
       onchange: v => {
         getFromMainApp.mySettings.reticuleValidityEndYearThousands = v;
-        getFromMainApp.saveSettings();
+        saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -240,7 +240,7 @@ function showReticuleValidityEndYearMenu() {
       format: v => v, 
       onchange: v => {
         getFromMainApp.mySettings.reticuleValidityEndYearHundreds = v;
-        getFromMainApp.saveSettings();
+        saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -252,7 +252,7 @@ function showReticuleValidityEndYearMenu() {
       format: v => v, 
       onchange: v => {
         getFromMainApp.mySettings.reticuleValidityEndYearTens = v;
-        getFromMainApp.saveSettings();
+        saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -264,7 +264,7 @@ function showReticuleValidityEndYearMenu() {
       format: v => v, 
       onchange: v => {
         getFromMainApp.mySettings.reticuleValidityEndYearOnes = v;
-        getFromMainApp.saveSettings();
+        saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     }
@@ -281,8 +281,8 @@ function showLongitudeMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Longitude" },
-    "< Back": () => exports.showMainSettingsMenu(), // for the button
-    "Back": exports.showMainSettingsMenu,
+    "< Back": () => showMainSettingsMenu(), // for the button
+    "Back": showMainSettingsMenu,
 
     //custom parts
     "Current": {value: mylon}, //read only
@@ -294,7 +294,7 @@ function showLongitudeMenu() {
       format: v => ["East","West"][v],
       onchange: v => {
         getFromMainApp.mySettings.lonDirection = ["East","West"][v];
-        getFromMainApp.saveSettings();
+        saveSettings();
         showLongitudeMenu();
       }
     },
@@ -316,8 +316,8 @@ function showLongitudeAngleChangeMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Longitude: " + lonangle },
-    "< Back": () => exports.showMainSettingsMenu(),  // for the button
-    "Back": exports.showMainSettingsMenu,
+    "< Back": () => showMainSettingsMenu(),  // for the button
+    "Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
       value: Number(getFromMainApp.mySettings.lonAngleHundreds),
@@ -327,7 +327,7 @@ function showLongitudeAngleChangeMenu() {
       format: v => v,
       onchange: v => {
         getFromMainApp.mySettings.lonAngleHundreds = v;
-        getFromMainApp.saveSettings();
+        saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     },
@@ -339,7 +339,7 @@ function showLongitudeAngleChangeMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         getFromMainApp.mySettings.lonAngleTens = v;
-        getFromMainApp.saveSettings();
+        saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     },
@@ -351,7 +351,7 @@ function showLongitudeAngleChangeMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         getFromMainApp.mySettings.lonAngleOnes = v;
-        getFromMainApp.saveSettings();
+        saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     }
