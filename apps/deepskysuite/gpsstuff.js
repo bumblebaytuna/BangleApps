@@ -14,11 +14,22 @@ exports.init = function (_ctx) {
 let waitingPageIntervalID;  // for GPS waiting page
 let gpsStartTime = null; // Holds the stopwatch counter (counts-up) value when waiting for the GPS to get a fix
 
+
+// -------------------------------------------------
+// -------- GPS Manager: Exports Control -----------
+// -------------------------------------------------
+
+//Define which functions are allowed to be accessed by other JS files/modules
+exports.startWaitingForGPS = startWaitingForGPS;
+exports.showWaitingForGPS = showWaitingForGPS;
+exports.onGPSEvent = onGPSEvent;
+exports.fakeGPSEvent = fakeGPSEvent;
+
 // -------------------------------------------------
 // -------- GPS Manager: Control Functions ----------
 // -------------------------------------------------
 
-exports.startWaitingForGPS = function () {
+startWaitingForGPS() {
   // draw immediately
   showWaitingForGPS(ctx.mySettings.reticuleColour);
 
@@ -37,7 +48,7 @@ function stopWaitingForGPS() {
   }
 }
 
-exports.showWaitingForGPS = function(messageColour) {
+showWaitingForGPS(messageColour) {
 
   // Remember old colour
   let oldColour = g.getColor();
@@ -74,7 +85,7 @@ exports.showWaitingForGPS = function(messageColour) {
 }
 
 // Function to handle when GPS fix is received
-exports.onGPSEvent = function(fix) {
+onGPSEvent(fix) {
   if (fix && fix.fix && fix.time) {
     gpsFixReceived = true;  // Mark GPS fix as received
     
@@ -104,7 +115,7 @@ exports.onGPSEvent = function(fix) {
 }
 
 // function to simulate a fake GPS fix - FOR TESTING PURPOSES ONLY
-exports.fakeGPSEvent = function() {
+fakeGPSEvent() {
   var fakeFix = {
     fix: 1,                 // indicate GPS fix
     lat: 50.9,              // fake latitude
