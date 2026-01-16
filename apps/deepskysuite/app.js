@@ -40,6 +40,7 @@ function showDashboardMenu() {
 // -------------------------------------------
 
 // Create Main Settings Menu
+// only use exports on functions which cross the boundary between different js files
 function showMainSettingsMenu() {
   
   E.showMenu({
