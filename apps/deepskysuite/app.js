@@ -622,7 +622,7 @@ function updateDisplay() {
 // Main display update function
 function loadPolarisHourAngleApp() {
     // Trigger fake GPS events every 10 seconds - ENABLE FOR TESTING ONLY
-  setInterval(gpsManagerfakeGPSEvent, 10000);
+  setInterval(gpsManager.gpsManagerfakeGPSEvent, 10000);
   
   // --- Offline mode: draw immediately if GPS is not used ---
   if (mySettings.useGPS == 0) {
