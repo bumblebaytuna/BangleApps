@@ -321,23 +321,23 @@ function showLongitudeAngleChangeMenu() {
 // -------------------------------------------
 
 // Create numeric longitude angle from settings digits
-function getLongitudeAngleNumeric() {
+//function getLongitudeAngleNumeric() {
 
-  var myLongitudeAngleMod =
-    (Number(ctx.mySettings.lonAngleHundreds) * 100) +
-    (Number(ctx.mySettings.lonAngleTens) * 10) +
-    Number(ctx.mySettings.lonAngleOnes);
+  //var myLongitudeAngleMod =
+    //(Number(ctx.mySettings.lonAngleHundreds) * 100) +
+    //(Number(ctx.mySettings.lonAngleTens) * 10) +
+    //Number(ctx.mySettings.lonAngleOnes);
 
-  var myLongitudeAngle;
+  //var myLongitudeAngle;
 
-  if (ctx.mySettings.lonDirection == "West") {
-    myLongitudeAngle = myLongitudeAngleMod * (-1);
-  } else {
-    myLongitudeAngle = myLongitudeAngleMod;
-  }
+  //if (ctx.mySettings.lonDirection == "West") {
+    //myLongitudeAngle = myLongitudeAngleMod * (-1);
+  //} else {
+    //myLongitudeAngle = myLongitudeAngleMod;
+  //}
 
-  return myLongitudeAngle;
-}
+  //return myLongitudeAngle;
+//}
 
 // Create string longitude angle from settings digits
 function getLongitudeAngleString() {
