@@ -37,40 +37,6 @@ function getLongitudeAngleNumeric() {
   return myLongitudeAngle;
 }
 
-// Create string longitude angle from settings digits
-//function getLongitudeAngleString() {
-
-  //var myLongitudeAngleMod =
-    //(Number(mySettings.lonAngleHundreds) * 100) +
-    //(Number(mySettings.lonAngleTens) * 10) +
-    //Number(mySettings.lonAngleOnes);
-
-  //var myLongitudeAngle;
-
-  //if (mySettings.lonDirection == "West") {
-    //myLongitudeAngle = myLongitudeAngleMod + "° W";
-  //} else {
-    //myLongitudeAngle = myLongitudeAngleMod + "° E";
-  //}
-
-  //return myLongitudeAngle;
-//}
-
-
-// Create reticule validity start year digits combiner
-//function getReticuleValidityStartYear() {
-  //var myReticuleValidityStartYear = 0;
-  //myReticuleValidityStartYear = (Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes);
-  //return (myReticuleValidityStartYear);
-//}
-
-// Create reticule validity end year digits combiner
-//function getReticuleValidityEndYear() {
-  //var myReticuleValidityEndYear = 0;
-  //myReticuleValidityEndYear = (Number(mySettings.reticuleValidityEndYearThousands) * 1000) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes);
-  //return (myReticuleValidityEndYear);
-//}
-
 // ------------------------------------------
 // ------ COMMON???: Angle Conversion Functions --------
 // ------------------------------------------
@@ -814,9 +780,6 @@ function loadPolarisHourAngleApp() {
 // ---------------------------------------------------------------------
 // ----------- DASHBOARD: App Initialisation --------------------------------------
 // ---------------------------------------------------------------------
-
-// define the settings storage file on the watch, this is created and stored on the watch
-//const STORAGE_FILE = "hourangle.settings.json";
 
 // sets default values in case settings file is missing or empty
 const DEFAULTS = {
