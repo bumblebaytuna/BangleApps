@@ -879,7 +879,7 @@ settingsAdjuster.init({
 });
 
 // MAIN DASHBOARD START - OLD VERSION
-//showDashboardMenu();
+showDashboardMenu();
 
 // Cleanup on app exit
 // Cleans up the IntervalID, waitingIntervalID and turns off the GPS
