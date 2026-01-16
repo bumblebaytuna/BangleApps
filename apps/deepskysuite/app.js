@@ -17,8 +17,7 @@ function showDashboardMenu() {
     "< Back": () => showDashboardMenu(), // for the button
     "Run": loadPolarisHourAngleApp,
     "Settings": null,
-    "Exit": () => load(), // using load() always shows the watch's main menu
-    //"Version": {value: mySettings.swVersion} //read only
+    "Exit": () => load() // using load() always shows the watch's main menu
   //showMenu closure brackets
   });
   
