@@ -372,3 +372,21 @@ function getReticuleValidityEndYear() {
   myReticuleValidityEndYear = (Number(mySettings.reticuleValidityEndYearThousands) * 1000) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes);
   return (myReticuleValidityEndYear);
 }
+
+// --------------------------------------------------------------
+// -------- Settings: Settings File Read-Write Functions --------
+// --------------------------------------------------------------
+
+exports.loadSettings = function() {
+  // returns a new settings object, merging defaults
+  return Object.assign(
+    {}, // ensure a new object
+    ctx.DEFAULTS, // global defaults passed via init()
+    require("Storage").readJSON(ctx.STORAGE_FILE, true) || {}
+  );
+};
+
+exports.saveSettings = function() {
+  require("Storage").writeJSON(ctx.STORAGE_FILE, ctx.mySettings);
+};
+
