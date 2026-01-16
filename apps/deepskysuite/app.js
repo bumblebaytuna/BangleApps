@@ -698,7 +698,7 @@ const settingsAdjuster = require("settingsadjuster");
 const DEFAULTS = settingsAdjuster.DEFAULTS;
 
 //Ensure the version number in the old hourangle.settings.json file on the watch is up to date
-let mySettings = settingsAdjuster.loadSettings(); // Collects the global app settings from the storage file, the settingsAdjuster.loadSettings function uses the above defaults if the settings file is missing or empty
+let mySettings = settingsAdjuster.loadSettings(); // Collects the global app settings from the storage file, the settingsAdjuster.loadSettings function uses the above defaults at the top of the settingsadjuster.js file if the watch settings file is missing or empty
 mySettings.swVersion = DEFAULTS.swVersion;
 
 settingsAdjuster.saveSettings();
