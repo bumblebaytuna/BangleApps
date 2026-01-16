@@ -11,6 +11,36 @@ exports.init = function (_ctx) {
 // define the settings storage file on the watch, this is created and stored on the watch
 //const STORAGE_FILE = "hourangle.settings.json";
 
+const DEFAULTS = {
+  lonAngleHundreds:0,  // default lon location is 0 degrees
+  lonAngleTens:0,  // default lon location is 0 degrees
+  lonAngleOnes:0,  // default lon location is 0 degrees
+  lonDirection:"West", // default is West. West = 1, east = 0
+  useGPS:0, // default GPS use is disabled
+  reticuleRefreshIntervalMillisecs:60000, // default app display refresh is every 60 secs
+  gpsfixWaitIntervalMillisecs:10000, // default GPS first fix waiting interval between checks
+  backgroundColour:"#FFFFFF", // default background colour is white
+  reticuleColour:"#000000", // default polarscope reticule colour is black
+  polarisMarkerColour:"#0277BD", // default polaris marker colour and line is a blue/green which works in both light and dark mode
+  polarisMarkerSize:5, // default polaris marker size is 5
+  reticuleValidityYearStart:2000, // default polarscope reticule validity period start is year 2000
+  reticuleValidityYearEnd:2030, // default polarscope reticule validity period start is year 2030
+  reticuleStyle:1, // default polarscope reticule style is 1 (for Takahashi, Orion, and Skywatcher mounts)
+  reticuleValidityStartYearThousands:2,  // default reticule validity start year is 2000
+  reticuleValidityStartYearHundreds:0,  // default reticule validity start year is 2000
+  reticuleValidityStartYearTens:0,  // default reticule validity start year is 2000
+  reticuleValidityStartYearOnes:0,  // default reticule validity start year is 2000
+  reticuleValidityEndYearThousands:2,  // default reticule validity end year is 2030
+  reticuleValidityEndYearHundreds:0,  // default reticule validity end year is 2030
+  reticuleValidityEndYearTens:3,  // default reticule validity end year is 2030
+  reticuleValidityEndYearOnes:0,  // default reticule validity end year is 2030
+  theme: "dark", // test defaults to check settings menu structure is working properly
+  vibration: false, // test defaults to check settings menu structure is working properly
+  brightness: 6, // test defaults to check settings menu structure is working properly
+  advancedOption: false, // test defaults to check settings menu structure is working properly
+  swVersion: "0.29" // version of this software
+};
+
 // -------------------------------------------
 // ---- Settings: Menu Creation Functions ----
 // -------------------------------------------
