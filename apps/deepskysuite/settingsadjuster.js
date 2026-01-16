@@ -50,6 +50,7 @@ const DEFAULTS = {
 exports.showMainSettingsMenu = showMainSettingsMenu;
 exports.loadSettings = loadSettings;
 exports.saveSettings = saveSettings;
+exports.DEFAULTS = DEFAULTS;
 
 // -------------------------------------------
 // ---- Settings: Menu Creation Functions ----
