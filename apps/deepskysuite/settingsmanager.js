@@ -1,5 +1,5 @@
 
-// settingsadjuster.js
+// create an object to use functions, constants, and variables in the main app.js
 
 let ctx;
 
