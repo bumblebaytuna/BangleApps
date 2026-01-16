@@ -708,7 +708,7 @@ settingsAdjuster.saveSettings();
 settingsAdjuster.init({
   mySettings: mySettings,
   saveSettings: settingsAdjuster.saveSettings,
-  DEFAULTS: settingsAdjuster.DEFAULTS,
+  DEFAULTS: DEFAULTS,
   showDashboardMenu: showDashboardMenu
 });
 
