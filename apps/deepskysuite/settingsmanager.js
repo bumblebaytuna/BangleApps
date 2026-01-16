@@ -1,11 +1,11 @@
 
 // create an object to use functions, constants, and variables in the main app.js
 
-let ctx;
+let getFromMainApp;
 
 // Called once by main app
-exports.init = function (_ctx) {
-  ctx = _ctx;
+exports.init = function (_getFromMainApp) {
+  getFromMainApp = _getFromMainApp;
 };
 
 
@@ -62,19 +62,19 @@ function showMainSettingsMenu() {
   E.showMenu({
     // common parts
     "": { title: "Settings" },
-    "< Back": ctx.showDashboardMenu,  // for the button
-    "Back": ctx.showDashboardMenu,
+    "< Back": getFromMainApp.showDashboardMenu,  // for the button
+    "Back": getFromMainApp.showDashboardMenu,
 
     // custom parts
     "Style": {
-      value: Number(ctx.mySettings.reticuleStyle),
+      value: Number(getFromMainApp.mySettings.reticuleStyle),
       min: 1,
       max: 2,
       step: 1,
       format: v => v,
       onchange: v => {
-        ctx.mySettings.reticuleStyle = v;
-        ctx.saveSettings();
+        getFromMainApp.mySettings.reticuleStyle = v;
+        getFromMainApp.saveSettings();
       }
     },
 
@@ -84,13 +84,13 @@ function showMainSettingsMenu() {
 
     // common parts
     "Reset (immediate)": () => {
-      ctx.mySettings.theme = ctx.DEFAULTS.theme;
-      ctx.mySettings.vibration = ctx.DEFAULTS.vibration;
-      ctx.mySettings.brightness = ctx.DEFAULTS.brightness;
-      ctx.mySettings.advancedOption = ctx.DEFAULTS.advancedOption;
+      getFromMainApp.mySettings.theme = getFromMainApp.DEFAULTS.theme;
+      getFromMainApp.mySettings.vibration = getFromMainApp.DEFAULTS.vibration;
+      getFromMainApp.mySettings.brightness = getFromMainApp.DEFAULTS.brightness;
+      getFromMainApp.mySettings.advancedOption = getFromMainApp.DEFAULTS.advancedOption;
 
-      ctx.saveSettings();
-      Bangle.setLCDBrightness(ctx.mySettings.brightness);
+      getFromMainApp.saveSettings();
+      Bangle.setLCDBrightness(getFromMainApp.mySettings.brightness);
       E.showMessage("Settings reset!");
     }
   //showMenu closure brackets
@@ -107,14 +107,14 @@ function showMainSettingsMenu() {
     //"Back": showDashboardMenu,
         
     //"Style": {
-    //  value: Number(ctx.mySettings.reticuleStyle),
+    //  value: Number(getFromMainApp.mySettings.reticuleStyle),
     //  min: 1,
     //  max: 2,
     //  step: 1, 
     //  format: v => v,
     // onchange: v => {
-    //    ctx.mySettings.reticuleStyle = v;
-    //    ctx.saveSettings();
+    //    getFromMainApp.mySettings.reticuleStyle = v;
+    //    getFromMainApp.saveSettings();
       //}  
     //},
     
@@ -124,9 +124,9 @@ function showMainSettingsMenu() {
     
     //common parts
     //"Reset (immediate)": () => {
-      //ctx.mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
-      //ctx.saveSettings();
-      //Bangle.setLCDBrightness(ctx.mySettings.brightness);
+      //getFromMainApp.mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
+      //getFromMainApp.saveSettings();
+      //Bangle.setLCDBrightness(getFromMainApp.mySettings.brightness);
       //E.showMessage("Settings reset!");
     //}
   //showMenu closure brackets
@@ -153,50 +153,50 @@ function showReticuleValidityStartYearMenu() {
     "Back": exports.showMainSettingsMenu,
     //custom parts
     "Thousands": {
-      value: Number(ctx.mySettings.reticuleValidityStartYearThousands),
+      value: Number(getFromMainApp.mySettings.reticuleValidityStartYearThousands),
       min: 1,
       max: 2,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        ctx.mySettings.reticuleValidityStartYearThousands = v;
-        ctx.saveSettings();
+        getFromMainApp.mySettings.reticuleValidityStartYearThousands = v;
+        getFromMainApp.saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
     "Hundreds": {
-      value: Number(ctx.mySettings.reticuleValidityStartYearHundreds),
+      value: Number(getFromMainApp.mySettings.reticuleValidityStartYearHundreds),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        ctx.mySettings.reticuleValidityStartYearHundreds = v;
-        ctx.saveSettings();
+        getFromMainApp.mySettings.reticuleValidityStartYearHundreds = v;
+        getFromMainApp.saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(ctx.mySettings.reticuleValidityStartYearTens),
+      value: Number(getFromMainApp.mySettings.reticuleValidityStartYearTens),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        ctx.mySettings.reticuleValidityStartYearTens = v;
-        ctx.saveSettings();
+        getFromMainApp.mySettings.reticuleValidityStartYearTens = v;
+        getFromMainApp.saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(ctx.mySettings.reticuleValidityStartYearOnes),
+      value: Number(getFromMainApp.mySettings.reticuleValidityStartYearOnes),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        ctx.mySettings.reticuleValidityStartYearOnes = v;
-        ctx.saveSettings();
+        getFromMainApp.mySettings.reticuleValidityStartYearOnes = v;
+        getFromMainApp.saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     }
@@ -219,50 +219,50 @@ function showReticuleValidityEndYearMenu() {
     
     //custom parts
     "Thousands": {
-      value: Number(ctx.mySettings.reticuleValidityEndYearThousands),
+      value: Number(getFromMainApp.mySettings.reticuleValidityEndYearThousands),
       min: 1,
       max: 2,
       step: 1,
       format: v => v, 
       onchange: v => {
-        ctx.mySettings.reticuleValidityEndYearThousands = v;
-        ctx.saveSettings();
+        getFromMainApp.mySettings.reticuleValidityEndYearThousands = v;
+        getFromMainApp.saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
     "Hundreds": {
-      value: Number(ctx.mySettings.reticuleValidityEndYearHundreds),
+      value: Number(getFromMainApp.mySettings.reticuleValidityEndYearHundreds),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, 
       onchange: v => {
-        ctx.mySettings.reticuleValidityEndYearHundreds = v;
-        ctx.saveSettings();
+        getFromMainApp.mySettings.reticuleValidityEndYearHundreds = v;
+        getFromMainApp.saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(ctx.mySettings.reticuleValidityEndYearTens),
+      value: Number(getFromMainApp.mySettings.reticuleValidityEndYearTens),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, 
       onchange: v => {
-        ctx.mySettings.reticuleValidityEndYearTens = v;
-        ctx.saveSettings();
+        getFromMainApp.mySettings.reticuleValidityEndYearTens = v;
+        getFromMainApp.saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(ctx.mySettings.reticuleValidityEndYearOnes),
+      value: Number(getFromMainApp.mySettings.reticuleValidityEndYearOnes),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, 
       onchange: v => {
-        ctx.mySettings.reticuleValidityEndYearOnes = v;
-        ctx.saveSettings();
+        getFromMainApp.mySettings.reticuleValidityEndYearOnes = v;
+        getFromMainApp.saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     }
@@ -286,13 +286,13 @@ function showLongitudeMenu() {
     "Current": {value: mylon}, //read only
     
     "Change Direction": {
-      value: Number(ctx.mySettings.lonDirection),
+      value: Number(getFromMainApp.mySettings.lonDirection),
       min: 0,
       max: 1,
       format: v => ["East","West"][v],
       onchange: v => {
-        ctx.mySettings.lonDirection = ["East","West"][v];
-        ctx.saveSettings();
+        getFromMainApp.mySettings.lonDirection = ["East","West"][v];
+        getFromMainApp.saveSettings();
         showLongitudeMenu();
       }
     },
@@ -318,38 +318,38 @@ function showLongitudeAngleChangeMenu() {
     "Back": exports.showMainSettingsMenu,
     //custom parts
     "Hundreds": {
-      value: Number(ctx.mySettings.lonAngleHundreds),
+      value: Number(getFromMainApp.mySettings.lonAngleHundreds),
       min: 0,
       max: 1,
       step: 1,
       format: v => v,
       onchange: v => {
-        ctx.mySettings.lonAngleHundreds = v;
-        ctx.saveSettings();
+        getFromMainApp.mySettings.lonAngleHundreds = v;
+        getFromMainApp.saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(ctx.mySettings.lonAngleTens),
+      value: Number(getFromMainApp.mySettings.lonAngleTens),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        ctx.mySettings.lonAngleTens = v;
-        ctx.saveSettings();
+        getFromMainApp.mySettings.lonAngleTens = v;
+        getFromMainApp.saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(ctx.mySettings.lonAngleOnes),
+      value: Number(getFromMainApp.mySettings.lonAngleOnes),
       min: 0,
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
-        ctx.mySettings.lonAngleOnes = v;
-        ctx.saveSettings();
+        getFromMainApp.mySettings.lonAngleOnes = v;
+        getFromMainApp.saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     }
@@ -366,13 +366,13 @@ function showLongitudeAngleChangeMenu() {
 //function getLongitudeAngleNumeric() {
 
   //var myLongitudeAngleMod =
-    //(Number(ctx.mySettings.lonAngleHundreds) * 100) +
-    //(Number(ctx.mySettings.lonAngleTens) * 10) +
-    //Number(ctx.mySettings.lonAngleOnes);
+    //(Number(getFromMainApp.mySettings.lonAngleHundreds) * 100) +
+    //(Number(getFromMainApp.mySettings.lonAngleTens) * 10) +
+    //Number(getFromMainApp.mySettings.lonAngleOnes);
 
   //var myLongitudeAngle;
 
-  //if (ctx.mySettings.lonDirection == "West") {
+  //if (getFromMainApp.mySettings.lonDirection == "West") {
     //myLongitudeAngle = myLongitudeAngleMod * (-1);
   //} else {
     //myLongitudeAngle = myLongitudeAngleMod;
@@ -385,13 +385,13 @@ function showLongitudeAngleChangeMenu() {
 function getLongitudeAngleString() {
 
   var myLongitudeAngleMod =
-    (Number(ctx.mySettings.lonAngleHundreds) * 100) +
-    (Number(ctx.mySettings.lonAngleTens) * 10) +
-    Number(ctx.mySettings.lonAngleOnes);
+    (Number(getFromMainApp.mySettings.lonAngleHundreds) * 100) +
+    (Number(getFromMainApp.mySettings.lonAngleTens) * 10) +
+    Number(getFromMainApp.mySettings.lonAngleOnes);
 
   var myLongitudeAngle;
 
-  if (ctx.mySettings.lonDirection == "West") {
+  if (getFromMainApp.mySettings.lonDirection == "West") {
     myLongitudeAngle = myLongitudeAngleMod + "° W";
   } else {
     myLongitudeAngle = myLongitudeAngleMod + "° E";
@@ -404,14 +404,14 @@ function getLongitudeAngleString() {
 // Create reticule validity start year digits combiner
 function getReticuleValidityStartYear() {
   var myReticuleValidityStartYear = 0;
-  myReticuleValidityStartYear = (Number(ctx.mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(ctx.mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(ctx.mySettings.reticuleValidityStartYearTens) * 10) + Number(ctx.mySettings.reticuleValidityStartYearOnes);
+  myReticuleValidityStartYear = (Number(getFromMainApp.mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(getFromMainApp.mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(getFromMainApp.mySettings.reticuleValidityStartYearTens) * 10) + Number(getFromMainApp.mySettings.reticuleValidityStartYearOnes);
   return (myReticuleValidityStartYear);
 }
 
 // Create reticule validity end year digits combiner
 function getReticuleValidityEndYear() {
   var myReticuleValidityEndYear = 0;
-  myReticuleValidityEndYear = (Number(ctx.mySettings.reticuleValidityEndYearThousands) * 1000) + (Number(ctx.mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(ctx.mySettings.reticuleValidityEndYearTens) * 10) + Number(ctx.mySettings.reticuleValidityEndYearOnes);
+  myReticuleValidityEndYear = (Number(getFromMainApp.mySettings.reticuleValidityEndYearThousands) * 1000) + (Number(getFromMainApp.mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(getFromMainApp.mySettings.reticuleValidityEndYearTens) * 10) + Number(getFromMainApp.mySettings.reticuleValidityEndYearOnes);
   return (myReticuleValidityEndYear);
 }
 
@@ -423,11 +423,11 @@ function loadSettings() {
   // returns a new settings object, merging defaults
   return Object.assign(
     {}, // ensure a new object
-    ctx.DEFAULTS, // global defaults passed via init()
+    getFromMainApp.DEFAULTS, // global defaults passed via init()
     require("Storage").readJSON(STORAGE_FILE, true) || {}
   );
 }
 
 function saveSettings() {
-  require("Storage").writeJSON(STORAGE_FILE, ctx.mySettings);
+  require("Storage").writeJSON(STORAGE_FILE, getFromMainApp.mySettings);
 }
