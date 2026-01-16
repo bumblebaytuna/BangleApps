@@ -58,18 +58,18 @@ function getLongitudeAngleString() {
 
 
 // Create reticule validity start year digits combiner
-function getReticuleValidityStartYear() {
-  var myReticuleValidityStartYear = 0;
-  myReticuleValidityStartYear = (Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes);
-  return (myReticuleValidityStartYear);
-}
+//function getReticuleValidityStartYear() {
+  //var myReticuleValidityStartYear = 0;
+  //myReticuleValidityStartYear = (Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes);
+  //return (myReticuleValidityStartYear);
+//}
 
 // Create reticule validity end year digits combiner
-function getReticuleValidityEndYear() {
-  var myReticuleValidityEndYear = 0;
-  myReticuleValidityEndYear = (Number(mySettings.reticuleValidityEndYearThousands) * 1000) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes);
-  return (myReticuleValidityEndYear);
-}
+//function getReticuleValidityEndYear() {
+  //var myReticuleValidityEndYear = 0;
+  //myReticuleValidityEndYear = (Number(mySettings.reticuleValidityEndYearThousands) * 1000) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes);
+  //return (myReticuleValidityEndYear);
+//}
 
 // ------------------------------------------
 // ------ COMMON???: Angle Conversion Functions --------
