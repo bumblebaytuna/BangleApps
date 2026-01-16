@@ -1,6 +1,8 @@
+// -------------------------------------------------
+// -------- Settings Manager: Imports Control ------
+// -------------------------------------------------
 
 // create an object to use functions, constants, and variables in the main app.js
-
 let getFromMainApp;
 
 // Called once by main app
