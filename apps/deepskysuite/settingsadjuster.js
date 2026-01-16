@@ -72,7 +72,7 @@ exports.showMainSettingsMenu = function () {
     //  format: v => v,
     // onchange: v => {
     //    ctx.mySettings.reticuleStyle = v;
-    //    saveSettings();
+    //    ctx.saveSettings();
       //}  
     //},
     
@@ -83,7 +83,7 @@ exports.showMainSettingsMenu = function () {
     //common parts
     //"Reset (immediate)": () => {
       //ctx.mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
-      //saveSettings();
+      //ctx.saveSettings();
       //Bangle.setLCDBrightness(ctx.mySettings.brightness);
       //E.showMessage("Settings reset!");
     //}
@@ -118,7 +118,7 @@ function showReticuleValidityStartYearMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         ctx.mySettings.reticuleValidityStartYearThousands = v;
-        saveSettings();
+        ctx.saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -130,7 +130,7 @@ function showReticuleValidityStartYearMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         ctx.mySettings.reticuleValidityStartYearHundreds = v;
-        saveSettings();
+        ctx.saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -142,7 +142,7 @@ function showReticuleValidityStartYearMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         ctx.mySettings.reticuleValidityStartYearTens = v;
-        saveSettings();
+        ctx.saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -154,7 +154,7 @@ function showReticuleValidityStartYearMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         ctx.mySettings.reticuleValidityStartYearOnes = v;
-        saveSettings();
+        ctx.saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
       }
     }
@@ -184,7 +184,7 @@ function showReticuleValidityEndYearMenu() {
       format: v => v, 
       onchange: v => {
         ctx.mySettings.reticuleValidityEndYearThousands = v;
-        saveSettings();
+        ctx.saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -196,7 +196,7 @@ function showReticuleValidityEndYearMenu() {
       format: v => v, 
       onchange: v => {
         ctx.mySettings.reticuleValidityEndYearHundreds = v;
-        saveSettings();
+        ctx.saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -208,7 +208,7 @@ function showReticuleValidityEndYearMenu() {
       format: v => v, 
       onchange: v => {
         ctx.mySettings.reticuleValidityEndYearTens = v;
-        saveSettings();
+        ctx.saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     },
@@ -220,7 +220,7 @@ function showReticuleValidityEndYearMenu() {
       format: v => v, 
       onchange: v => {
         ctx.mySettings.reticuleValidityEndYearOnes = v;
-        saveSettings();
+        ctx.saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
       }
     }
@@ -250,7 +250,7 @@ function showLongitudeMenu() {
       format: v => ["East","West"][v],
       onchange: v => {
         ctx.mySettings.lonDirection = ["East","West"][v];
-        saveSettings();
+        ctx.saveSettings();
         showLongitudeMenu();
       }
     },
@@ -283,7 +283,7 @@ function showLongitudeAngleChangeMenu() {
       format: v => v,
       onchange: v => {
         ctx.mySettings.lonAngleHundreds = v;
-        saveSettings();
+        ctx.saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     },
@@ -295,7 +295,7 @@ function showLongitudeAngleChangeMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         ctx.mySettings.lonAngleTens = v;
-        saveSettings();
+        ctx.saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     },
@@ -307,7 +307,7 @@ function showLongitudeAngleChangeMenu() {
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         ctx.mySettings.lonAngleOnes = v;
-        saveSettings();
+        ctx.saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
       }
     }
