@@ -1109,7 +1109,7 @@ function loadPolarisHourAngleApp() {
 // ---------------------------------------------------------------------
 
 // define the settings storage file on the watch, this is created and stored on the watch
-const STORAGE_FILE = "hourangle.settings.json";
+//const STORAGE_FILE = "hourangle.settings.json";
 
 // sets default values in case settings file is missing or empty
 const DEFAULTS = {
@@ -1166,7 +1166,7 @@ const settingsAdjuster = require("settingsadjuster");
 // this needs to describe the functions, variables, and constant you want loaded for use by this file when the settingsadjuster is activated
 settingsAdjuster.init({
   mySettings,
-  saveSettings,
+  SettingsAdjuster.saveSettings(),
   DEFAULTS,
   showDashboardMenu
 });
