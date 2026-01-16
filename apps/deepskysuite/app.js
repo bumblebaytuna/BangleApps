@@ -60,108 +60,6 @@ function wrap360(angledegrees) {
   return ((angledegrees % 360) + 360) % 360;
 }
 
-// -------------------------------------------------
-// -------- Settings: GPS Control Functions --------
-// -------------------------------------------------
-
-function startWaitingForGPS() {
-  // draw immediately
-  showWaitingForGPS(mySettings.reticuleColour);
-
-  // refresh every 1 second
-  waitingPageIntervalID = setInterval(() => {
-    if (!gpsFixReceived) {
-      showWaitingForGPS(mySettings.reticuleColour);
-    }
-  }, 1000);
-}
-
-function stopWaitingForGPS() {
-  if (waitingPageIntervalID) {
-    clearInterval(waitingPageIntervalID);
-    waitingPageIntervalID = null;
-  }
-}
-
-function showWaitingForGPS(messageColour) {
-
-  // Remember old colour
-  let oldColour = g.getColor();
-
-  // Set new colour
-  g.setColor(messageColour);
-
-  g.setColor("#FFFFFF"); // white background
-  g.clear();
-
-  g.setColor("#000000"); // black text
-  g.setFont("Vector",20);
-  g.drawString("Waiting for", 35, 50);
-  g.drawString(" GPS fix...", 35, 72);
-
-
-  // Get the current time and calculate elapsed time
-  if (gpsStartTime) {
-    let now = new Date();
-    let elapsedTime = Math.floor((now - gpsStartTime) / 1000); // time in seconds
-    let minutes = Math.floor(elapsedTime / 60);
-    let seconds = elapsedTime % 60;
-
-    g.setFont("Vector", 16);
-    g.drawString(
-      "Time: " + minutes.toString().padStart(2, "0") + ":" + seconds.toString().padStart(2, "0"),
-      35, 120
-    );
-  }
-
-  // Restore old colour
-  g.setColor(oldColour);
-
-}
-
-// Function to handle when GPS fix is received
-function onGPSEvent(fix) {
-  if (fix && fix.fix && fix.time) {
-    gpsFixReceived = true;  // Mark GPS fix as received
-    
-    // Convert the GPS time from milliseconds since UNIX epoch to a Date object
-    var gpsTime = fix.time instanceof Date ? fix.time : new Date(fix.time);
-    
-    // populate the global variables
-    gpsYear = gpsTime.getFullYear();
-    gpsMonth = gpsTime.getMonth()+1;
-    gpsDay = gpsTime.getDate();
-    gpsHour = gpsTime.getHours();
-    gpsMinute = gpsTime.getMinutes();
-    gpsSecond = gpsTime.getSeconds();
-
-    console.log("----------");
-    console.log("GPS event triggered:");
-    console.log("Longitude = " + fix.lon);
-    console.log("Time Stamp = " + gpsTime.toString()); // GPS timestamps are in millisecs since the Unix epoch
-    console.log("Satellites = " + fix.satellites);
-    console.log("----------");
-
-    stopWaitingForGPS();   // ← STOP 1-sec waiting page refresh
-    startRefreshLoop(); // Immediately refresh display once GPS fix is received
-    return true;  // Return true to indicate GPS fix received
-  }
-  return false;  // Return false if no valid fix is received
-}
-
-// function to simulate a fake GPS fix - FOR TESTING PURPOSES ONLY
-function fakeGPSEvent() {
-  var fakeFix = {
-    fix: 1,                 // indicate GPS fix
-    lat: 50.9,              // fake latitude
-    lon: mySettings.lonDegrees,                // fake longitude
-    time: new Date(),       // must be a Date object
-    satellites: 7
-  };
-  Bangle.emit("GPS", fakeFix);
-}
-
-
 // --------------------------------------------------------------
 // -------- POLARIS HOUR ANGLE: Common Drawing Functions --------
 // --------------------------------------------------------------
@@ -782,36 +680,6 @@ function loadPolarisHourAngleApp() {
 // ---------------------------------------------------------------------
 
 // sets default values in case settings file is missing or empty
-const DEFAULTS = {
-  lonAngleHundreds:0,  // default lon location is 0 degrees
-  lonAngleTens:0,  // default lon location is 0 degrees
-  lonAngleOnes:0,  // default lon location is 0 degrees
-  lonDirection:"West", // default is West. West = 1, east = 0
-  useGPS:0, // default GPS use is disabled
-  reticuleRefreshIntervalMillisecs:60000, // default app display refresh is every 60 secs
-  gpsfixWaitIntervalMillisecs:10000, // default GPS first fix waiting interval between checks
-  backgroundColour:"#FFFFFF", // default background colour is white
-  reticuleColour:"#000000", // default polarscope reticule colour is black
-  polarisMarkerColour:"#0277BD", // default polaris marker colour and line is a blue/green which works in both light and dark mode
-  polarisMarkerSize:5, // default polaris marker size is 5
-  reticuleValidityYearStart:2000, // default polarscope reticule validity period start is year 2000
-  reticuleValidityYearEnd:2030, // default polarscope reticule validity period start is year 2030
-  reticuleStyle:1, // default polarscope reticule style is 1 (for Takahashi, Orion, and Skywatcher mounts)
-  reticuleValidityStartYearThousands:2,  // default reticule validity start year is 2000
-  reticuleValidityStartYearHundreds:0,  // default reticule validity start year is 2000
-  reticuleValidityStartYearTens:0,  // default reticule validity start year is 2000
-  reticuleValidityStartYearOnes:0,  // default reticule validity start year is 2000
-  reticuleValidityEndYearThousands:2,  // default reticule validity end year is 2030
-  reticuleValidityEndYearHundreds:0,  // default reticule validity end year is 2030
-  reticuleValidityEndYearTens:3,  // default reticule validity end year is 2030
-  reticuleValidityEndYearOnes:0,  // default reticule validity end year is 2030
-  theme: "dark", // test defaults to check settings menu structure is working properly
-  vibration: false, // test defaults to check settings menu structure is working properly
-  brightness: 6, // test defaults to check settings menu structure is working properly
-  advancedOption: false, // test defaults to check settings menu structure is working properly
-  swVersion: "0.29" // version of this software
-};
-
 // Declare global runtime variables
 let intervalID;
 let waitingIntervalID;
@@ -826,6 +694,9 @@ var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 //Load the settings adjuster module
 const settingsAdjuster = require("settingsadjuster");
 
+//define the defaults
+const DEFAULTS = settingsAdjuster.DEFAULTS;
+
 //Ensure the version number in the old hourangle.settings.json file on the watch is up to date
 let mySettings = settingsAdjuster.loadSettings(); // Collects the global app settings from the storage file, the settingsAdjuster.loadSettings function uses the above defaults if the settings file is missing or empty
 mySettings.swVersion = DEFAULTS.swVersion;
@@ -837,7 +708,7 @@ settingsAdjuster.saveSettings();
 settingsAdjuster.init({
   mySettings: mySettings,
   saveSettings: settingsAdjuster.saveSettings,
-  DEFAULTS: DEFAULTS,
+  DEFAULTS: settingsAdjuster.DEFAULTS,
   showDashboardMenu: showDashboardMenu
 });
 
