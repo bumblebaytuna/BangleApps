@@ -686,11 +686,12 @@ function loadPolarisHourAngleApp() {
 // Declare global runtime variables
 let intervalID;
 let waitingIntervalID;
-let gpsFixReceived = false;  // Global flag to track if GPS fix is received
 let refreshStarted = false;  // Global flag to track if the cyclic display refresh is active
 
 // Declare global runtime variables to store the GPS date and time components
 var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
+
+//----- SettingsManager.js comms manager --------
 
 //Load the settings adjuster module
 const settingsManager = require("settingsmanager");
@@ -706,17 +707,22 @@ settingsManager.init({
   showDashboardMenu: showDashboardMenu
 });
 
+//----- GPSManager.js comms manager --------
+
 //Load the GPS management module
 const gpsManager = require("gpsmanager");
 
 // this is to feed the gpsManager.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to gpsManager.js.
 gpsManager.init({
-  mySettings: mySettings,
+  mySettings: mySettings
 });
 
+//------- Main Sequence -------------
 
 // MAIN DASHBOARD START
 showDashboardMenu();
+
+//------- Cleaning and Garbage Disposal Manager ----------
 
 // Cleanup on app exit
 // Cleans up the IntervalID, waitingIntervalID and turns off the GPS
