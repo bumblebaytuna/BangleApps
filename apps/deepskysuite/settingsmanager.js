@@ -63,7 +63,7 @@ exports.DEFAULTS = DEFAULTS;
 function showMainSettingsMenu() {
 
   //access settings from this module
-  let myLocalSettings = loadSettings();
+  let myLocalSettings = loadSettings();  // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
   
   E.showMenu({
     // common parts
@@ -107,7 +107,7 @@ function showMainSettingsMenu() {
 //function showMainSettingsMenu() {
 
   //access settings from this module
-  //let myLocalSettings = loadSettings();
+  //let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
 
   //E.showMenu({
     //common parts
@@ -153,7 +153,7 @@ function showMainSettingsMenu() {
 function showReticuleValidityStartYearMenu() {
 
   //access settings from this module
-  let myLocalSettings = loadSettings();
+  let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
   
   // create the number for the title
   let validityStartYear = getReticuleValidityStartYear();
@@ -221,7 +221,7 @@ function showReticuleValidityStartYearMenu() {
 function showReticuleValidityEndYearMenu() {
 
   //access settings from this module
-  let myLocalSettings = loadSettings();
+  let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
   
   // create the number for the title
   let validityEndYear = getReticuleValidityEndYear();
@@ -290,7 +290,7 @@ function showReticuleValidityEndYearMenu() {
 function showLongitudeMenu() {
   
   //access settings from this module
-  let myLocalSettings = loadSettings();
+  let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
 
   //get longitude string
   var mylon = getLongitudeAngleString();
@@ -328,7 +328,7 @@ function showLongitudeMenu() {
 function showLongitudeAngleChangeMenu() {
     
   //access settings from this module
-  let myLocalSettings = loadSettings();
+  let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
   
   // create the number for the title
   let lonangle = getLongitudeAngleString();
@@ -388,7 +388,7 @@ function showLongitudeAngleChangeMenu() {
 //function getLongitudeAngleNumeric() {
     
   //access settings from this module
-  //let myLocalSettings = loadSettings();
+  //let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
 
   //var myLongitudeAngleMod =
     //(Number(getFromMainApp.mySettings.lonAngleHundreds) * 100) +
@@ -410,7 +410,7 @@ function showLongitudeAngleChangeMenu() {
 function getLongitudeAngleString() {
     
   //access settings from this module
-  let myLocalSettings = loadSettings();
+  let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
   
   var myLongitudeAngleMod =
     (Number(myLocalSettings.lonAngleHundreds) * 100) +
@@ -459,7 +459,7 @@ function loadSettings() {
 function saveSettings() {
   
   //access settings from this module
-  let myLocalSettings = loadSettings();
+  let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
   
   require("Storage").writeJSON(STORAGE_FILE, myLocalSettings);
 }
