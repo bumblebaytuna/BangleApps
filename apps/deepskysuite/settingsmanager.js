@@ -424,10 +424,10 @@ function loadSettings() {
   return Object.assign(
     {}, // ensure a new object
     ctx.DEFAULTS, // global defaults passed via init()
-    require("Storage").readJSON(ctx.STORAGE_FILE, true) || {}
+    require("Storage").readJSON(STORAGE_FILE, true) || {}
   );
 }
 
 function saveSettings() {
-  require("Storage").writeJSON(ctx.STORAGE_FILE, ctx.mySettings);
+  require("Storage").writeJSON(STORAGE_FILE, ctx.mySettings);
 }
