@@ -9,7 +9,7 @@ function loadSettings() {
   return Object.assign(
     {},                 // ensure a new object
     DEFAULTS,           // if the field is empty it reads the global defaults first
-    require("Storage").readJSON(STORAGE_FILE, true) || {}
+    require("Storage").readJSON(STORAGE_FILE, true) || {}  // loads the settings file into memory
   );
 }
 
