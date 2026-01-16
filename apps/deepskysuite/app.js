@@ -849,9 +849,6 @@ const DEFAULTS = {
   swVersion: "0.29" // version of this software
 };
 
-// Collects the global app settings from the storage file, the settingsAdjuster.loadSettings function uses the above defaults if the settings file is missing or empty
-let mySettings = settingsAdjuster.loadSettings;
-
 // Declare global runtime variables
 let intervalID;
 let waitingIntervalID;
@@ -863,19 +860,22 @@ let waitingPageIntervalID;  // for GPS waiting page
 // Declare global runtime variables to store the GPS date and time components
 var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 
+//Load the settings adjuster module
+const settingsAdjuster = require("settingsadjuster");
+
 //Ensure the version number in the old hourangle.settings.json file on the watch is up to date
-mySettings.swVersion = DEFAULTS.swVersion
+let mySettings = settingsAdjuster.loadSettings(); // Collects the global app settings from the storage file, the settingsAdjuster.loadSettings function uses the above defaults if the settings file is missing or empty
+mySettings.swVersion = DEFAULTS.swVersion;
+
 settingsAdjuster.saveSettings();
 
 // MAIN DASHBOARD START - NEW VERSION FOR SPLIT JS FILES
-const settingsAdjuster = require("settingsadjuster");
-
 // this needs to describe the functions, variables, and constant you want loaded for use by this file when the settingsadjuster is activated
 settingsAdjuster.init({
-  mySettings,
-  SettingsAdjuster.saveSettings(),
-  DEFAULTS,
-  showDashboardMenu
+  mySettings: mySettings,
+  saveSettings: settingsAdjuster.saveSettings,
+  DEFAULTS: DEFAULTS,
+  showDashboardMenu: showDashboardMenu
 });
 
 // MAIN DASHBOARD START - OLD VERSION
