@@ -16,7 +16,7 @@ function showDashboardMenu() {
   "": { "title": "Polaris Hour Angle" },
   "< Back": () => showDashboardMenu(), // for the button
   "Run": loadPolarisHourAngleApp,
-  "Settings": null,
+  "Settings": () => load(),
   "Exit": () => load() // using load() always shows the watch's main menu
 }); // <-- Close this block
   
