@@ -702,7 +702,7 @@ let refreshStarted = false;  // Global flag to track if the cyclic display refre
 var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 
 // show code run successful to this point, note will be overwritten by a newer message
-E.showMessage("1", function() { // This code runs when user taps OK console.log("User dismissed message");});
+E.showMessage("1", function() {console.log("User dismissed message");});  // The addition of the function() part creates the OK button on the display 
 
 //----- SettingsManager.js comms manager --------
 
@@ -710,7 +710,7 @@ E.showMessage("1", function() { // This code runs when user taps OK console.log(
 const settingsManager = require("settingsmanager");
 
 // show code run successful to this point, note will be overwritten by a newer message
-E.showMessage("2", function() { // This code runs when user taps OK console.log("User dismissed message");});
+E.showMessage("2", function() {console.log("User dismissed message");});  // The addition of the function() part creates the OK button on the display 
 
 //Ensure the version number in the old hourangle.settings.json file on the watch is up to date
 let mySettings = settingsManager.loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
@@ -718,7 +718,7 @@ mySettings.swVersion = settingsManager.DEFAULTS.swVersion;
 settingsManager.saveSettings(mySettings);
 
 // show code run successful to this point, note will be overwritten by a newer message
-E.showMessage("3", function() { // This code runs when user taps OK console.log("User dismissed message");});
+E.showMessage("3", function() {console.log("User dismissed message");});  // The addition of the function() part creates the OK button on the display 
 
 // this is to feed the settingsManager.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to settingsManager.js.
 settingsManager.init({
@@ -727,7 +727,7 @@ settingsManager.init({
 });
 
 // show code run successful to this point, note will be overwritten by a newer message
-E.showMessage("4", function() { // This code runs when user taps OK console.log("User dismissed message");});
+E.showMessage("4", function() {console.log("User dismissed message");});  // The addition of the function() part creates the OK button on the display 
 
 //----- GPSManager.js comms manager --------
 
@@ -735,7 +735,7 @@ E.showMessage("4", function() { // This code runs when user taps OK console.log(
 const gpsManager = require("gpsmanager");
 
 // show code run successful to this point, note will be overwritten by a newer message
-E.showMessage("5", function() { // This code runs when user taps OK console.log("User dismissed message");});
+E.showMessage("5", function() {console.log("User dismissed message");});  // The addition of the function() part creates the OK button on the display 
 
 // this is to feed the gpsManager.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to gpsManager.js.
 gpsManager.init({
@@ -744,7 +744,7 @@ gpsManager.init({
 });
 
 // show code run successful to this point, note will be overwritten by a newer message
-E.showMessage("6", function() { // This code runs when user taps OK console.log("User dismissed message");});
+E.showMessage("6", function() {console.log("User dismissed message");});  // The addition of the function() part creates the OK button on the display 
 
 //------- Main Sequence -------------
 
@@ -752,7 +752,7 @@ E.showMessage("6", function() { // This code runs when user taps OK console.log(
 showDashboardMenu();
 
 // show code run successful to this point, note will be overwritten by a newer message
-E.showMessage("8", function() { // This code runs when user taps OK console.log("User dismissed message");});
+E.showMessage("7", function() {console.log("User dismissed message");});  // The addition of the function() part creates the OK button on the display 
 
 //------- Cleaning and Garbage Disposal Manager ----------
 
