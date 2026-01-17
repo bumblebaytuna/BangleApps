@@ -722,6 +722,13 @@ displayMessageWithOkButtonOnScreen("1");
 //Load the settings adjuster module
 const settingsManager = require("settingsmanager");
 
+// this is to feed the settingsManager.js file with the extra context it needs to run its functions. It is a one-way flow of information from this file to settingsManager.js.
+// this must be put straight after the Require function otherwise functions called later from the module will not work.
+settingsManager.init({
+  mySettings: mySettings,
+  showDashboardMenu: showDashboardMenu
+});
+
 // show code run successful to this point, note will be overwritten by a newer message
 displayMessageWithOkButtonOnScreen("2");
 
@@ -733,11 +740,6 @@ settingsManager.saveSettings(mySettings);
 // show code run successful to this point, note will be overwritten by a newer message
 displayMessageWithOkButtonOnScreen("3");
 
-// this is to feed the settingsManager.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to settingsManager.js.
-settingsManager.init({
-  mySettings: mySettings,
-  showDashboardMenu: showDashboardMenu
-});
 
 // show code run successful to this point, note will be overwritten by a newer message
 displayMessageWithOkButtonOnScreen("4");
@@ -747,14 +749,17 @@ displayMessageWithOkButtonOnScreen("4");
 //Load the GPS management module
 const gpsManager = require("gpsmanager");
 
-// show code run successful to this point, note will be overwritten by a newer message
-displayMessageWithOkButtonOnScreen("5");
-
-// this is to feed the gpsManager.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to gpsManager.js.
+// this is to feed the gpsManager.js file with the extra context it needs to run its functions. It is a one-way flow of information from this file to gpsManager.js.
+// this must be put straight after the Require function otherwise functions called later from the module will not work.
 gpsManager.init({
   mySettings: mySettings,
   startRefreshLoop: startRefreshLoop
 });
+
+// show code run successful to this point, note will be overwritten by a newer message
+displayMessageWithOkButtonOnScreen("5");
+
+
 
 // show code run successful to this point, note will be overwritten by a newer message
 displayMessageWithOkButtonOnScreen("6");
