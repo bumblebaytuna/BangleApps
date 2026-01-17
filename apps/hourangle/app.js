@@ -42,15 +42,15 @@ function showMainSettingsMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Settings" },
-    "< Back": () => showRootMenu(),  // for the button
+    "< Back": function () { showRootMenu(); }, // for the button
     "Back": showRootMenu,
     
     //custom parts
     
     //"Use GPS": {
     //  value: !!mySettings.useGPS,
-    //  format: v => v ? "Yes" : "No",
-    //  onchange: v => {
+    //  format: function (v) { return v ? "Yes" : "No"; },
+    //  onchange: function (v) {
     //    mySettings.useGPS = v;
     //    saveSettings();
     //  }
@@ -61,8 +61,8 @@ function showMainSettingsMenu() {
       min: 1,
       max: 2,
       step: 1, 
-      format: v => v,
-      onchange: v => {
+      format: function (v) {return v;},
+      onchange: function (v) {
         mySettings.reticuleStyle = v;
         saveSettings();
       }  
@@ -73,7 +73,7 @@ function showMainSettingsMenu() {
     "Longitude": showLongitudeMenu, // Opens nested submenu
     
     //common parts
-    "Reset (immediate)": () => {
+    "Reset (immediate)": function () {
       mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
       saveSettings();
       Bangle.setLCDBrightness(mySettings.brightness);
@@ -102,7 +102,7 @@ function showReticuleValidityStartYearMenu() {
       min: 1,
       max: 2,
       step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      format: function (v) {return v;}, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.reticuleValidityStartYearThousands = v;
         saveSettings();
@@ -114,7 +114,7 @@ function showReticuleValidityStartYearMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      format: function (v) {return v;}, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.reticuleValidityStartYearHundreds = v;
         saveSettings();
@@ -126,7 +126,7 @@ function showReticuleValidityStartYearMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      format: function (v) {return v;}, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.reticuleValidityStartYearTens = v;
         saveSettings();
@@ -138,7 +138,7 @@ function showReticuleValidityStartYearMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      format: function (v) {return v;}, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.reticuleValidityStartYearOnes = v;
         saveSettings();
@@ -168,7 +168,7 @@ function showReticuleValidityEndYearMenu() {
       min: 1,
       max: 2,
       step: 1,
-      format: v => v, 
+      format: function (v) {return v;}, 
       onchange: v => {
         mySettings.reticuleValidityEndYearThousands = v;
         saveSettings();
@@ -180,7 +180,7 @@ function showReticuleValidityEndYearMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, 
+      format: function (v) {return v;}, 
       onchange: v => {
         mySettings.reticuleValidityEndYearHundreds = v;
         saveSettings();
@@ -192,7 +192,7 @@ function showReticuleValidityEndYearMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, 
+      format: function (v) {return v;}, 
       onchange: v => {
         mySettings.reticuleValidityEndYearTens = v;
         saveSettings();
@@ -204,7 +204,7 @@ function showReticuleValidityEndYearMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, 
+      format: function (v) {return v;}, 
       onchange: v => {
         mySettings.reticuleValidityEndYearOnes = v;
         saveSettings();
@@ -267,7 +267,7 @@ function showLongitudeAngleChangeMenu() {
       min: 0,
       max: 1,
       step: 1,
-      format: v => v,
+      format: function (v) {return v;},
       onchange: v => {
         mySettings.lonAngleHundreds = v;
         saveSettings();
@@ -279,7 +279,7 @@ function showLongitudeAngleChangeMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      format: function (v) {return v;}, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.lonAngleTens = v;
         saveSettings();
@@ -291,7 +291,7 @@ function showLongitudeAngleChangeMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      format: function (v) {return v;}, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: v => {
         mySettings.lonAngleOnes = v;
         saveSettings();
