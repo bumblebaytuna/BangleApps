@@ -13,9 +13,13 @@ let getFromMainApp;
 
 // Called once by main app
 // never access getFromMainApp before init() is called. Otherwise, it will be undefined and will cause a hang or crash
-init = function (_context) {
+//init = function (_context) {
+//  getFromMainApp = _context;
+//};
+
+function init(_context) {
   getFromMainApp = _context;
-};
+}
 
 // -----------------------------------------------------------
 // -------- Settings Manager: Defaults and declarations ------
@@ -64,7 +68,7 @@ const DEFAULTS = {
 // note exports lines must not be written with the normal function brackets or arguments
 // only define if running as module rather than in the standalone test harness
 if (typeof exports !== "undefined") {
-  exports.init = function (_context) { getFromMainApp = _context; };
+  exports.init = init;
   exports.showMainSettingsMenu = showMainSettingsMenu;
   exports.loadSettings = loadSettings;
   exports.saveSettings = saveSettings;
