@@ -461,7 +461,8 @@ function saveSettings(mySettings) {
 // ----------- Harness for testing module standalone in Espruino Web IDE ----------
 // ---------------------------------------------------------------------------------
 
-if (typeof module !== "undefined" && !getFromMainApp) {
+// Standalone test harness
+if (typeof getFromMainApp === "undefined") {
   // mock the main app context
   init({
     showDashboardMenu: function() {
