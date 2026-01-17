@@ -13,7 +13,7 @@ let getFromMainApp;
 
 // Called once by main app
 // never access getFromMainApp before init() is called. Otherwise, it will be undefined and will cause a hang or crash
-exports.init = function (_context) {
+init = function (_context) {
   getFromMainApp = _context;
 };
 
@@ -463,7 +463,7 @@ function saveSettings(mySettings) {
 
 if (typeof module !== "undefined" && !getFromMainApp) {
   // mock the main app context
-  exports.init({
+  init({
     showDashboardMenu: function() {
       console.log("Dashboard menu would be shown here");
       E.showMessage("Dashboard menu (mock)");
