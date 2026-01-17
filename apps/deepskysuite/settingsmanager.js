@@ -62,10 +62,14 @@ const DEFAULTS = {
 // Define which functions are allowed to be accessed by other JS files/modules
 // If they are not in the list below, they remain private for use by this file/module only
 // note exports lines must not be written with the normal function brackets or arguments
-exports.showMainSettingsMenu = showMainSettingsMenu
-exports.loadSettings = loadSettings
-exports.saveSettings = saveSettings
-exports.DEFAULTS = DEFAULTS;
+// only define if running as module rather than in the standalone test harness
+if (typeof exports !== "undefined") {
+  exports.init = function (_context) { getFromMainApp = _context; };
+  exports.showMainSettingsMenu = showMainSettingsMenu;
+  exports.loadSettings = loadSettings;
+  exports.saveSettings = saveSettings;
+  exports.DEFAULTS = DEFAULTS;
+}
 
 // -------------------------------------------
 // ---- Settings: Menu Creation Functions ----
@@ -465,15 +469,6 @@ if (typeof module !== "undefined" && !getFromMainApp) {
       E.showMessage("Dashboard menu (mock)");
     }
   });
-
-  // only define exports if running as module
-if (typeof exports !== "undefined") {
-  exports.init = function (_context) { getFromMainApp = _context; };
-  exports.showMainSettingsMenu = showMainSettingsMenu;
-  exports.loadSettings = loadSettings;
-  exports.saveSettings = saveSettings;
-  exports.DEFAULTS = DEFAULTS;
-}
 
   // load settings (or just use defaults)
   var mySettings = loadSettings();
