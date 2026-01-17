@@ -688,6 +688,14 @@ function loadPolarisHourAngleApp() {
   }
 }
 
+// --------------------------------------------------------------------------------
+// ----------- COMMON: Messgaing and Logging Functions ----------------------------
+// --------------------------------------------------------------------------------
+
+function displayMessageWithOkButtonOnScreen(mymessage){
+  E.showMessage(mymessage, function() { console.log("User dismissed message"); }, "", "OK"); 
+}
+
 // ---------------------------------------------------------------------
 // ----------- DASHBOARD: App Initialisation --------------------------------------
 // ---------------------------------------------------------------------
@@ -744,7 +752,7 @@ gpsManager.init({
 });
 
 // show code run successful to this point, note will be overwritten by a newer message
-E.showMessage("6", function() { console.log("User dismissed message"); }, "", "OK"); 
+displayMessageWithOkButtonOnScreen("6");
 
 //------- Main Sequence -------------
 
