@@ -66,7 +66,7 @@ exports.DEFAULTS = DEFAULTS;
 // -------------------------------------------
 
 // Create Main Settings Menu
-function showMainSettingsMenu(mysettings) {
+function showMainSettingsMenu(mySettings) {
 
   E.showMenu({
     // common parts
@@ -76,13 +76,13 @@ function showMainSettingsMenu(mysettings) {
 
     // custom parts
     "Style": {
-      value: Number(mysettings.reticuleStyle),
+      value: Number(mySettings.reticuleStyle),
       min: 1,
       max: 2,
       step: 1,
       format: function (v) { return v; },
       onchange: function(v) {
-        mysettings.reticuleStyle = v;
+        mySettings.reticuleStyle = v;
         saveSettings();
       }
     },
@@ -93,13 +93,13 @@ function showMainSettingsMenu(mysettings) {
 
     // common parts
     "Reset (immediate)": function () {
-      mysettings.theme = DEFAULTS.theme;
-      mysettings.vibration = DEFAULTS.vibration;
-      mysettings.brightness = DEFAULTS.brightness;
-      mysettings.advancedOption = DEFAULTS.advancedOption;
+      mySettings.theme = DEFAULTS.theme;
+      mySettings.vibration = DEFAULTS.vibration;
+      mySettings.brightness = DEFAULTS.brightness;
+      mySettings.advancedOption = DEFAULTS.advancedOption;
 
       saveSettings();
-      Bangle.setLCDBrightness(mysettings.brightness);
+      Bangle.setLCDBrightness(mySettings.brightness);
       E.showMessage("Settings reset!");
     }
   //showMenu closure brackets
@@ -107,7 +107,7 @@ function showMainSettingsMenu(mysettings) {
   //function closure bracket
 }
 
-//function showMainSettingsMenu(mysettings) {
+//function showMainSettingsMenu(mySettings) {
 
   //E.showMenu({
     //common parts
@@ -116,13 +116,13 @@ function showMainSettingsMenu(mysettings) {
     //"Back": showDashboardMenu,
         
     //"Style": {
-    //  value: Number(mysettings.reticuleStyle),
+    //  value: Number(mySettings.reticuleStyle),
     //  min: 1,
     //  max: 2,
     //  step: 1, 
     //  format: function (v) { return v; },
     // onchange: function(v) {
-    //    mysettings.reticuleStyle = v;
+    //    mySettings.reticuleStyle = v;
     //    getFromMainApp.saveSettings();
       //}  
     //},
@@ -133,9 +133,9 @@ function showMainSettingsMenu(mysettings) {
     
     //common parts
     //"Reset (immediate)": function() {
-      //mysettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
+      //mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
       //saveSettings();
-      //Bangle.setLCDBrightness(mysettings.brightness);
+      //Bangle.setLCDBrightness(mySettings.brightness);
       //E.showMessage("Settings reset!");
     //}
   //showMenu closure brackets
@@ -150,10 +150,10 @@ function showMainSettingsMenu(mysettings) {
 // these do not require exports becuase they are only run by the showMainSettingsMenu function above
 
 // Create Reticule Validity Start Year change submenu
-function showReticuleValidityStartYearMenu(mysettings) {
+function showReticuleValidityStartYearMenu(mySettings) {
  
   // create the number for the title
-  let validityStartYear = getReticuleValidityStartYear(mysettings);
+  let validityStartYear = getReticuleValidityStartYear(mySettings);
   
   E.showMenu({
     //common parts
@@ -162,51 +162,51 @@ function showReticuleValidityStartYearMenu(mysettings) {
     "Back": showMainSettingsMenu,
     //custom parts
     "Thousands": {
-      value: Number(mysettings.reticuleValidityStartYearThousands),
+      value: Number(mySettings.reticuleValidityStartYearThousands),
       min: 1,
       max: 2,
       step: 1,
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
-        mysettings.reticuleValidityStartYearThousands = v;
+        mySettings.reticuleValidityStartYearThousands = v;
         saveSettings();
-        showReticuleValidityStartYearMenu(mysettings); // redraw menu so it updates the title
+        showReticuleValidityStartYearMenu(mySettings); // redraw menu so it updates the title
       }
     },
     "Hundreds": {
-      value: Number(mysettings.reticuleValidityStartYearHundreds),
+      value: Number(mySettings.reticuleValidityStartYearHundreds),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
-        mysettings.reticuleValidityStartYearHundreds = v;
+        mySettings.reticuleValidityStartYearHundreds = v;
         saveSettings();
-        showReticuleValidityStartYearMenu(mysettings); // redraw menu so it updates the title
+        showReticuleValidityStartYearMenu(mySettings); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(mysettings.reticuleValidityStartYearTens),
+      value: Number(mySettings.reticuleValidityStartYearTens),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
-        mysettings.reticuleValidityStartYearTens = v;
+        mySettings.reticuleValidityStartYearTens = v;
         saveSettings();
-        showReticuleValidityStartYearMenu(mysettings); // redraw menu so it updates the title
+        showReticuleValidityStartYearMenu(mySettings); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(mysettings.reticuleValidityStartYearOnes),
+      value: Number(mySettings.reticuleValidityStartYearOnes),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
-        mysettings.reticuleValidityStartYearOnes = v;
+        mySettings.reticuleValidityStartYearOnes = v;
         saveSettings();
-        showReticuleValidityStartYearMenu(mysettings); // redraw menu so it updates the title
+        showReticuleValidityStartYearMenu(mySettings); // redraw menu so it updates the title
       }
     }
   //menu closure brackets
@@ -215,64 +215,64 @@ function showReticuleValidityStartYearMenu(mysettings) {
 }
 
 // Create Reticule Validity End Year change submenu
-function showReticuleValidityEndYearMenu(mysettings) {
+function showReticuleValidityEndYearMenu(mySettings) {
   
   // create the number for the title
-  let validityEndYear = getReticuleValidityEndYear(mysettings);
+  let validityEndYear = getReticuleValidityEndYear(mySettings);
   
   E.showMenu({
     //common parts
     "": { "title": "End Year: " + validityEndYear },
-    "< Back": function () { showMainSettingsMenu(mysettings); },  // for the button
+    "< Back": function () { showMainSettingsMenu(mySettings); },  // for the button
     "Back": showMainSettingsMenu,
     
     //custom parts
     "Thousands": {
-      value: Number(mysettings.reticuleValidityEndYearThousands),
+      value: Number(mySettings.reticuleValidityEndYearThousands),
       min: 1,
       max: 2,
       step: 1,
       format: function (v) { return v; }, 
       onchange: function(v) {
-        mysettings.reticuleValidityEndYearThousands = v;
+        mySettings.reticuleValidityEndYearThousands = v;
         saveSettings();
-        showReticuleValidityEndYearMenu(mysettings); // redraw menu so it updates the title
+        showReticuleValidityEndYearMenu(mySettings); // redraw menu so it updates the title
       }
     },
     "Hundreds": {
-      value: Number(mysettings.reticuleValidityEndYearHundreds),
+      value: Number(mySettings.reticuleValidityEndYearHundreds),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, 
       onchange: function(v) {
-        mysettings.reticuleValidityEndYearHundreds = v;
+        mySettings.reticuleValidityEndYearHundreds = v;
         saveSettings();
-        showReticuleValidityEndYearMenu(mysettings); // redraw menu so it updates the title
+        showReticuleValidityEndYearMenu(mySettings); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(mysettings.reticuleValidityEndYearTens),
+      value: Number(mySettings.reticuleValidityEndYearTens),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, 
       onchange: function(v) {
-        mysettings.reticuleValidityEndYearTens = v;
+        mySettings.reticuleValidityEndYearTens = v;
         saveSettings();
-        showReticuleValidityEndYearMenu(mysettings); // redraw menu so it updates the title
+        showReticuleValidityEndYearMenu(mySettings); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(mysettings.reticuleValidityEndYearOnes),
+      value: Number(mySettings.reticuleValidityEndYearOnes),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, 
       onchange: function(v) {
-        mysettings.reticuleValidityEndYearOnes = v;
+        mySettings.reticuleValidityEndYearOnes = v;
         saveSettings();
-        showReticuleValidityEndYearMenu(mysettings); // redraw menu so it updates the title
+        showReticuleValidityEndYearMenu(mySettings); // redraw menu so it updates the title
       }
     }
   //menu closure brackets
@@ -281,7 +281,7 @@ function showReticuleValidityEndYearMenu(mysettings) {
 }
 
 // Create Longitude submenu
-function showLongitudeMenu(mysettings) {
+function showLongitudeMenu(mySettings) {
   
   //get longitude string
   var mylon = getLongitudeAngleString();
@@ -289,21 +289,21 @@ function showLongitudeMenu(mysettings) {
   E.showMenu({
     //common parts
     "": { "title": "Longitude" },
-    "< Back": function () { showMainSettingsMenu(mysettings); }, // for the button
+    "< Back": function () { showMainSettingsMenu(mySettings); }, // for the button
     "Back": showMainSettingsMenu,
 
     //custom parts
     "Current": {value: mylon}, //read only
     
     "Change Direction": {
-      value: Number(mysettings.lonDirection),
+      value: Number(mySettings.lonDirection),
       min: 0,
       max: 1,
       format: function (v) { return ["East", "West"][v]; },
       onchange: function(v) {
-        mysettings.lonDirection = ["East","West"][v];
+        mySettings.lonDirection = ["East","West"][v];
         saveSettings();
-        showLongitudeMenu(mysettings);
+        showLongitudeMenu(mySettings);
       }
     },
 
@@ -316,7 +316,7 @@ function showLongitudeMenu(mysettings) {
 }
 
 // Create Longitude Angle change submenu
-function showLongitudeAngleChangeMenu(mysettings) {
+function showLongitudeAngleChangeMenu(mySettings) {
   
   // create the number for the title
   let lonangle = getLongitudeAngleString();
@@ -324,43 +324,43 @@ function showLongitudeAngleChangeMenu(mysettings) {
   E.showMenu({
     //common parts
     "": { "title": "Longitude: " + lonangle },
-    "< Back": function () { showMainSettingsMenu(mysettings); },  // for the button
+    "< Back": function () { showMainSettingsMenu(mySettings); },  // for the button
     "Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
-      value: Number(mysettings.lonAngleHundreds),
+      value: Number(mySettings.lonAngleHundreds),
       min: 0,
       max: 1,
       step: 1,
       format: function (v) { return v; },
       onchange: function(v) {
-        mysettings.lonAngleHundreds = v;
+        mySettings.lonAngleHundreds = v;
         saveSettings();
-        showLongitudeAngleChangeMenu(mysettings); // redraw menu so it updates the title
+        showLongitudeAngleChangeMenu(mySettings); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(mysettings.lonAngleTens),
+      value: Number(mySettings.lonAngleTens),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
-        mysettings.lonAngleTens = v;
+        mySettings.lonAngleTens = v;
         saveSettings();
-        showLongitudeAngleChangeMenu(mysettings); // redraw menu so it updates the title
+        showLongitudeAngleChangeMenu(mySettings); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(mysettings.lonAngleOnes),
+      value: Number(mySettings.lonAngleOnes),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
-        mysettings.lonAngleOnes = v;
+        mySettings.lonAngleOnes = v;
         saveSettings();
-        showLongitudeAngleChangeMenu(mysettings); // redraw menu so it updates the title
+        showLongitudeAngleChangeMenu(mySettings); // redraw menu so it updates the title
       }
     }
   //menu closure brackets
@@ -395,16 +395,16 @@ function showLongitudeAngleChangeMenu(mysettings) {
 //}
 
 // Create string longitude angle from settings digits
-function getLongitudeAngleString(mysettings) {
+function getLongitudeAngleString(mySettings) {
 
   var myLongitudeAngleMod =
-    (Number(mysettings.lonAngleHundreds) * 100) +
-    (Number(mysettings.lonAngleTens) * 10) +
-    Number(mysettings.lonAngleOnes);
+    (Number(mySettings.lonAngleHundreds) * 100) +
+    (Number(mySettings.lonAngleTens) * 10) +
+    Number(mySettings.lonAngleOnes);
 
   var myLongitudeAngle;
 
-  if (mysettings.lonDirection == "West") {
+  if (mySettings.lonDirection == "West") {
     myLongitudeAngle = myLongitudeAngleMod + "° W";
   } else {
     myLongitudeAngle = myLongitudeAngleMod + "° E";
@@ -415,16 +415,16 @@ function getLongitudeAngleString(mysettings) {
 
 
 // Create reticule validity start year digits combiner
-function getReticuleValidityStartYear(mysettings) {
+function getReticuleValidityStartYear(mySettings) {
   var myReticuleValidityStartYear = 0;
-  myReticuleValidityStartYear = (Number(mysettings.reticuleValidityStartYearThousands) * 1000) + (Number(mysettings.reticuleValidityStartYearHundreds) * 100) + (Number(mysettings.reticuleValidityStartYearTens) * 10) + Number(mysettings.reticuleValidityStartYearOnes);
+  myReticuleValidityStartYear = (Number(mySettings.reticuleValidityStartYearThousands) * 1000) + (Number(mySettings.reticuleValidityStartYearHundreds) * 100) + (Number(mySettings.reticuleValidityStartYearTens) * 10) + Number(mySettings.reticuleValidityStartYearOnes);
   return (myReticuleValidityStartYear);
 }
 
 // Create reticule validity end year digits combiner
-function getReticuleValidityEndYear(mysettings) {
+function getReticuleValidityEndYear(mySettings) {
   var myReticuleValidityEndYear = 0;
-  myReticuleValidityEndYear = (Number(mysettings.reticuleValidityEndYearThousands) * 1000) + (Number(mysettings.reticuleValidityEndYearHundreds) * 100) + (Number(mysettings.reticuleValidityEndYearTens) * 10) + Number(mysettings.reticuleValidityEndYearOnes);
+  myReticuleValidityEndYear = (Number(mySettings.reticuleValidityEndYearThousands) * 1000) + (Number(mySettings.reticuleValidityEndYearHundreds) * 100) + (Number(mySettings.reticuleValidityEndYearTens) * 10) + Number(mySettings.reticuleValidityEndYearOnes);
   return (myReticuleValidityEndYear);
 }
 
@@ -441,7 +441,7 @@ function loadSettings() {
   );
 }
 
-function saveSettings(mysettings) {
+function saveSettings(mySettings) {
   
   require("Storage").writeJSON(STORAGE_FILE, mySettings);
 }
