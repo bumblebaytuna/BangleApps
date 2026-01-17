@@ -466,6 +466,15 @@ if (typeof module !== "undefined" && !getFromMainApp) {
     }
   });
 
+  // only define exports if running as module
+if (typeof exports !== "undefined") {
+  exports.init = function (_context) { getFromMainApp = _context; };
+  exports.showMainSettingsMenu = showMainSettingsMenu;
+  exports.loadSettings = loadSettings;
+  exports.saveSettings = saveSettings;
+  exports.DEFAULTS = DEFAULTS;
+}
+
   // load settings (or just use defaults)
   var mySettings = loadSettings();
 
