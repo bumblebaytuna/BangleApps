@@ -7,7 +7,7 @@
 // Also includes calling common functions, constants, and variables n this module where they are wrapped in a menu item (a Bangle.js quirk)
 // Avoids globals and circular requires
 // If this module owns it → use exports
-// If this module just uses it → use ctx (aka getFromMainApp)
+// If this module just uses it → use ctx (context)
 
 let getFromMainApp;
 
