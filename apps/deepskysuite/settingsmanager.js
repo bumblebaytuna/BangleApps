@@ -24,6 +24,7 @@ exports.init = function (_context) {
 // define the settings storage file on the watch, this is created and stored on the watch
 const STORAGE_FILE = "deepskysuite.settings.json";
 
+// define the defaults to use on the watch, in the event of an empty settings file stored on the watch, and for first use
 const DEFAULTS = {
   lonAngleHundreds:0,  // default lon location is 0 degrees
   lonAngleTens:0,  // default lon location is 0 degrees
@@ -58,8 +59,8 @@ const DEFAULTS = {
 // -------- Settings Manager: Exports Control ------
 // -------------------------------------------------
 
-//Define which functions are allowed to be accessed by other JS files/modules
-//If they are not in the list below, they remain private for use by this file/module
+// Define which functions are allowed to be accessed by other JS files/modules
+// If they are not in the list below, they remain private for use by this file/module only
 // note exports lines must not be written with the normal function brackets or arguments
 exports.showMainSettingsMenu = showMainSettingsMenu
 exports.loadSettings = loadSettings
