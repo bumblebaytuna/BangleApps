@@ -12,8 +12,9 @@
 let getFromMainApp;
 
 // Called once by main app
-exports.init = function (_getFromMainApp) {
-  getFromMainApp = _getFromMainApp;
+// never access getFromMainApp before init() is called. Otherwise, it will be undefined and will cause a hang or crash
+exports.init = function (_context) {
+  getFromMainApp = _context;
 };
 
 
