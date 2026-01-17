@@ -81,8 +81,8 @@ function showMainSettingsMenu(mySettings) {
   E.showMenu({
     // common parts
     "": { title: "Settings" },
-    "< Back": function () { getFromMainApp.showDashboardMenu; }, // for the button
-    "Back": function () { getFromMainApp.showDashboardMenu; },
+    "< Back": function () { getFromMainApp.showDashboardMenu(); }, // for the button
+    "Back": function () { getFromMainApp.showDashboardMenu(); },
 
     // custom parts
     "Style": {
@@ -97,9 +97,9 @@ function showMainSettingsMenu(mySettings) {
       }
     },
 
-    "Start Year": showReticuleValidityStartYearMenu, // Opens nested submenu
-    "End Year": showReticuleValidityEndYearMenu, // Opens nested submenu
-    "Longitude": showLongitudeMenu, // Opens nested submenu
+    "Start Year": function () { showReticuleValidityStartYearMenu(mySettings); }, // Opens nested submenu
+    "End Year": function () { showReticuleValidityEndYearMenu(mySettings); }, // Opens nested submenu
+    "Longitude": function () { showLongitudeMenu(mySettings); }, // Opens nested submenu
 
     // common parts
     "Reset (immediate)": function () {
@@ -122,8 +122,8 @@ function showMainSettingsMenu(mySettings) {
   //E.showMenu({
     //common parts
     //"": { "title": "Settings" },
-    //"< Back": function () { getFromMainApp.showDashboardMenu; },  // for the button
-    //"Back": function () { getFromMainApp.showDashboardMenu; },
+    //"< Back": function () { getFromMainApp.showDashboardMenu(); },  // for the button
+    //"Back": function () { getFromMainApp.showDashboardMenu(); },
         
     //"Style": {
     //  value: Number(mySettings.reticuleStyle),
@@ -137,9 +137,9 @@ function showMainSettingsMenu(mySettings) {
       //}  
     //},
     
-    //"Start Year": showReticuleValidityStartYearMenu, // Opens nested submenu
-    //"End Year": showReticuleValidityEndYearMenu, // Opens nested submenu
-    //"Longitude": showLongitudeMenu, // Opens nested submenu
+    //"Start Year": function () { showReticuleValidityStartYearMenu(mySettings); }, // Opens nested submenu
+    //"End Year": function () { showReticuleValidityEndYearMenu(mySettings); }, // Opens nested submenu
+    //"Longitude": function () { showLongitudeMenu(mySettings); }, // Opens nested submenu
     
     //common parts
     //"Reset (immediate)": function() {
@@ -317,7 +317,7 @@ function showLongitudeMenu(mySettings) {
       }
     },
 
-    "Change Angle": showLongitudeAngleChangeMenu // Opens nested submenu
+    "Change Angle": function () { showLongitudeAngleChangeMenu(mySettings); } // Opens nested submenu
     
   //showMenu closure brackets
   });
@@ -383,7 +383,7 @@ function showLongitudeAngleChangeMenu(mySettings) {
 // -------------------------------------------
 
 // Create numeric longitude angle from settings digits
-//function getLongitudeAngleNumeric() {
+//function getLongitudeAngleNumeric(mySettings) {
     
   //access settings from this module
   //let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
