@@ -2,7 +2,10 @@
 // -------- Settings Manager: Imports Control ------
 // -------------------------------------------------
 
-// create an object to use functions, constants, and variables in the main app.js
+// create an object to use functions, constants, and variables (i.e to colelct context). 
+// This includes calling functions, constants, and variables from the main app.js.
+// Also includes calling common functions, constants, and variables n this module where they are wrapped in a menu item (a Bangle.js quirk)
+// Avoids globals and circular requires
 let getFromMainApp;
 
 // Called once by main app
