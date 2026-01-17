@@ -5,7 +5,7 @@ function showDashboardMenu() {
     //"": { "title": "Polaris Hour Angle" },
     //"< Back": () => showDashboardMenu(), // for the button
     //"Run": loadPolarisHourAngleApp,
-    //"Settings": settingsManager.showMainSettingsMenu,
+    //"Settings": settingsManager.showMainSettingsMenu(mySettings),
     //"Exit": () => load(), // using load() always shows the watch's main menu
     //"Version": {value: mySettings.swVersion} //read only
   //showMenu closure brackets
@@ -709,7 +709,7 @@ const settingsManager = require("settingsmanager");
 //Ensure the version number in the old hourangle.settings.json file on the watch is up to date
 let mySettings = settingsManager.loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
 mySettings.swVersion = settingsManager.DEFAULTS.swVersion;
-settingsManager.saveSettings();
+settingsManager.saveSettings(mySettings);
 
 // this is to feed the settingsManager.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to settingsManager.js.
 settingsManager.init({
