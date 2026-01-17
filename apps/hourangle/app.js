@@ -25,10 +25,11 @@ function showRootMenu() {
   
   E.showMenu({
     "": { "title": "Polaris Hour Angle" },
-    "< Back": () => showRootMenu(), // for the button
-    "Run": loadMainApp,
-    "Settings": showMainSettingsMenu,
-    "Exit": () => load(), // using load() always shows the watch's main menu
+    // use function version, not the arrows version (=>), to ensure it can properly see the functions in this file/module it wants to call
+    "< Back": function () { showRootMenu(); }, // for the button
+    "Run":  function () { loadMainApp(); },
+    "Settings": function () { showMainSettingsMenu(); },
+    "Exit": function () { load(); }, // using load() always shows the watch's main menu
     "Version": {value: mySettings.swVersion} //read only
   //showMenu closure brackets
   });
