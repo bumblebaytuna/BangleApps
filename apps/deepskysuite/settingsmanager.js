@@ -84,7 +84,7 @@ function showMainSettingsMenu() {
       max: 2,
       step: 1,
       format: v => v,
-      onchange: v => {
+      onchange: function(v) {
         myLocalSettings.reticuleStyle = v;
         saveSettings();
       }
@@ -127,7 +127,7 @@ function showMainSettingsMenu() {
     //  max: 2,
     //  step: 1, 
     //  format: v => v,
-    // onchange: v => {
+    // onchange: function(v) {
     //    myLocalSettings.reticuleStyle = v;
     //    getFromMainApp.saveSettings();
       //}  
@@ -176,7 +176,7 @@ function showReticuleValidityStartYearMenu() {
       max: 2,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
-      onchange: v => {
+      onchange: function(v) {
         myLocalSettings.reticuleValidityStartYearThousands = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
@@ -188,7 +188,7 @@ function showReticuleValidityStartYearMenu() {
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
-      onchange: v => {
+      onchange: function(v) {
         myLocalSettings.reticuleValidityStartYearHundreds = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
@@ -200,7 +200,7 @@ function showReticuleValidityStartYearMenu() {
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
-      onchange: v => {
+      onchange: function(v) {
         myLocalSettings.reticuleValidityStartYearTens = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
@@ -212,7 +212,7 @@ function showReticuleValidityStartYearMenu() {
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
-      onchange: v => {
+      onchange: function(v) {
         myLocalSettings.reticuleValidityStartYearOnes = v;
         saveSettings();
         showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
@@ -245,7 +245,7 @@ function showReticuleValidityEndYearMenu() {
       max: 2,
       step: 1,
       format: v => v, 
-      onchange: v => {
+      onchange: function(v) {
         myLocalSettings.reticuleValidityEndYearThousands = v;
         saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
@@ -257,7 +257,7 @@ function showReticuleValidityEndYearMenu() {
       max: 9,
       step: 1,
       format: v => v, 
-      onchange: v => {
+      onchange: function(v) {
         myLocalSettings.reticuleValidityEndYearHundreds = v;
         saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
@@ -269,7 +269,7 @@ function showReticuleValidityEndYearMenu() {
       max: 9,
       step: 1,
       format: v => v, 
-      onchange: v => {
+      onchange: function(v) {
         myLocalSettings.reticuleValidityEndYearTens = v;
         saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
@@ -281,7 +281,7 @@ function showReticuleValidityEndYearMenu() {
       max: 9,
       step: 1,
       format: v => v, 
-      onchange: v => {
+      onchange: function(v) {
         myLocalSettings.reticuleValidityEndYearOnes = v;
         saveSettings();
         showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
@@ -315,7 +315,7 @@ function showLongitudeMenu() {
       min: 0,
       max: 1,
       format: v => ["East","West"][v],
-      onchange: v => {
+      onchange: function(v) {
         myLocalSettings.lonDirection = ["East","West"][v];
         saveSettings();
         showLongitudeMenu();
@@ -351,7 +351,7 @@ function showLongitudeAngleChangeMenu() {
       max: 1,
       step: 1,
       format: v => v,
-      onchange: v => {
+      onchange: function(v) {
         myLocalSettings.lonAngleHundreds = v;
         saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
@@ -363,7 +363,7 @@ function showLongitudeAngleChangeMenu() {
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
-      onchange: v => {
+      onchange: function(v) {
         myLocalSettings.lonAngleTens = v;
         saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
@@ -375,7 +375,7 @@ function showLongitudeAngleChangeMenu() {
       max: 9,
       step: 1,
       format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
-      onchange: v => {
+      onchange: function(v) {
         myLocalSettings.lonAngleOnes = v;
         saveSettings();
         showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
