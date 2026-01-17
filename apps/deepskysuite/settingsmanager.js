@@ -56,6 +56,7 @@ const DEFAULTS = {
 
 //Define which functions are allowed to be accessed by other JS files/modules
 //If they are not in the list below, they remain private for use by this file/module
+// note exports lines must not be written with the normal function brackets or arguments
 exports.showMainSettingsMenu = showMainSettingsMenu
 exports.loadSettings = loadSettings
 exports.saveSettings = saveSettings
