@@ -17,6 +17,9 @@ exports.init = function (_context) {
   getFromMainApp = _context;
 };
 
+// -----------------------------------------------------------
+// -------- Settings Manager: Defaults and declarations ------
+// -----------------------------------------------------------
 
 // define the settings storage file on the watch, this is created and stored on the watch
 const STORAGE_FILE = "deepskysuite.settings.json";
