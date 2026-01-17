@@ -9,6 +9,9 @@ My criteria is the tools must be genuinely useful. The Bangle 2 screen is tiny, 
 Links to the instructions for each tool can be found below.
 
 [Polaris Hour Angle](#Purpose)<br>
+[Jupiter's Moons]<br>
+[Saturn's Moons]<br>
+[Photo Times]<br>
 [Future Development](#Future-Development)
 
 
