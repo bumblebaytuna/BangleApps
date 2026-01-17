@@ -451,3 +451,26 @@ function saveSettings(mySettings) {
   
   require("Storage").writeJSON(STORAGE_FILE, mySettings);
 }
+
+
+// ---------------------------------------------------------------------------------
+// ----------- Harness for testing module standalone in Espruino Web IDE ----------
+// ---------------------------------------------------------------------------------
+
+if (typeof module !== "undefined" && !getFromMainApp) {
+  // mock the main app context
+  exports.init({
+    showDashboardMenu: function() {
+      console.log("Dashboard menu would be shown here");
+      E.showMessage("Dashboard menu (mock)");
+    }
+  });
+
+  // load settings (or just use defaults)
+  var mySettings = loadSettings();
+
+  // call the main menu
+  showMainSettingsMenu(mySettings);
+
+  console.log("Settings menu test initialized");
+}
