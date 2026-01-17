@@ -701,15 +701,24 @@ let refreshStarted = false;  // Global flag to track if the cyclic display refre
 // Declare global runtime variables to store the GPS date and time components
 var gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond;
 
+// show code run successful to this point, note will be overwritten by a newer message
+E.showMessage("1");
+
 //----- SettingsManager.js comms manager --------
 
 //Load the settings adjuster module
 const settingsManager = require("settingsmanager");
 
+// show code run successful to this point, note will be overwritten by a newer message
+E.showMessage("2");
+
 //Ensure the version number in the old hourangle.settings.json file on the watch is up to date
 let mySettings = settingsManager.loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
 mySettings.swVersion = settingsManager.DEFAULTS.swVersion;
 settingsManager.saveSettings(mySettings);
+
+// show code run successful to this point, note will be overwritten by a newer message
+E.showMessage("3");
 
 // this is to feed the settingsManager.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to settingsManager.js.
 settingsManager.init({
@@ -717,10 +726,16 @@ settingsManager.init({
   showDashboardMenu: showDashboardMenu
 });
 
+// show code run successful to this point, note will be overwritten by a newer message
+E.showMessage("4");
+
 //----- GPSManager.js comms manager --------
 
 //Load the GPS management module
 const gpsManager = require("gpsmanager");
+
+// show code run successful to this point, note will be overwritten by a newer message
+E.showMessage("5");
 
 // this is to feed the gpsManager.js file with the extra context it needs to run its functions. It is a one way flow of information from this file to gpsManager.js.
 gpsManager.init({
@@ -728,10 +743,16 @@ gpsManager.init({
   startRefreshLoop: startRefreshLoop
 });
 
+// show code run successful to this point, note will be overwritten by a newer message
+E.showMessage("6");
+
 //------- Main Sequence -------------
 
 // MAIN DASHBOARD START
 showDashboardMenu();
+
+// show code run successful to this point, note will be overwritten by a newer message
+E.showMessage("7");
 
 //------- Cleaning and Garbage Disposal Manager ----------
 
