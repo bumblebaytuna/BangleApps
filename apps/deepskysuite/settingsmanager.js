@@ -77,8 +77,8 @@ function showMainSettingsMenu(mySettings) {
   E.showMenu({
     // common parts
     "": { title: "Settings" },
-    "< Back": getFromMainApp.showDashboardMenu,  // for the button
-    "Back": getFromMainApp.showDashboardMenu,
+    "< Back": function () { getFromMainApp.showDashboardMenu; }, // for the button
+    "Back": function () { getFromMainApp.showDashboardMenu; },
 
     // custom parts
     "Style": {
@@ -118,8 +118,8 @@ function showMainSettingsMenu(mySettings) {
   //E.showMenu({
     //common parts
     //"": { "title": "Settings" },
-    //"< Back": function () { showDashboardMenu(); },  // for the button
-    //"Back": showDashboardMenu,
+    //"< Back": function () { getFromMainApp.showDashboardMenu; },  // for the button
+    //"Back": function () { getFromMainApp.showDashboardMenu; },
         
     //"Style": {
     //  value: Number(mySettings.reticuleStyle),
@@ -164,8 +164,8 @@ function showReticuleValidityStartYearMenu(mySettings) {
   E.showMenu({
     //common parts
     "": { "title": "Start Year: " + validityStartYear },
-    "< Back": function () { showMainSettingsMenu(); },  // for the button
-    "Back": showMainSettingsMenu,
+    "< Back": function () { showMainSettingsMenu(mySettings); },  // for the button
+    "Back": function () { showMainSettingsMenu(mySettings); },
     //custom parts
     "Thousands": {
       value: Number(mySettings.reticuleValidityStartYearThousands),
@@ -230,7 +230,7 @@ function showReticuleValidityEndYearMenu(mySettings) {
     //common parts
     "": { "title": "End Year: " + validityEndYear },
     "< Back": function () { showMainSettingsMenu(mySettings); },  // for the button
-    "Back": showMainSettingsMenu,
+    "Back": function () { showMainSettingsMenu(mySettings); },
     
     //custom parts
     "Thousands": {
@@ -296,7 +296,7 @@ function showLongitudeMenu(mySettings) {
     //common parts
     "": { "title": "Longitude" },
     "< Back": function () { showMainSettingsMenu(mySettings); }, // for the button
-    "Back": showMainSettingsMenu,
+    "Back": function () { showMainSettingsMenu(mySettings); },
 
     //custom parts
     "Current": {value: mylon}, //read only
@@ -331,7 +331,7 @@ function showLongitudeAngleChangeMenu(mySettings) {
     //common parts
     "": { "title": "Longitude: " + lonangle },
     "< Back": function () { showMainSettingsMenu(mySettings); },  // for the button
-    "Back": showMainSettingsMenu,
+    "Back": function () { showMainSettingsMenu(mySettings); },
     //custom parts
     "Hundreds": {
       value: Number(mySettings.lonAngleHundreds),
