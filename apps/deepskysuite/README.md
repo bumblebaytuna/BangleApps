@@ -12,6 +12,7 @@ Links to the instructions for each tool can be found below.
 [Jupiter's Moons](#Purpose)<br>
 [Saturn's Moons](#Purpose)<br>
 [Photo Times](#Purpose)<br>
+[Settings](#Purpose)<br>
 [Future Development](#Future-Development)
 
 
