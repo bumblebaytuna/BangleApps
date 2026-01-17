@@ -66,11 +66,8 @@ exports.DEFAULTS = DEFAULTS;
 // -------------------------------------------
 
 // Create Main Settings Menu
-function showMainSettingsMenu() {
+function showMainSettingsMenu(mysettings) {
 
-  //access settings from this module
-  let myLocalSettings = loadSettings();  // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
-  
   E.showMenu({
     // common parts
     "": { title: "Settings" },
@@ -79,13 +76,13 @@ function showMainSettingsMenu() {
 
     // custom parts
     "Style": {
-      value: Number(myLocalSettings.reticuleStyle),
+      value: Number(mysettings.reticuleStyle),
       min: 1,
       max: 2,
       step: 1,
       format: function (v) { return v; },
       onchange: function(v) {
-        myLocalSettings.reticuleStyle = v;
+        mysettings.reticuleStyle = v;
         saveSettings();
       }
     },
@@ -96,13 +93,13 @@ function showMainSettingsMenu() {
 
     // common parts
     "Reset (immediate)": function () {
-      myLocalSettings.theme = DEFAULTS.theme;
-      myLocalSettings.vibration = DEFAULTS.vibration;
-      myLocalSettings.brightness = DEFAULTS.brightness;
-      myLocalSettings.advancedOption = DEFAULTS.advancedOption;
+      mysettings.theme = DEFAULTS.theme;
+      mysettings.vibration = DEFAULTS.vibration;
+      mysettings.brightness = DEFAULTS.brightness;
+      mysettings.advancedOption = DEFAULTS.advancedOption;
 
       saveSettings();
-      Bangle.setLCDBrightness(myLocalSettings.brightness);
+      Bangle.setLCDBrightness(mysettings.brightness);
       E.showMessage("Settings reset!");
     }
   //showMenu closure brackets
@@ -110,10 +107,7 @@ function showMainSettingsMenu() {
   //function closure bracket
 }
 
-//function showMainSettingsMenu() {
-
-  //access settings from this module
-  //let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
+//function showMainSettingsMenu(mysettings) {
 
   //E.showMenu({
     //common parts
@@ -122,13 +116,13 @@ function showMainSettingsMenu() {
     //"Back": showDashboardMenu,
         
     //"Style": {
-    //  value: Number(myLocalSettings.reticuleStyle),
+    //  value: Number(mysettings.reticuleStyle),
     //  min: 1,
     //  max: 2,
     //  step: 1, 
     //  format: function (v) { return v; },
     // onchange: function(v) {
-    //    myLocalSettings.reticuleStyle = v;
+    //    mysettings.reticuleStyle = v;
     //    getFromMainApp.saveSettings();
       //}  
     //},
@@ -139,9 +133,9 @@ function showMainSettingsMenu() {
     
     //common parts
     //"Reset (immediate)": function() {
-      //myLocalSettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
+      //mysettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
       //saveSettings();
-      //Bangle.setLCDBrightness(myLocalSettings.brightness);
+      //Bangle.setLCDBrightness(mysettings.brightness);
       //E.showMessage("Settings reset!");
     //}
   //showMenu closure brackets
@@ -156,13 +150,10 @@ function showMainSettingsMenu() {
 // these do not require exports becuase they are only run by the showMainSettingsMenu function above
 
 // Create Reticule Validity Start Year change submenu
-function showReticuleValidityStartYearMenu() {
-
-  //access settings from this module
-  let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
-  
+function showReticuleValidityStartYearMenu(mysettings) {
+ 
   // create the number for the title
-  let validityStartYear = getReticuleValidityStartYear();
+  let validityStartYear = getReticuleValidityStartYear(mysettings);
   
   E.showMenu({
     //common parts
@@ -171,51 +162,51 @@ function showReticuleValidityStartYearMenu() {
     "Back": showMainSettingsMenu,
     //custom parts
     "Thousands": {
-      value: Number(myLocalSettings.reticuleValidityStartYearThousands),
+      value: Number(mysettings.reticuleValidityStartYearThousands),
       min: 1,
       max: 2,
       step: 1,
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
-        myLocalSettings.reticuleValidityStartYearThousands = v;
+        mysettings.reticuleValidityStartYearThousands = v;
         saveSettings();
-        showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
+        showReticuleValidityStartYearMenu(mysettings); // redraw menu so it updates the title
       }
     },
     "Hundreds": {
-      value: Number(myLocalSettings.reticuleValidityStartYearHundreds),
+      value: Number(mysettings.reticuleValidityStartYearHundreds),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
-        myLocalSettings.reticuleValidityStartYearHundreds = v;
+        mysettings.reticuleValidityStartYearHundreds = v;
         saveSettings();
-        showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
+        showReticuleValidityStartYearMenu(mysettings); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(myLocalSettings.reticuleValidityStartYearTens),
+      value: Number(mysettings.reticuleValidityStartYearTens),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
-        myLocalSettings.reticuleValidityStartYearTens = v;
+        mysettings.reticuleValidityStartYearTens = v;
         saveSettings();
-        showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
+        showReticuleValidityStartYearMenu(mysettings); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(myLocalSettings.reticuleValidityStartYearOnes),
+      value: Number(mysettings.reticuleValidityStartYearOnes),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
-        myLocalSettings.reticuleValidityStartYearOnes = v;
+        mysettings.reticuleValidityStartYearOnes = v;
         saveSettings();
-        showReticuleValidityStartYearMenu(); // redraw menu so it updates the title
+        showReticuleValidityStartYearMenu(mysettings); // redraw menu so it updates the title
       }
     }
   //menu closure brackets
@@ -224,67 +215,64 @@ function showReticuleValidityStartYearMenu() {
 }
 
 // Create Reticule Validity End Year change submenu
-function showReticuleValidityEndYearMenu() {
-
-  //access settings from this module
-  let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
+function showReticuleValidityEndYearMenu(mysettings) {
   
   // create the number for the title
-  let validityEndYear = getReticuleValidityEndYear();
+  let validityEndYear = getReticuleValidityEndYear(mysettings);
   
   E.showMenu({
     //common parts
     "": { "title": "End Year: " + validityEndYear },
-    "< Back": function () { showMainSettingsMenu(); },  // for the button
+    "< Back": function () { showMainSettingsMenu(mysettings); },  // for the button
     "Back": showMainSettingsMenu,
     
     //custom parts
     "Thousands": {
-      value: Number(myLocalSettings.reticuleValidityEndYearThousands),
+      value: Number(mysettings.reticuleValidityEndYearThousands),
       min: 1,
       max: 2,
       step: 1,
       format: function (v) { return v; }, 
       onchange: function(v) {
-        myLocalSettings.reticuleValidityEndYearThousands = v;
+        mysettings.reticuleValidityEndYearThousands = v;
         saveSettings();
-        showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
+        showReticuleValidityEndYearMenu(mysettings); // redraw menu so it updates the title
       }
     },
     "Hundreds": {
-      value: Number(myLocalSettings.reticuleValidityEndYearHundreds),
+      value: Number(mysettings.reticuleValidityEndYearHundreds),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, 
       onchange: function(v) {
-        myLocalSettings.reticuleValidityEndYearHundreds = v;
+        mysettings.reticuleValidityEndYearHundreds = v;
         saveSettings();
-        showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
+        showReticuleValidityEndYearMenu(mysettings); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(myLocalSettings.reticuleValidityEndYearTens),
+      value: Number(mysettings.reticuleValidityEndYearTens),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, 
       onchange: function(v) {
-        myLocalSettings.reticuleValidityEndYearTens = v;
+        mysettings.reticuleValidityEndYearTens = v;
         saveSettings();
-        showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
+        showReticuleValidityEndYearMenu(mysettings); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(myLocalSettings.reticuleValidityEndYearOnes),
+      value: Number(mysettings.reticuleValidityEndYearOnes),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, 
       onchange: function(v) {
-        myLocalSettings.reticuleValidityEndYearOnes = v;
+        mysettings.reticuleValidityEndYearOnes = v;
         saveSettings();
-        showReticuleValidityEndYearMenu(); // redraw menu so it updates the title
+        showReticuleValidityEndYearMenu(mysettings); // redraw menu so it updates the title
       }
     }
   //menu closure brackets
@@ -293,32 +281,29 @@ function showReticuleValidityEndYearMenu() {
 }
 
 // Create Longitude submenu
-function showLongitudeMenu() {
+function showLongitudeMenu(mysettings) {
   
-  //access settings from this module
-  let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
-
   //get longitude string
   var mylon = getLongitudeAngleString();
   
   E.showMenu({
     //common parts
     "": { "title": "Longitude" },
-    "< Back": function () { showMainSettingsMenu(); }, // for the button
+    "< Back": function () { showMainSettingsMenu(mysettings); }, // for the button
     "Back": showMainSettingsMenu,
 
     //custom parts
     "Current": {value: mylon}, //read only
     
     "Change Direction": {
-      value: Number(myLocalSettings.lonDirection),
+      value: Number(mysettings.lonDirection),
       min: 0,
       max: 1,
       format: function (v) { return ["East", "West"][v]; },
       onchange: function(v) {
-        myLocalSettings.lonDirection = ["East","West"][v];
+        mysettings.lonDirection = ["East","West"][v];
         saveSettings();
-        showLongitudeMenu();
+        showLongitudeMenu(mysettings);
       }
     },
 
@@ -331,10 +316,7 @@ function showLongitudeMenu() {
 }
 
 // Create Longitude Angle change submenu
-function showLongitudeAngleChangeMenu() {
-    
-  //access settings from this module
-  let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
+function showLongitudeAngleChangeMenu(mysettings) {
   
   // create the number for the title
   let lonangle = getLongitudeAngleString();
@@ -342,43 +324,43 @@ function showLongitudeAngleChangeMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Longitude: " + lonangle },
-    "< Back": function () { showMainSettingsMenu(); },  // for the button
+    "< Back": function () { showMainSettingsMenu(mysettings); },  // for the button
     "Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
-      value: Number(myLocalSettings.lonAngleHundreds),
+      value: Number(mysettings.lonAngleHundreds),
       min: 0,
       max: 1,
       step: 1,
       format: function (v) { return v; },
       onchange: function(v) {
-        myLocalSettings.lonAngleHundreds = v;
+        mysettings.lonAngleHundreds = v;
         saveSettings();
-        showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
+        showLongitudeAngleChangeMenu(mysettings); // redraw menu so it updates the title
       }
     },
     "Tens": {
-      value: Number(myLocalSettings.lonAngleTens),
+      value: Number(mysettings.lonAngleTens),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
-        myLocalSettings.lonAngleTens = v;
+        mysettings.lonAngleTens = v;
         saveSettings();
-        showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
+        showLongitudeAngleChangeMenu(mysettings); // redraw menu so it updates the title
       }
     },
     "Ones": {
-      value: Number(myLocalSettings.lonAngleOnes),
+      value: Number(mysettings.lonAngleOnes),
       min: 0,
       max: 9,
       step: 1,
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
-        myLocalSettings.lonAngleOnes = v;
+        mysettings.lonAngleOnes = v;
         saveSettings();
-        showLongitudeAngleChangeMenu(); // redraw menu so it updates the title
+        showLongitudeAngleChangeMenu(mysettings); // redraw menu so it updates the title
       }
     }
   //menu closure brackets
@@ -413,19 +395,16 @@ function showLongitudeAngleChangeMenu() {
 //}
 
 // Create string longitude angle from settings digits
-function getLongitudeAngleString() {
-    
-  //access settings from this module
-  let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
-  
+function getLongitudeAngleString(mysettings) {
+
   var myLongitudeAngleMod =
-    (Number(myLocalSettings.lonAngleHundreds) * 100) +
-    (Number(myLocalSettings.lonAngleTens) * 10) +
-    Number(myLocalSettings.lonAngleOnes);
+    (Number(mysettings.lonAngleHundreds) * 100) +
+    (Number(mysettings.lonAngleTens) * 10) +
+    Number(mysettings.lonAngleOnes);
 
   var myLongitudeAngle;
 
-  if (myLocalSettings.lonDirection == "West") {
+  if (mysettings.lonDirection == "West") {
     myLongitudeAngle = myLongitudeAngleMod + "° W";
   } else {
     myLongitudeAngle = myLongitudeAngleMod + "° E";
@@ -436,16 +415,16 @@ function getLongitudeAngleString() {
 
 
 // Create reticule validity start year digits combiner
-function getReticuleValidityStartYear() {
+function getReticuleValidityStartYear(mysettings) {
   var myReticuleValidityStartYear = 0;
-  myReticuleValidityStartYear = (Number(myLocalSettings.reticuleValidityStartYearThousands) * 1000) + (Number(myLocalSettings.reticuleValidityStartYearHundreds) * 100) + (Number(myLocalSettings.reticuleValidityStartYearTens) * 10) + Number(myLocalSettings.reticuleValidityStartYearOnes);
+  myReticuleValidityStartYear = (Number(mysettings.reticuleValidityStartYearThousands) * 1000) + (Number(mysettings.reticuleValidityStartYearHundreds) * 100) + (Number(mysettings.reticuleValidityStartYearTens) * 10) + Number(mysettings.reticuleValidityStartYearOnes);
   return (myReticuleValidityStartYear);
 }
 
 // Create reticule validity end year digits combiner
-function getReticuleValidityEndYear() {
+function getReticuleValidityEndYear(mysettings) {
   var myReticuleValidityEndYear = 0;
-  myReticuleValidityEndYear = (Number(myLocalSettings.reticuleValidityEndYearThousands) * 1000) + (Number(myLocalSettings.reticuleValidityEndYearHundreds) * 100) + (Number(myLocalSettings.reticuleValidityEndYearTens) * 10) + Number(myLocalSettings.reticuleValidityEndYearOnes);
+  myReticuleValidityEndYear = (Number(mysettings.reticuleValidityEndYearThousands) * 1000) + (Number(mysettings.reticuleValidityEndYearHundreds) * 100) + (Number(mysettings.reticuleValidityEndYearTens) * 10) + Number(mysettings.reticuleValidityEndYearOnes);
   return (myReticuleValidityEndYear);
 }
 
@@ -462,10 +441,7 @@ function loadSettings() {
   );
 }
 
-function saveSettings() {
+function saveSettings(mysettings) {
   
-  //access settings from this module
-  let myLocalSettings = loadSettings(); // Collects the global app settings from the storage file, the settingsManager.loadSettings function uses the above defaults at the top of the settingsManager.js file if the watch settings file is missing or empty
-  
-  require("Storage").writeJSON(STORAGE_FILE, myLocalSettings);
+  require("Storage").writeJSON(STORAGE_FILE, mySettings);
 }
