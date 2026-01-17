@@ -89,7 +89,7 @@ function showMainSettingsMenu(mySettings) {
       format: function (v) { return v; },
       onchange: function(v) {
         mySettings.reticuleStyle = v;
-        saveSettings();
+        saveSettings(mySettings);
       }
     },
 
@@ -104,7 +104,7 @@ function showMainSettingsMenu(mySettings) {
       mySettings.brightness = DEFAULTS.brightness;
       mySettings.advancedOption = DEFAULTS.advancedOption;
 
-      saveSettings();
+      saveSettings(mySettings);
       Bangle.setLCDBrightness(mySettings.brightness);
       E.showMessage("Settings reset!");
     }
@@ -129,7 +129,7 @@ function showMainSettingsMenu(mySettings) {
     //  format: function (v) { return v; },
     // onchange: function(v) {
     //    mySettings.reticuleStyle = v;
-    //    getFromMainApp.saveSettings();
+    //    getFromMainApp.saveSettings(mySettings);
       //}  
     //},
     
@@ -140,7 +140,7 @@ function showMainSettingsMenu(mySettings) {
     //common parts
     //"Reset (immediate)": function() {
       //mySettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
-      //saveSettings();
+      //saveSettings(mySettings);
       //Bangle.setLCDBrightness(mySettings.brightness);
       //E.showMessage("Settings reset!");
     //}
@@ -175,7 +175,7 @@ function showReticuleValidityStartYearMenu(mySettings) {
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
         mySettings.reticuleValidityStartYearThousands = v;
-        saveSettings();
+        saveSettings(mySettings);
         showReticuleValidityStartYearMenu(mySettings); // redraw menu so it updates the title
       }
     },
@@ -187,7 +187,7 @@ function showReticuleValidityStartYearMenu(mySettings) {
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
         mySettings.reticuleValidityStartYearHundreds = v;
-        saveSettings();
+        saveSettings(mySettings);
         showReticuleValidityStartYearMenu(mySettings); // redraw menu so it updates the title
       }
     },
@@ -199,7 +199,7 @@ function showReticuleValidityStartYearMenu(mySettings) {
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
         mySettings.reticuleValidityStartYearTens = v;
-        saveSettings();
+        saveSettings(mySettings);
         showReticuleValidityStartYearMenu(mySettings); // redraw menu so it updates the title
       }
     },
@@ -211,7 +211,7 @@ function showReticuleValidityStartYearMenu(mySettings) {
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
         mySettings.reticuleValidityStartYearOnes = v;
-        saveSettings();
+        saveSettings(mySettings);
         showReticuleValidityStartYearMenu(mySettings); // redraw menu so it updates the title
       }
     }
@@ -241,7 +241,7 @@ function showReticuleValidityEndYearMenu(mySettings) {
       format: function (v) { return v; }, 
       onchange: function(v) {
         mySettings.reticuleValidityEndYearThousands = v;
-        saveSettings();
+        saveSettings(mySettings);
         showReticuleValidityEndYearMenu(mySettings); // redraw menu so it updates the title
       }
     },
@@ -253,7 +253,7 @@ function showReticuleValidityEndYearMenu(mySettings) {
       format: function (v) { return v; }, 
       onchange: function(v) {
         mySettings.reticuleValidityEndYearHundreds = v;
-        saveSettings();
+        saveSettings(mySettings);
         showReticuleValidityEndYearMenu(mySettings); // redraw menu so it updates the title
       }
     },
@@ -265,7 +265,7 @@ function showReticuleValidityEndYearMenu(mySettings) {
       format: function (v) { return v; }, 
       onchange: function(v) {
         mySettings.reticuleValidityEndYearTens = v;
-        saveSettings();
+        saveSettings(mySettings);
         showReticuleValidityEndYearMenu(mySettings); // redraw menu so it updates the title
       }
     },
@@ -277,7 +277,7 @@ function showReticuleValidityEndYearMenu(mySettings) {
       format: function (v) { return v; }, 
       onchange: function(v) {
         mySettings.reticuleValidityEndYearOnes = v;
-        saveSettings();
+        saveSettings(mySettings);
         showReticuleValidityEndYearMenu(mySettings); // redraw menu so it updates the title
       }
     }
@@ -308,7 +308,7 @@ function showLongitudeMenu(mySettings) {
       format: function (v) { return ["East", "West"][v]; },
       onchange: function(v) {
         mySettings.lonDirection = ["East","West"][v];
-        saveSettings();
+        saveSettings(mySettings);
         showLongitudeMenu(mySettings);
       }
     },
@@ -341,7 +341,7 @@ function showLongitudeAngleChangeMenu(mySettings) {
       format: function (v) { return v; },
       onchange: function(v) {
         mySettings.lonAngleHundreds = v;
-        saveSettings();
+        saveSettings(mySettings);
         showLongitudeAngleChangeMenu(mySettings); // redraw menu so it updates the title
       }
     },
@@ -353,7 +353,7 @@ function showLongitudeAngleChangeMenu(mySettings) {
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
         mySettings.lonAngleTens = v;
-        saveSettings();
+        saveSettings(mySettings);
         showLongitudeAngleChangeMenu(mySettings); // redraw menu so it updates the title
       }
     },
@@ -365,7 +365,7 @@ function showLongitudeAngleChangeMenu(mySettings) {
       format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
         mySettings.lonAngleOnes = v;
-        saveSettings();
+        saveSettings(mySettings);
         showLongitudeAngleChangeMenu(mySettings); // redraw menu so it updates the title
       }
     }
