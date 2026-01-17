@@ -83,7 +83,7 @@ function showMainSettingsMenu() {
       min: 1,
       max: 2,
       step: 1,
-      format: v => v,
+      format: function (v) { return v; },
       onchange: function(v) {
         myLocalSettings.reticuleStyle = v;
         saveSettings();
@@ -95,7 +95,7 @@ function showMainSettingsMenu() {
     "Longitude": showLongitudeMenu, // Opens nested submenu
 
     // common parts
-    "Reset (immediate)": () => {
+    "Reset (immediate)": function () {
       myLocalSettings.theme = DEFAULTS.theme;
       myLocalSettings.vibration = DEFAULTS.vibration;
       myLocalSettings.brightness = DEFAULTS.brightness;
@@ -118,7 +118,7 @@ function showMainSettingsMenu() {
   //E.showMenu({
     //common parts
     //"": { "title": "Settings" },
-    //"< Back": () => showDashboardMenu(),  // for the button
+    //"< Back": function () { showDashboardMenu(); },  // for the button
     //"Back": showDashboardMenu,
         
     //"Style": {
@@ -126,7 +126,7 @@ function showMainSettingsMenu() {
     //  min: 1,
     //  max: 2,
     //  step: 1, 
-    //  format: v => v,
+    //  format: function (v) { return v; },
     // onchange: function(v) {
     //    myLocalSettings.reticuleStyle = v;
     //    getFromMainApp.saveSettings();
@@ -138,7 +138,7 @@ function showMainSettingsMenu() {
     //"Longitude": showLongitudeMenu, // Opens nested submenu
     
     //common parts
-    //"Reset (immediate)": () => {
+    //"Reset (immediate)": function() {
       //myLocalSettings = { theme: DEFAULTS.theme, vibration: DEFAULTS.vibration, brightness: DEFAULTS.brightness, advancedOption: DEFAULTS.advancedOption };
       //saveSettings();
       //Bangle.setLCDBrightness(myLocalSettings.brightness);
@@ -167,7 +167,7 @@ function showReticuleValidityStartYearMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Start Year: " + validityStartYear },
-    "< Back": () => showMainSettingsMenu(),  // for the button
+    "< Back": function () { showMainSettingsMenu(); },  // for the button
     "Back": showMainSettingsMenu,
     //custom parts
     "Thousands": {
@@ -175,7 +175,7 @@ function showReticuleValidityStartYearMenu() {
       min: 1,
       max: 2,
       step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
         myLocalSettings.reticuleValidityStartYearThousands = v;
         saveSettings();
@@ -187,7 +187,7 @@ function showReticuleValidityStartYearMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
         myLocalSettings.reticuleValidityStartYearHundreds = v;
         saveSettings();
@@ -199,7 +199,7 @@ function showReticuleValidityStartYearMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
         myLocalSettings.reticuleValidityStartYearTens = v;
         saveSettings();
@@ -211,7 +211,7 @@ function showReticuleValidityStartYearMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
         myLocalSettings.reticuleValidityStartYearOnes = v;
         saveSettings();
@@ -235,7 +235,7 @@ function showReticuleValidityEndYearMenu() {
   E.showMenu({
     //common parts
     "": { "title": "End Year: " + validityEndYear },
-    "< Back": () => showMainSettingsMenu(),  // for the button
+    "< Back": function () { showMainSettingsMenu(); },  // for the button
     "Back": showMainSettingsMenu,
     
     //custom parts
@@ -244,7 +244,7 @@ function showReticuleValidityEndYearMenu() {
       min: 1,
       max: 2,
       step: 1,
-      format: v => v, 
+      format: function (v) { return v; }, 
       onchange: function(v) {
         myLocalSettings.reticuleValidityEndYearThousands = v;
         saveSettings();
@@ -256,7 +256,7 @@ function showReticuleValidityEndYearMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, 
+      format: function (v) { return v; }, 
       onchange: function(v) {
         myLocalSettings.reticuleValidityEndYearHundreds = v;
         saveSettings();
@@ -268,7 +268,7 @@ function showReticuleValidityEndYearMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, 
+      format: function (v) { return v; }, 
       onchange: function(v) {
         myLocalSettings.reticuleValidityEndYearTens = v;
         saveSettings();
@@ -280,7 +280,7 @@ function showReticuleValidityEndYearMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, 
+      format: function (v) { return v; }, 
       onchange: function(v) {
         myLocalSettings.reticuleValidityEndYearOnes = v;
         saveSettings();
@@ -304,7 +304,7 @@ function showLongitudeMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Longitude" },
-    "< Back": () => showMainSettingsMenu(), // for the button
+    "< Back": function () { showMainSettingsMenu(); }, // for the button
     "Back": showMainSettingsMenu,
 
     //custom parts
@@ -314,7 +314,7 @@ function showLongitudeMenu() {
       value: Number(myLocalSettings.lonDirection),
       min: 0,
       max: 1,
-      format: v => ["East","West"][v],
+      format: function (v) { return ["East", "West"][v]; },
       onchange: function(v) {
         myLocalSettings.lonDirection = ["East","West"][v];
         saveSettings();
@@ -342,7 +342,7 @@ function showLongitudeAngleChangeMenu() {
   E.showMenu({
     //common parts
     "": { "title": "Longitude: " + lonangle },
-    "< Back": () => showMainSettingsMenu(),  // for the button
+    "< Back": function () { showMainSettingsMenu(); },  // for the button
     "Back": showMainSettingsMenu,
     //custom parts
     "Hundreds": {
@@ -350,7 +350,7 @@ function showLongitudeAngleChangeMenu() {
       min: 0,
       max: 1,
       step: 1,
-      format: v => v,
+      format: function (v) { return v; },
       onchange: function(v) {
         myLocalSettings.lonAngleHundreds = v;
         saveSettings();
@@ -362,7 +362,7 @@ function showLongitudeAngleChangeMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
         myLocalSettings.lonAngleTens = v;
         saveSettings();
@@ -374,7 +374,7 @@ function showLongitudeAngleChangeMenu() {
       min: 0,
       max: 9,
       step: 1,
-      format: v => v, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
+      format: function (v) { return v; }, // this, plus forcing a Number format, plus the min and max fields, forces Spinner use
       onchange: function(v) {
         myLocalSettings.lonAngleOnes = v;
         saveSettings();
