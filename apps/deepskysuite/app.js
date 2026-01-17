@@ -693,7 +693,7 @@ function loadPolarisHourAngleApp() {
 // --------------------------------------------------------------------------------
 
 function displayMessageWithOkButtonOnScreen(mymessage){
-  E.showPrompt(msg, {
+  E.showPrompt(mymessage, {
     title: "Message",
     buttons: {"OK":true}
   }).then(function() {
